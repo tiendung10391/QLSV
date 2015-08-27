@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.itplus.servicesqlsv.Model;
+package com.itplus.servicesqlsv.Pool;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;

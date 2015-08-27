@@ -19,20 +19,20 @@ import javax.ws.rs.PUT;
  *
  * @author Dung NT
  */
-@Path("sw")
-public class SwResource {
+@Path("qlsv")
+public class QlsvResource {
 
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of SwResource
+     * Creates a new instance of QlsvResource
      */
-    public SwResource() {
+    public QlsvResource() {
     }
 
     /**
-     * Retrieves representation of an instance of com.itplus.servicesqlsv.rest.SwResource
+     * Retrieves representation of an instance of com.itplus.servicesqlsv.rest.QlsvResource
      * @return an instance of java.lang.String
      */
     @GET
@@ -43,7 +43,7 @@ public class SwResource {
     }
 
     /**
-     * PUT method for updating or creating an instance of SwResource
+     * PUT method for updating or creating an instance of QlsvResource
      * @param content representation for the resource
      * @return an HTTP response with content of the updated or created resource.
      */
