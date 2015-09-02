@@ -12,6 +12,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import com.itplus.webserviesqlsv.Entity.GioHocEntity;
 import com.itplus.webserviesqlsv.Pool.DBPool;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -52,5 +55,94 @@ public class GioHocModel {
             }
         }
         return arr;
+    }
+      public int addGioHoc(GioHocEntity gio) throws SQLException {
+        int id = 0;
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        try {
+            String SQL = "insert into diem values(?,?)";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+//            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, gio.getMaGioHoc());
+            stmt.setString(2, gio.getThoiGian());
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            id = rs.getInt(1);
+            System.out.println("ID: " + id);
+        } finally {
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+        return id;
+    }
+       public void editGioHoc(GioHocEntity gio) throws SQLException {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        try {
+            String SQL = "update giohoc set ThoiGian = ? where MaGioHoc = ?";
+            conn = DBPool.getConnection();
+            SimpleDateFormat simple = new SimpleDateFormat("dd/MM/yyyy");
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, gio.getThoiGian());
+            stmt.setString(2, gio.getMaGioHoc());
+            stmt.executeUpdate();
+        } finally {
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+    }
+       public void deleteGioHoc(String Magiohoc) throws SQLException {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        try {
+            String SQL = "delete giohoc  where magiohoc = ?";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, Magiohoc);
+            stmt.executeUpdate();
+        } finally {
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+        
+    }
+        public void deleteGioHoc(ArrayList<GioHocEntity> arr) throws SQLException, Exception {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        try {
+            conn = DBPool.getConnection();
+            conn.setAutoCommit(false);//tao transaction
+            for (GioHocEntity gio : arr) {
+                String SQL = "delete giohoc  where magiohoc = ?";
+                stmt = conn.prepareStatement(SQL);
+                stmt.setString(1, gio.getMaGioHoc());
+                stmt.executeUpdate();
+            }
+            conn.commit();
+
+        } catch (Exception ex) {
+            conn.rollback();
+            conn.setAutoCommit(true);
+            throw new Exception(ex.getMessage());
+
+        } finally {
+
+            DBPool.releaseConnection(conn, stmt);
+        }
     }
 }
