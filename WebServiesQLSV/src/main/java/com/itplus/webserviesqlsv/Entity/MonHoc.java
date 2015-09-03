@@ -9,7 +9,7 @@ package com.itplus.webserviesqlsv.Entity;
  *
  * @author kunph_000
  */
-public class MonHocEntity {
+public class MonHoc {
     String maMH = "";
     String tenMH = "";
     String soGio = "";
@@ -38,7 +38,7 @@ public class MonHocEntity {
         this.soGio = soGio;
     }
     @Override
-    public MonHocEntity clone() throws CloneNotSupportedException {
-        return (MonHocEntity) super.clone();
+    public MonHoc clone() throws CloneNotSupportedException {
+        return (MonHoc) super.clone();
     }
 }

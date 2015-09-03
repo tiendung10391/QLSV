@@ -9,7 +9,7 @@ package com.itplus.webserviesqlsv.Entity;
  *
  * @author kunph_000
  */
-public class SinhVienEntity {
+public class SinhVien {
     String maSV = "";
     String tenSV = "";
     String ngaySinh = "";
@@ -92,7 +92,7 @@ public class SinhVienEntity {
         this.maLop = maLop;
     }
     @Override
-    public SinhVienEntity clone() throws CloneNotSupportedException {
-        return (SinhVienEntity) super.clone();
+    public SinhVien clone() throws CloneNotSupportedException {
+        return (SinhVien) super.clone();
     }
 }

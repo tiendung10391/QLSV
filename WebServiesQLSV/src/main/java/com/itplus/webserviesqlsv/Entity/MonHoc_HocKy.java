@@ -9,7 +9,7 @@ package com.itplus.webserviesqlsv.Entity;
  *
  * @author kunph_000
  */
-public class MonHoc_HocKyEntity {
+public class MonHoc_HocKy {
     String maMH ="";
     String maLop = "";
     String maHocky = "";
@@ -38,7 +38,7 @@ public class MonHoc_HocKyEntity {
         this.maHocky = maHocky;
     }
      @Override
-    public MonHoc_HocKyEntity clone() throws CloneNotSupportedException {
-        return (MonHoc_HocKyEntity) super.clone();
+    public MonHoc_HocKy clone() throws CloneNotSupportedException {
+        return (MonHoc_HocKy) super.clone();
     }
 }

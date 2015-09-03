@@ -6,7 +6,7 @@
 package com.itplus.webserviesqlsv.Model;
 
 
-import com.itplus.webserviesqlsv.Entity.LopMonHocEntity;
+import com.itplus.webserviesqlsv.Entity.LopMonHoc;
 import com.itplus.webserviesqlsv.Pool.DBPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,8 +24,8 @@ public class LopMonHocModel {
      public LopMonHocModel() {
          DBPool db = new DBPool();
     }
-     public ArrayList<LopMonHocEntity> getLophoc() throws Exception {
-        ArrayList<LopMonHocEntity> arr = new ArrayList<>();
+     public ArrayList<LopMonHoc> getLophoc() throws Exception {
+        ArrayList<LopMonHoc> arr = new ArrayList<>();
         Statement stmt = null;
         ResultSet rs = null;
         Connection cn = null;
@@ -38,7 +38,7 @@ public class LopMonHocModel {
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
-                LopMonHocEntity lop = new LopMonHocEntity();
+                LopMonHoc lop = new LopMonHoc();
                 lop.setMaMH(rs.getString(1));
                 lop.setMaLop(rs.getString(2));
                 lop.setMaGiohoc(rs.getString(3));
@@ -57,7 +57,7 @@ public class LopMonHocModel {
         }
         return arr;
     }
-      public int addLopmonhoc(LopMonHocEntity lop) throws SQLException {
+      public int addLopmonhoc(LopMonHoc lop) throws SQLException {
         int id = 0;
         PreparedStatement stmt = null;
         Connection conn = null;
@@ -86,7 +86,7 @@ public class LopMonHocModel {
         }
         return id;
     }
-       public void editLopmonhoc(LopMonHocEntity lop) throws SQLException {
+       public void editLopmonhoc(LopMonHoc lop) throws SQLException {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
@@ -128,13 +128,13 @@ public class LopMonHocModel {
             }
         }
     }
-         public void deleteLopmonhoc(ArrayList<LopMonHocEntity> arr) throws SQLException, Exception {
+         public void deleteLopmonhoc(ArrayList<LopMonHoc> arr) throws SQLException, Exception {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
             conn = DBPool.getConnection();
             conn.setAutoCommit(false);//tao transaction
-            for (LopMonHocEntity lop : arr) {
+            for (LopMonHoc lop : arr) {
                 String SQL = "delete LopMonHoc  where  MaMonHoc = ? and MaLop = ? and MaGioHoc = ? ";
                 stmt = conn.prepareStatement(SQL);
                 stmt.setString(1, lop.getMaMH());
@@ -156,8 +156,8 @@ public class LopMonHocModel {
     }
           //tim kiem thong tin theo ten
 
-    public ArrayList<LopMonHocEntity> findByName(String tenphong) throws Exception {
-        ArrayList<LopMonHocEntity> arr = new ArrayList<LopMonHocEntity>();
+    public ArrayList<LopMonHoc> findByName(String tenphong) throws Exception {
+        ArrayList<LopMonHoc> arr = new ArrayList<LopMonHoc>();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         Connection cn = null;
@@ -171,7 +171,7 @@ public class LopMonHocModel {
             rs = pstm.executeQuery(SQL);
 
             while (rs.next()) {
-                LopMonHocEntity lop = new LopMonHocEntity();
+                LopMonHoc lop = new LopMonHoc();
                 lop.setMaMH(rs.getString(1));
                 lop.setMaLop(rs.getString(2));
                 lop.setMaGiohoc(rs.getString(3));

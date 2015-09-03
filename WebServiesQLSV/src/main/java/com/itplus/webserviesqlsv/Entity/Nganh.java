@@ -9,7 +9,7 @@ package com.itplus.webserviesqlsv.Entity;
  *
  * @author kunph_000
  */
-public class NganhEntity {
+public class Nganh {
     String maNganh = "";
     String tenNganh = "";
 
@@ -29,7 +29,7 @@ public class NganhEntity {
         this.tenNganh = tenNganh;
     }
     @Override
-    public NganhEntity clone() throws CloneNotSupportedException {
-        return (NganhEntity) super.clone();
+    public Nganh clone() throws CloneNotSupportedException {
+        return (Nganh) super.clone();
     }
 }

@@ -5,7 +5,7 @@
  */
 package com.itplus.webserviesqlsv.Model;
 
-import com.itplus.webserviesqlsv.Entity.MonHocEntity;
+import com.itplus.webserviesqlsv.Entity.MonHoc;
 import com.itplus.webserviesqlsv.Pool.DBPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,8 +25,8 @@ public class MonHocModel {
         DBPool db = new DBPool();
     }
 
-    public ArrayList<MonHocEntity> getMonhoc() throws Exception {
-        ArrayList<MonHocEntity> arr = new ArrayList<>();
+    public ArrayList<MonHoc> getMonhoc() throws Exception {
+        ArrayList<MonHoc> arr = new ArrayList<>();
         Statement stmt = null;
         ResultSet rs = null;
         Connection cn = null;
@@ -39,7 +39,7 @@ public class MonHocModel {
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
-                MonHocEntity mon = new MonHocEntity();
+                MonHoc mon = new MonHoc();
                 mon.setMaMH(rs.getString(1));
                 mon.setTenMH(rs.getString(2));
                 mon.setSoGio(rs.getString(3));
@@ -57,7 +57,7 @@ public class MonHocModel {
         return arr;
     }
 
-    public int addMonhoc(MonHocEntity mon) throws SQLException {
+    public int addMonhoc(MonHoc mon) throws SQLException {
         int id = 0;
         PreparedStatement stmt = null;
         Connection conn = null;
@@ -85,7 +85,7 @@ public class MonHocModel {
         return id;
     }
 
-    public void editMonhoc(MonHocEntity mon) throws SQLException {
+    public void editMonhoc(MonHoc mon) throws SQLException {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
@@ -125,13 +125,13 @@ public class MonHocModel {
         }
     }
 
-    public void deleteMonhoc(ArrayList<MonHocEntity> arr) throws SQLException, Exception {
+    public void deleteMonhoc(ArrayList<MonHoc> arr) throws SQLException, Exception {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
             conn = DBPool.getConnection();
             conn.setAutoCommit(false);//tao transaction
-            for (MonHocEntity mon : arr) {
+            for (MonHoc mon : arr) {
                 String SQL = "delete MonHoc  where  MaMonHoc = ? ";
                 stmt = conn.prepareStatement(SQL);
                 stmt.setString(1, mon.getMaMH());
@@ -150,8 +150,8 @@ public class MonHocModel {
         }
     }
 
-    public ArrayList<MonHocEntity> findByName(String tenMH) throws Exception {
-        ArrayList<MonHocEntity> arr = new ArrayList<MonHocEntity>();
+    public ArrayList<MonHoc> findByName(String tenMH) throws Exception {
+        ArrayList<MonHoc> arr = new ArrayList<MonHoc>();
         PreparedStatement pstm = null;
         ResultSet rs = null;
         Connection cn = null;
@@ -165,7 +165,7 @@ public class MonHocModel {
             rs = pstm.executeQuery(SQL);
 
             while (rs.next()) {
-                MonHocEntity mon = new MonHocEntity();
+                MonHoc mon = new MonHoc();
                 mon.setMaMH(rs.getString(1));
                 mon.setTenMH(rs.getString(2));
                 mon.setSoGio(rs.getString(3));

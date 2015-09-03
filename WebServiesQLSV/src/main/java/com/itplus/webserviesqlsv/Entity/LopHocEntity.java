@@ -10,17 +10,12 @@ package com.itplus.webserviesqlsv.Entity;
  * @author Dung NT
  */
 public class LopHocEntity {
-
     private String MaLop;
     private String TenLop;
     private String HeDaoTao;
     private String NamNhapHoc;
+    private int SiSo;
     private String MaNganh;
-    private String MaKhoaHoc;
-
-    public String getMaNganh() {
-        return MaNganh;
-    }
 
     public String getMaLop() {
         return MaLop;
@@ -54,16 +49,21 @@ public class LopHocEntity {
         this.NamNhapHoc = NamNhapHoc;
     }
 
-    public String getMaKhoaHoc() {
-        return MaKhoaHoc;
+    public int getSiSo() {
+        return SiSo;
     }
 
-    public void setMaKhoaHoc(String MaKhoaHoc) {
-        this.MaKhoaHoc = MaKhoaHoc;
+    public void setSiSo(int SiSo) {
+        this.SiSo = SiSo;
+    }
+
+    public String getMaNganh() {
+        return MaNganh;
     }
 
     public void setMaNganh(String MaNganh) {
         this.MaNganh = MaNganh;
     }
-
+    
+    
 }
