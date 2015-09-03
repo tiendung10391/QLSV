@@ -90,7 +90,7 @@ public class DiemModel {
         }
         return id;
     }
-       public void editRegister(DiemEntity diem) throws SQLException {
+       public void editDiem(DiemEntity diem) throws SQLException {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
