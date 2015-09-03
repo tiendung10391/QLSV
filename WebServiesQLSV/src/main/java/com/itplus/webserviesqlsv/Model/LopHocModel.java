@@ -36,7 +36,7 @@ public class LopHocModel {
             cn = DBPool.getConnection();
 //            cn = DBUtil.connectSQL();
             stmt = cn.createStatement();
-            String SQL = "SELECT * from LopHoc";
+            String SQL = "SELECT * from LOPHOC";
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
@@ -45,8 +45,8 @@ public class LopHocModel {
                lop.setTenLop(rs.getString(2));
                lop.setHeDaoTao(rs.getString(3));
                lop.setNamNhapHoc(rs.getString(4));
-               lop.setSiSo(rs.getInt(5));
-               lop.setMaNganh(rs.getString(6));
+               lop.setMaNganh(rs.getString(5));
+               lop.setMaKhoaHoc(rs.getString(6));
                 arr.add(lop);
             }
         } catch (Exception ex) {
@@ -65,7 +65,7 @@ public class LopHocModel {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
-            String SQL = "insert into lophoc values(?,?,?,?,?,?)";
+            String SQL = "insert into LOPHOC values(?,?,?,?,?,?)";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
 //            stmt = conn.prepareStatement(SQL);
@@ -73,8 +73,8 @@ public class LopHocModel {
             stmt.setString(2, lop.getTenLop());
             stmt.setString(3, lop.getHeDaoTao());
             stmt.setString(4, lop.getNamNhapHoc());
-            stmt.setInt(5, lop.getSiSo());
-            stmt.setString(6, lop.getMaNganh());
+            stmt.setString(5, lop.getMaNganh());
+            stmt.setString(6, lop.getMaKhoaHoc());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -95,12 +95,15 @@ public class LopHocModel {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
-            String SQL = "update lophoc set TenLop = ? where MaLop = ?";
+            String SQL = "update LOPHOC set TenLop = ?, HeDaoTao = ?, NamNhapHoc = ?, MaNganh = ?, MaKhoaHoc = ? where MaLop = ?";
             conn = DBPool.getConnection();
-            SimpleDateFormat simple = new SimpleDateFormat("dd/MM/yyyy");
             stmt = conn.prepareStatement(SQL);
             stmt.setString(1, lop.getTenLop());
-            stmt.setString(2, lop.getMaLop());
+            stmt.setString(2, lop.getHeDaoTao());
+            stmt.setString(3, lop.getNamNhapHoc());
+            stmt.setString(4, lop.getMaNganh());
+            stmt.setString(5, lop.getMaKhoaHoc());
+            stmt.setString(6, lop.getMaLop());
             stmt.executeUpdate();
         } finally {
             try {
@@ -178,8 +181,8 @@ public class LopHocModel {
                 lop.setTenLop(rs.getString(2));
                 lop.setHeDaoTao(rs.getString(3));
                 lop.setNamNhapHoc(rs.getString(4));
-                lop.setSiSo(rs.getInt(5));
-                lop.setMaNganh(rs.getString(6));
+                lop.setMaNganh(rs.getString(5));
+                lop.setMaKhoaHoc(rs.getString(6));
                 arr.add(lop);
             }
         } catch (Exception ex) {

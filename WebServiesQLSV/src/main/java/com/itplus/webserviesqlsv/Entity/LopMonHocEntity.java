@@ -9,7 +9,7 @@ package com.itplus.webserviesqlsv.Entity;
  *
  * @author kunph_000
  */
-public class LopMonHoc {
+public class LopMonHocEntity {
     String maMH = "";
     String maLop = "";
     String maGiohoc = "";
@@ -56,7 +56,7 @@ public class LopMonHoc {
         this.maHocky = maHocky;
     }
     @Override
-    public LopMonHoc clone() throws CloneNotSupportedException {
-        return (LopMonHoc) super.clone();
+    public LopMonHocEntity clone() throws CloneNotSupportedException {
+        return (LopMonHocEntity) super.clone();
     }
 }

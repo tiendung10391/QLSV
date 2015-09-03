@@ -9,7 +9,7 @@ package com.itplus.webserviesqlsv.Entity;
  *
  * @author kunph_000
  */
-public class TaiKhoan {
+public class TaiKhoanEntity {
     String maSV = "";
     String matKhau = "";
 
@@ -29,7 +29,7 @@ public class TaiKhoan {
         this.matKhau = matKhau;
     }
     @Override
-    public TaiKhoan clone() throws CloneNotSupportedException {
-        return (TaiKhoan) super.clone();
+    public TaiKhoanEntity clone() throws CloneNotSupportedException {
+        return (TaiKhoanEntity) super.clone();
     }
 }
