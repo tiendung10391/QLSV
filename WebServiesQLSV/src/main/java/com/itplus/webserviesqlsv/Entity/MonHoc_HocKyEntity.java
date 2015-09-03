@@ -10,9 +10,9 @@ package com.itplus.webserviesqlsv.Entity;
  * @author kunph_000
  */
 public class MonHoc_HocKyEntity {
-    String maMH ="";
-    String maLop = "";
-    String maHocky = "";
+    private String maMH ="";
+    private String maLop = "";
+    private String maHocky = "";
 
     public String getMaMH() {
         return maMH;

@@ -10,11 +10,11 @@ package com.itplus.webserviesqlsv.Entity;
  * @author kunph_000
  */
 public class LopMonHocEntity {
-    String maMH = "";
-    String maLop = "";
-    String maGiohoc = "";
-    String tenPhong = "";
-    String maHocky = "";
+    private String maMH = "";
+    private String maLop = "";
+    private String maGiohoc = "";
+    private String tenPhong = "";
+    private String maHocky = "";
 
     public String getMaMH() {
         return maMH;

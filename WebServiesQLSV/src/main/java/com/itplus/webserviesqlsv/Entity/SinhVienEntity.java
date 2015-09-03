@@ -10,15 +10,15 @@ package com.itplus.webserviesqlsv.Entity;
  * @author kunph_000
  */
 public class SinhVienEntity {
-    String maSV = "";
-    String tenSV = "";
-    String ngaySinh = "";
-    Boolean gioiTinh ;
-    int sdt ;
-    String diaChi = "";
-    String queQuan = "";
-    String email = "";
-    String maLop = "";
+    private String maSV = "";
+    private String tenSV = "";
+    private String ngaySinh = "";
+    private Boolean gioiTinh ;
+    private int sdt ;
+    private String diaChi = "";
+    private String queQuan = "";
+    private String email = "";
+    private String maLop = "";
 
     public String getMaSV() {
         return maSV;

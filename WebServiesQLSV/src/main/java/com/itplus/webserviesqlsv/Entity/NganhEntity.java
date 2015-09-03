@@ -10,8 +10,8 @@ package com.itplus.webserviesqlsv.Entity;
  * @author kunph_000
  */
 public class NganhEntity {
-    String maNganh = "";
-    String tenNganh = "";
+    private String maNganh = "";
+    private String tenNganh = "";
 
     public String getMaNganh() {
         return maNganh;

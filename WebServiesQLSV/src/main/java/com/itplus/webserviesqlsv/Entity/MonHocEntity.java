@@ -10,9 +10,9 @@ package com.itplus.webserviesqlsv.Entity;
  * @author kunph_000
  */
 public class MonHocEntity {
-    String maMH = "";
-    String tenMH = "";
-    String soGio = "";
+    private String maMH = "";
+    private String tenMH = "";
+    private String soGio = "";
 
     public String getMaMH() {
         return maMH;

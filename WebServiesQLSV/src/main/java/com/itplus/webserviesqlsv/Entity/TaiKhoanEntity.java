@@ -10,8 +10,8 @@ package com.itplus.webserviesqlsv.Entity;
  * @author kunph_000
  */
 public class TaiKhoanEntity {
-    String maSV = "";
-    String matKhau = "";
+    private String maSV = "";
+    private String matKhau = "";
 
     public String getMaSV() {
         return maSV;

@@ -14,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
@@ -85,6 +86,39 @@ public class SwLopHocResource {
             throw new Exception(ex.getMessage());
         }
         return "success";
+    }
+    
+    // sua lop hoc
+    @PUT
+    @Path("/editLopHoc")
+    public String editLopHoc(@FormParam("MaLop") String MaLop, @FormParam("TenLop") String TenLop,
+            @FormParam("HeDaoTao") String HeDaoTao, @FormParam("NamNhapHoc") String NamNhapHoc,
+            @FormParam("MaNganh") String MaNganh, @FormParam("MaKhoaHoc") String MaKhoaHoc) throws Exception{
+        try{
+            LopHocEntity lopHoc = new LopHocEntity();
+            lopHoc.setMaLop(MaLop);
+            lopHoc.setTenLop(TenLop);
+            lopHoc.setHeDaoTao(HeDaoTao);
+            lopHoc.setNamNhapHoc(NamNhapHoc);
+            lopHoc.setMaNganh(MaNganh);
+            lopHoc.setMaKhoaHoc(MaKhoaHoc);
+            lopHocModel.editLophoc(lopHoc);
+        }catch(Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+        return "edit success";
+    }
+    
+    // xoa lop hoc
+    @DELETE
+    @Path("/removeLopHoc")
+    public String removeLopHoc(@FormParam("MaLop")String MaLop) throws Exception{
+        try{
+            lopHocModel.deleteLophoc(MaLop);
+        }catch(Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+        return "remove success";
     }
 
     /**
