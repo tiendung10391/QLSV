@@ -10,11 +10,12 @@ package com.itplus.webserviesqlsv.Entity;
  * @author kunph_000
  */
 public class SinhVienEntity {
+
     private String maSV = "";
     private String tenSV = "";
     private String ngaySinh = "";
-    private Boolean gioiTinh ;
-    private int sdt ;
+    private Boolean gioiTinh;
+    private String sdt;
     private String diaChi = "";
     private String queQuan = "";
     private String email = "";
@@ -52,11 +53,11 @@ public class SinhVienEntity {
         this.gioiTinh = gioiTinh;
     }
 
-    public int getSdt() {
+    public String getSdt() {
         return sdt;
     }
 
-    public void setSdt(int sdt) {
+    public void setSdt(String sdt) {
         this.sdt = sdt;
     }
 
@@ -91,6 +92,7 @@ public class SinhVienEntity {
     public void setMaLop(String maLop) {
         this.maLop = maLop;
     }
+
     @Override
     public SinhVienEntity clone() throws CloneNotSupportedException {
         return (SinhVienEntity) super.clone();

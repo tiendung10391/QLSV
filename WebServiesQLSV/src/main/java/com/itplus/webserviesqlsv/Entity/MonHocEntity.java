@@ -10,9 +10,19 @@ package com.itplus.webserviesqlsv.Entity;
  * @author kunph_000
  */
 public class MonHocEntity {
+
     private String maMH = "";
     private String tenMH = "";
-    private String soGio = "";
+    private int soGio = 0;
+    private String MaKhoaHoc = "";
+
+    public String getMaKhoaHoc() {
+        return MaKhoaHoc;
+    }
+
+    public void setMaKhoaHoc(String MaKhoaHoc) {
+        this.MaKhoaHoc = MaKhoaHoc;
+    }
 
     public String getMaMH() {
         return maMH;
@@ -30,13 +40,14 @@ public class MonHocEntity {
         this.tenMH = tenMH;
     }
 
-    public String getSoGio() {
+    public int getSoGio() {
         return soGio;
     }
 
-    public void setSoGio(String soGio) {
+    public void setSoGio(int soGio) {
         this.soGio = soGio;
     }
+
     @Override
     public MonHocEntity clone() throws CloneNotSupportedException {
         return (MonHocEntity) super.clone();

@@ -10,51 +10,54 @@ package com.itplus.webserviesqlsv.Entity;
  * @author kunph_000
  */
 public class LopMonHocEntity {
-    private String maMH = "";
-    private String maLop = "";
-    private String maGiohoc = "";
-    private String tenPhong = "";
-    private String maHocky = "";
+    private String MaMonHoc = "";
+    private String MaLop = "";
+    private String MaGioHoc = "";
+    private String MaPhongHoc = "";
+    private String MaHocKy = "";
 
-    public String getMaMH() {
-        return maMH;
+    public String getMaMonHoc() {
+        return MaMonHoc;
     }
 
-    public void setMaMH(String maMH) {
-        this.maMH = maMH;
+    public void setMaMonHoc(String MaMonHoc) {
+        this.MaMonHoc = MaMonHoc;
     }
 
     public String getMaLop() {
-        return maLop;
+        return MaLop;
     }
 
-    public void setMaLop(String maLop) {
-        this.maLop = maLop;
+    public void setMaLop(String MaLop) {
+        this.MaLop = MaLop;
     }
 
-    public String getMaGiohoc() {
-        return maGiohoc;
+    public String getMaGioHoc() {
+        return MaGioHoc;
     }
 
-    public void setMaGiohoc(String maGiohoc) {
-        this.maGiohoc = maGiohoc;
+    public void setMaGioHoc(String MaGioHoc) {
+        this.MaGioHoc = MaGioHoc;
     }
 
-    public String getTenPhong() {
-        return tenPhong;
+    public String getMaPhongHoc() {
+        return MaPhongHoc;
     }
 
-    public void setTenPhong(String tenPhong) {
-        this.tenPhong = tenPhong;
+    public void setMaPhongHoc(String MaPhongHoc) {
+        this.MaPhongHoc = MaPhongHoc;
     }
 
-    public String getMaHocky() {
-        return maHocky;
+    public String getMaHocKy() {
+        return MaHocKy;
     }
 
-    public void setMaHocky(String maHocky) {
-        this.maHocky = maHocky;
+    public void setMaHocKy(String MaHocKy) {
+        this.MaHocKy = MaHocKy;
     }
+
+    
+    
     @Override
     public LopMonHocEntity clone() throws CloneNotSupportedException {
         return (LopMonHocEntity) super.clone();

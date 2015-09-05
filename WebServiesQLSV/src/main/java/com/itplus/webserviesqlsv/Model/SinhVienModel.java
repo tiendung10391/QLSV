@@ -5,45 +5,50 @@
  */
 package com.itplus.webserviesqlsv.Model;
 
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import com.itplus.webserviesqlsv.Entity.GioHocEntity;
+import com.itplus.webserviesqlsv.Entity.LopMonHocEntity;
+import com.itplus.webserviesqlsv.Entity.SinhVienEntity;
 import com.itplus.webserviesqlsv.Pool.DBPool;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
-
+import java.util.ArrayList;
 
 /**
  *
- * @author kunph_000
+ * @author Dung NT
  */
-public class GioHocModel {
+public class SinhVienModel {
 
-    public GioHocModel() {
+    public SinhVienModel() {
         DBPool db = new DBPool();
     }
-     public ArrayList<GioHocEntity> getGioHoc() throws Exception {
-        ArrayList<GioHocEntity> arr = new ArrayList<>();
+
+    public ArrayList<SinhVienEntity> getSinhVien() throws Exception {
+        ArrayList<SinhVienEntity> arr = new ArrayList<SinhVienEntity>();
         Statement stmt = null;
         ResultSet rs = null;
         Connection cn = null;
         try {
-//            DBPool.build(2);
             cn = DBPool.getConnection();
-//            cn = DBUtil.connectSQL();
             stmt = cn.createStatement();
-            String SQL = "SELECT * from GIOHOC";
+            String SQL = "SELECT * from SINHVIEN";
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
-                GioHocEntity gio = new GioHocEntity();
-                gio.setMaGioHoc(rs.getString(1));
-                gio.setThoiGian(rs.getString(2));
-                arr.add(gio);
+                SinhVienEntity sv = new SinhVienEntity();
+                sv.setMaLop(rs.getString(1));
+                sv.setTenSV(rs.getString(2));
+                sv.setNgaySinh(rs.getString(3));
+                sv.setGioiTinh(rs.getBoolean(4));
+                sv.setSdt(rs.getString(5));
+                sv.setDiaChi(rs.getString(6));
+                sv.setQueQuan(rs.getString(7));
+                sv.setEmail(rs.getString(8));
+                sv.setMaLop(rs.getString(9));
+                arr.add(sv);
             }
         } catch (Exception ex) {
             throw ex;
@@ -56,17 +61,24 @@ public class GioHocModel {
         }
         return arr;
     }
-      public int addGioHoc(GioHocEntity gio) throws SQLException {
+
+    public int addSinhVien(SinhVienEntity sv) throws SQLException {
         int id = 0;
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
-            String SQL = "insert into diem values(?,?)";
+            String SQL = "insert into SINHVIEN values(?,?,?,?,?,?,?,?,?)";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-//            stmt = conn.prepareStatement(SQL);
-            stmt.setString(1, gio.getMaGioHoc());
-            stmt.setString(2, gio.getThoiGian());
+            stmt.setString(1, sv.getMaSV());
+            stmt.setString(2, sv.getTenSV());
+            stmt.setString(3, sv.getNgaySinh());
+            stmt.setBoolean(4, sv.getGioiTinh());
+            stmt.setString(5, sv.getSdt());
+            stmt.setString(6, sv.getDiaChi());
+            stmt.setString(7, sv.getQueQuan());
+            stmt.setString(8, sv.getEmail());
+            stmt.setString(9, sv.getMaLop());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -82,16 +94,23 @@ public class GioHocModel {
         }
         return id;
     }
-       public void editGioHoc(GioHocEntity gio) throws SQLException {
+
+    public void editSinhVien(SinhVienEntity sv) throws SQLException {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
-            String SQL = "update giohoc set ThoiGian = ? where MaGioHoc = ?";
+            String SQL = "update SINHVIEN set TenSV = ?, NgaySinh = ?, GioiTinh = ?, SDT = ?, DiaChi = ?, QueQuan = ?, Email = ?, MaLop = ? WHERE MaSV = ?";
             conn = DBPool.getConnection();
-            SimpleDateFormat simple = new SimpleDateFormat("dd/MM/yyyy");
             stmt = conn.prepareStatement(SQL);
-            stmt.setString(1, gio.getThoiGian());
-            stmt.setString(2, gio.getMaGioHoc());
+            stmt.setString(1, sv.getTenSV());
+            stmt.setString(2, sv.getNgaySinh());
+            stmt.setBoolean(3, sv.getGioiTinh());
+            stmt.setString(4, sv.getSdt());
+            stmt.setString(5, sv.getDiaChi());
+            stmt.setString(6, sv.getQueQuan());
+            stmt.setString(7, sv.getEmail());
+            stmt.setString(8, sv.getMaLop());
+            stmt.setString(9, sv.getMaSV());
             stmt.executeUpdate();
         } finally {
             try {
@@ -102,14 +121,15 @@ public class GioHocModel {
             }
         }
     }
-       public void deleteGioHoc(String Magiohoc) throws SQLException {
+    
+    public void deleteSinhVien(String MaSV) throws SQLException {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
-            String SQL = "delete giohoc  where magiohoc = ?";
+            String SQL = "delete SINHVIEN  where MaSV = ?";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL);
-            stmt.setString(1, Magiohoc);
+            stmt.setString(1, MaSV);
             stmt.executeUpdate();
         } finally {
             try {
@@ -118,31 +138,6 @@ public class GioHocModel {
             } catch (SQLException ex) {
                 throw ex;
             }
-        }
-        
-    }
-        public void deleteGioHoc(ArrayList<GioHocEntity> arr) throws SQLException, Exception {
-        PreparedStatement stmt = null;
-        Connection conn = null;
-        try {
-            conn = DBPool.getConnection();
-            conn.setAutoCommit(false);//tao transaction
-            for (GioHocEntity gio : arr) {
-                String SQL = "delete giohoc  where magiohoc = ?";
-                stmt = conn.prepareStatement(SQL);
-                stmt.setString(1, gio.getMaGioHoc());
-                stmt.executeUpdate();
-            }
-            conn.commit();
-
-        } catch (Exception ex) {
-            conn.rollback();
-            conn.setAutoCommit(true);
-            throw new Exception(ex.getMessage());
-
-        } finally {
-
-            DBPool.releaseConnection(conn, stmt);
         }
     }
 }

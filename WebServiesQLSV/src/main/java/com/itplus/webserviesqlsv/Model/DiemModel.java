@@ -5,7 +5,6 @@
  */
 package com.itplus.webserviesqlsv.Model;
 
-
 import com.itplus.webserviesqlsv.Entity.DiemEntity;
 import com.itplus.webserviesqlsv.Pool.DBPool;
 import java.sql.Connection;
@@ -16,7 +15,6 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author kunph_000
@@ -24,9 +22,10 @@ import java.util.ArrayList;
 public class DiemModel {
 
     public DiemModel() {
-         DBPool db = new DBPool();
+        DBPool db = new DBPool();
     }
-     public ArrayList<DiemEntity> getDiem() throws Exception {
+
+    public ArrayList<DiemEntity> getDiem() throws Exception {
         ArrayList<DiemEntity> arr = new ArrayList<>();
         Statement stmt = null;
         ResultSet rs = null;
@@ -60,12 +59,13 @@ public class DiemModel {
         }
         return arr;
     }
-      public int addDiem(DiemEntity diem) throws SQLException {
+
+    public int addDiem(DiemEntity diem) throws SQLException {
         int id = 0;
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
-            String SQL = "insert into diem values(?,?,?,?,?,?)";
+            String SQL = "insert into DIEM values(?,?,?,?,?,?)";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
 //            stmt = conn.prepareStatement(SQL);
@@ -90,16 +90,20 @@ public class DiemModel {
         }
         return id;
     }
-       public void editDiem(DiemEntity diem) throws SQLException {
+
+    public void editDiem(DiemEntity diem) throws SQLException {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
-            String SQL = "update diem set MaMonHoc = ? where MaSV = ?";
+            String SQL = "update DIEM set DiemLan1 = ?, DiemLan2 = ?, DiemLan3 = ?, TrangThai = ? where MaSV = ? AND MaMonHoc = ?";
             conn = DBPool.getConnection();
-            SimpleDateFormat simple = new SimpleDateFormat("dd/MM/yyyy");
             stmt = conn.prepareStatement(SQL);
-            stmt.setString(1, diem.getMaMonHoc());
-            stmt.setString(2, diem.getMaSV());
+            stmt.setInt(1, diem.getDiemLan1());
+            stmt.setInt(2, diem.getDiemlan2());
+            stmt.setInt(3, diem.getDiemLan3());
+            stmt.setBoolean(4, diem.isTrangThai());
+            stmt.setString(5, diem.getMaSV());
+            stmt.setString(6, diem.getMaMonHoc());
             stmt.executeUpdate();
         } finally {
             try {
@@ -110,14 +114,15 @@ public class DiemModel {
             }
         }
     }
-       public void deleteDiem(String MaMH ,String MaSV) throws SQLException {
+
+    public void deleteDiem(String MaMonHoc, String MaSV) throws SQLException {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
-            String SQL = "delete Diem  where mamonhoc = ? and masv = ?";
+            String SQL = "delete DIEM  where MaMonHoc = ? and MaSV = ?";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL);
-            stmt.setString(1, MaMH);
+            stmt.setString(1, MaMonHoc);
             stmt.setString(2, MaSV);
             stmt.executeUpdate();
         } finally {
@@ -129,7 +134,8 @@ public class DiemModel {
             }
         }
     }
-        public void deleteDiem(ArrayList<DiemEntity> arr) throws SQLException, Exception {
+
+    public void deleteDiem(ArrayList<DiemEntity> arr) throws SQLException, Exception {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
@@ -154,7 +160,9 @@ public class DiemModel {
             DBPool.releaseConnection(conn, stmt);
         }
     }
-        //tim kiem thong tin theo ten
+
+    //tim kiem thong tin theo ten
+
     public ArrayList<DiemEntity> findByName(String MaSV) throws Exception {
         ArrayList<DiemEntity> arr = new ArrayList<DiemEntity>();
         PreparedStatement pstm = null;
@@ -166,12 +174,12 @@ public class DiemModel {
 //            cn = DBUtil.connectSQL();
             String SQL = "SELECT * from Diem where MaSV like ?";
             pstm = cn.prepareStatement(SQL);
-            pstm.setString(1, "%"+MaSV+"%");
+            pstm.setString(1, "%" + MaSV + "%");
             rs = pstm.executeQuery(SQL);
 
             while (rs.next()) {
-               DiemEntity diem = new DiemEntity();
-                 diem.setMaMonHoc(rs.getString(1));
+                DiemEntity diem = new DiemEntity();
+                diem.setMaMonHoc(rs.getString(1));
                 diem.setMaSV(rs.getString(2));
                 diem.setDiemLan1(rs.getInt(3));
                 diem.setDiemlan2(rs.getInt(4));
@@ -190,6 +198,5 @@ public class DiemModel {
         }
         return arr;
     }
-       
-    
+
 }
