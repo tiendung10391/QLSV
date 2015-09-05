@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="backend.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid class="panel1">
+                        <center class="title">Thời Khóa Biểu</center>
+                        <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
+                            <p:outputLabel value="Lớp học:&nbsp;&nbsp;&nbsp;"/>
+                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
+                                <f:selectItem itemLabel="Chọn lớp học" />
+                                <f:selectItems />
+                           </p:selectOneMenu>
+                            <p:outputLabel value="Môn học:"/>
+                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
+                                <f:selectItem itemLabel="Chọn môn học" />
+                                <f:selectItems />
+                           </p:selectOneMenu>
+                            <p:outputLabel value="Giờ học:"/>
+                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
+                                <f:selectItem itemLabel="Chọn giờ học" />
+                                <f:selectItems />
+                           </p:selectOneMenu>
+                            <p:outputLabel value="Phòng học:"/>
+                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
+                                <f:selectItem itemLabel="Chọn phòng học" />
+                                <f:selectItems />
+                           </p:selectOneMenu>
+                            <p:outputLabel value="Học kỳ:"/>
+                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
+                                <f:selectItem itemLabel="Chọn học kỳ" />
+                                <f:selectItems />
+                           </p:selectOneMenu>
+                        </h:panelGrid>
+                        <h:panelGrid columns="4" style="margin: auto">
+                            <p:button value="Thêm mới"/>
+                            <p:button value="Cập nhật"/>
+                            <p:button value="Xóa"/>
+                            <p:button value="Nhập lại"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:form>
+                <p:dataTable emptyMessage="Chưa có bản ghi nào" styleClass="table">
+                        <f:facet name="header" >  
+                            <div style="padding: 5px">Danh sách thời khóa biểu</div>
+                        </f:facet>
+                    <p:column styleClass="header" style="width: 50px">
+                            <f:facet name="header">
+                                STT
+                            </f:facet>
+                        </p:column>
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Lớp học
+                            </f:facet>
+                        </p:column>  
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Môn học
+                            </f:facet>
+                        </p:column> 
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Giờ học
+                            </f:facet>
+                        </p:column >
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Phòng học
+                            </f:facet>
+                        </p:column>
+                        <p:column styleClass="header" style="width: 150px">
+                            <f:facet name="header">
+                                Học kỳ
+                            </f:facet>
+                        </p:column>
+                    </p:dataTable>
+            </ui:define>
+       </ui:composition>
+    </h:body>
+</html>
+

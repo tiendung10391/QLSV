@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:panelGrid class="paneldangnhap" style="margin: auto;box-shadow: 0 0 3px 3px #ffe4c9;
+                         margin-top: 150px;">
+                    <center class="title">Đăng nhập</center>
+                        <h:panelGrid columns="2" style="margin: auto;margin-top: 30px ; margin-bottom: 20px ">
+                            <p:outputLabel value="Tên Đăng Nhập:"/>
+                            <p:inputText />
+                            <p:outputLabel value="Mật Khẩu:"/>
+                            <p:password />
+                        </h:panelGrid>
+                        <p:selectManyCheckbox style="margin: auto" >
+                            <f:selectItem itemLabel="Duy trì trạng thái đăng nhập" itemValue="Duy trì trạng thái đăng nhập"/>
+                        </p:selectManyCheckbox>
+                        <h:panelGrid columns="2" style="margin:auto;margin-top: 20px ; margin-bottom: 20px">
+                            <p:button value="Đăng nhập" href="backend_nguoidung.xhtml" />
+                            <p:button value="Nhập lại"/>
+                        </h:panelGrid>
+                   <h:outputLink style="color: red;margin-left: 270px"> Quên mật khẩu ?</h:outputLink>
+                </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>

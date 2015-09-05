@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="backend.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid class="panel1">
+                        <center class="title">Quản Lý Sinh Viên</center>
+                        <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
+                            <p:outputLabel value="Mã sinh viên:"/>
+                            <p:inputText/>
+                            <p:outputLabel value="Số điện thoại:"/>
+                            <p:inputText/>
+                            <p:outputLabel value="Tên sinh viên:"/>
+                            <p:inputText/>
+                            <p:outputLabel value="Địa chỉ:"/>
+                            <p:inputText/>
+                            <p:outputLabel value="Ngày sinh:"/>
+                            <p:calendar locale="de" navigator="true" mindate="1/1/90" maxdate="31/12/99"  pattern="dd/mm/yyyy" />
+                            <p:outputLabel value="Quê quán:"/>
+                            <p:inputText/>
+                            <p:outputLabel value="Chọn lớp học:"/>
+                            <p:selectOneMenu style="width: 200px" effect="fold" editable="true">
+                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItems value="Lop 1" />
+                                <f:selectItems value="Lop 2" />
+                           </p:selectOneMenu>
+                            <p:outputLabel value="Email:"/>
+                            <p:inputText/>
+                            <p:outputLabel value="Giới tính:"/>
+                            <p:selectOneRadio>
+                                <f:selectItem itemLabel="Nam"  />
+                                <f:selectItem itemLabel="Nữ"  />
+                            </p:selectOneRadio>
+                            
+                            
+                        </h:panelGrid>
+                        <h:panelGrid columns="4" style="margin: auto">
+                            <p:button value="Thêm mới"/>
+                            <p:button value="Cập nhật"/>
+                            <p:button value="Xóa"/>
+                            <p:button value="Nhập lại"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </h:form>
+                <p:dataTable emptyMessage="Chưa có bản ghi nào" styleClass="table">
+                        <f:facet name="header" >  
+                            <div style="padding: 5px">Danh sách sinh viên</div>
+                        </f:facet>
+                        <p:column styleClass="header" >
+                            <f:facet name="header">
+                               Mã SV
+                            </f:facet>
+                        </p:column>
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Tên SV
+                            </f:facet>
+                        </p:column>  
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Giới tính
+                            </f:facet>
+                        </p:column> 
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Ngày sinh
+                            </f:facet>
+                        </p:column>
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Lớp
+                            </f:facet>
+                        </p:column>
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Địa chỉ
+                            </f:facet>
+                        </p:column >
+                        <p:column styleClass="header" >
+                            <f:facet name="header">
+                                Quê quán
+                            </f:facet>
+                        </p:column>
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Số ĐT
+                            </f:facet>
+                        </p:column>
+                        <p:column styleClass="header" >
+                            <f:facet name="header">
+                                Email
+                            </f:facet>
+                        </p:column>
+                    </p:dataTable>
+            </ui:define>
+       </ui:composition>
+    </h:body>
+</html>
+

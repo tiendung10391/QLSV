@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="backend.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid class="panel1">
+                        <center class="title">Quản Lý Lớp</center>
+                        <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
+                            <p:outputLabel value="Mã lớp:"/>
+                            <p:inputText/>
+                            <p:outputLabel value="Ngành:"/>
+                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
+                                <f:selectItem itemLabel="Chọn ngành" />
+                                <f:selectItems />
+                           </p:selectOneMenu>
+                            <p:outputLabel value="Tên lớp:"/>
+                            <p:inputText/>
+                            <p:outputLabel value="Khóa học:"/>
+                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
+                                <f:selectItem itemLabel="Chọn khóa học" />
+                                <f:selectItems />
+                           </p:selectOneMenu>
+                            <p:outputLabel value="Năm nhập học:"/>
+                            <p:inputMask mask="2099"/>
+                            <p:outputLabel value="Hệ đào tạo:&nbsp;&nbsp;&nbsp;&nbsp;"/>
+                            <p:selectOneRadio>
+                                <f:selectItem itemLabel="Ngắn hạn"  />
+                                <f:selectItem itemLabel="Dài hạn"  />
+                            </p:selectOneRadio>
+                        </h:panelGrid>
+                        <h:panelGrid columns="4" style="margin: auto">
+                            <p:button value="Thêm mới"/>
+                            <p:button value="Cập nhật"/>
+                            <p:button value="Xóa"/>
+                            <p:button value="Nhập lại"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                
+                <p:dataTable emptyMessage="Chưa có bản ghi nào" styleClass="table">
+                        <f:facet name="header" >  
+                            <div style="padding: 5px">Danh sách lớp</div>
+                        </f:facet>
+                    <p:column styleClass="header" style="width: 50px">
+                            <f:facet name="header">
+                                Mã lớp
+                            </f:facet>
+                        </p:column>
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Tên lớp
+                            </f:facet>
+                        </p:column>  
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Ngành
+                            </f:facet>
+                        </p:column> 
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Khóa học
+                            </f:facet>
+                        </p:column >
+                        <p:column styleClass="header">
+                            <f:facet name="header">
+                                Hệ đào tạo
+                            </f:facet>
+                        </p:column>
+                        <p:column styleClass="header" style="width: 150px">
+                            <f:facet name="header">
+                                Năm nhập học
+                            </f:facet>
+                        </p:column>
+                    </p:dataTable>
+                    </h:form>
+            </ui:define>
+       </ui:composition>
+    </h:body>
+</html>
