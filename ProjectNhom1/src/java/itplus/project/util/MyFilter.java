@@ -39,7 +39,7 @@ public class MyFilter implements Filter {
         } else {
             //day ve trang login
             String contextPath = req.getContextPath();
-            res.sendRedirect(contextPath + "/faces/admin/index.xhtml");
+            res.sendRedirect(contextPath + "/faces/pages/login.xhtml");
         }
 
     }
