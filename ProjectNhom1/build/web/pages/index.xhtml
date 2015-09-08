@@ -26,7 +26,7 @@ and open the template in the editor.
                     <p:outputLabel value="Tên Đăng Nhập:"/>
                     <p:inputText  id="txtUsername" value="#{loginBean.loginEntity.username}"/>
                     <p:outputLabel value="Mật Khẩu:"/>
-                    <p:password id="txtPassword" value="#{loginBean.loginEntity.password}"/>
+                    <p:password id="txtPassword" value="#{loginBean.loginEntity.password}" required="true" />
 
 
                 </h:panelGrid>

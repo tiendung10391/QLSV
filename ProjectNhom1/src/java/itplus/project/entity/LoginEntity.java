@@ -5,11 +5,13 @@
  */
 package itplus.project.entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Dung NT
  */
-public class LoginEntity {
+public class LoginEntity implements Serializable {
 
     private String username;
     private String password;

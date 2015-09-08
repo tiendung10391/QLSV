@@ -79,6 +79,11 @@ public class LoginBean extends MessageUtil {
 
         return "/pages/index?faces-redirect=true";
     }
+    
+    
+    
+    
+    
 
     public boolean isValidate() {
         try {
@@ -86,11 +91,11 @@ public class LoginBean extends MessageUtil {
         } catch (Exception ex) {
             Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if (!ValidatorUtil.isSpaceString(loginEntity.getUsername())) {
+        if (ValidatorUtil.isSpaceString(loginEntity.getUsername())) {
             addErrorMessage("Bạn chưa nhập tên đăng nhập!");
             Focus = "txtUsername";
             return false;
-        } else if (!ValidatorUtil.isSpaceString(loginEntity.getPassword())) {
+        } else if (ValidatorUtil.isSpaceString(loginEntity.getPassword())) {
             addErrorMessage("Bạn chưa nhập mật khẩu");
             Focus = "txtPassword";
             return false;

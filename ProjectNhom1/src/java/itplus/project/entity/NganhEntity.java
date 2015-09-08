@@ -5,11 +5,13 @@
  */
 package itplus.project.entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author kunph_000
  */
-public class NganhEntity {
+public class NganhEntity implements Serializable {
     private String maNganh = "";
     private String tenNganh = "";
 

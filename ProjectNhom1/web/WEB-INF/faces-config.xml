@@ -14,4 +14,9 @@
         <managed-bean-class>itplus.project.bean.SessionBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>quanLyLopBean</managed-bean-name>
+        <managed-bean-class>itplus.project.bean.QuanLyLopBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

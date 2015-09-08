@@ -6,50 +6,50 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Quản lý lớp học</title>
     </h:head>
     <h:body>
         <ui:composition template="backend.xhtml">
             <ui:define name="content">
-                <h:form>
+                <h:form id="frm_lop">
+                    <p:growl id="growl" autoUpdate="true"/>
+                    <p:focus for="#{quanLyLopBean.focus}" id="focus"/>
                     <h:panelGrid class="panel1">
                         <center class="title">Quản Lý Lớp</center>
                         <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
                             <p:outputLabel value="Mã lớp:"/>
-                            <p:inputText/>
+                            <p:inputText id="txtMaLop" value="#{quanLyLopBean.lopHocEntity.maLop}" maxlength="10"/>
                             <p:outputLabel value="Ngành:"/>
-                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
-                                <f:selectItem itemLabel="Chọn ngành" />
-                                <f:selectItems />
-                           </p:selectOneMenu>
+                            <p:selectOneMenu value="#{quanLyLopBean.nganh}" style="width: 181px" effect="fold" editable="false">
+                                <p:ajax listener="#{quanLyLopBean.onKhoaHocChange()}" update="sKhoaHoc" />
+                                <f:selectItem itemLabel="Chọn ngành học" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{quanLyLopBean.nganhList}" />
+                            </p:selectOneMenu>
                             <p:outputLabel value="Tên lớp:"/>
-                            <p:inputText/>
+                            <p:inputText id="txtTenLop" value="#{quanLyLopBean.lopHocEntity.tenLop}" maxlength="10"/>
                             <p:outputLabel value="Khóa học:"/>
-                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
-                                <f:selectItem itemLabel="Chọn khóa học" />
-                                <f:selectItems />
-                           </p:selectOneMenu>
+                            <p:selectOneMenu id="sKhoaHoc" value="#{quanLyLopBean.khoaHoc}" style="width: 181px" effect="fold" editable="false"
+                                             filter="true" filterMatchMode="startsWith">
+                                
+                                <f:selectItem itemLabel="Chọn khóa học" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{quanLyLopBean.khoaHocList}" />
+                            </p:selectOneMenu>
                             <p:outputLabel value="Năm nhập học:"/>
-                            <p:inputMask mask="2099"/>
-                            <p:outputLabel value="Hệ đào tạo:&nbsp;&nbsp;&nbsp;&nbsp;"/>
-                            <p:selectOneRadio>
-                                <f:selectItem itemLabel="Ngắn hạn"  />
-                                <f:selectItem itemLabel="Dài hạn"  />
-                            </p:selectOneRadio>
+                            <p:inputMask mask="2099" id="txtNamNhapHoc" value="#{quanLyLopBean.lopHocEntity.namNhapHoc}"/>
                         </h:panelGrid>
                         <h:panelGrid columns="4" style="margin: auto">
-                            <p:button value="Thêm mới"/>
-                            <p:button value="Cập nhật"/>
-                            <p:button value="Xóa"/>
-                            <p:button value="Nhập lại"/>
+                            <p:commandButton value="Thêm mới" actionListener="#{quanLyLopBean.addLop()}" update="frm_lop"/>
+                            <p:commandButton value="Cập nhật" disabled="#{quanLyLopBean.checkStatusButton()}"/>
+                            <p:commandButton value="Xóa" disabled="#{quanLyLopBean.checkStatusButton()}"/>
+                            <p:commandButton value="Nhập lại"/>
                         </h:panelGrid>
                     </h:panelGrid>
-                
-                <p:dataTable emptyMessage="Chưa có bản ghi nào" styleClass="table">
+
+                    <p:dataTable emptyMessage="Chưa có bản ghi nào" styleClass="table">
                         <f:facet name="header" >  
                             <div style="padding: 5px">Danh sách lớp</div>
                         </f:facet>
-                    <p:column styleClass="header" style="width: 50px">
+                        <p:column styleClass="header" style="width: 50px">
                             <f:facet name="header">
                                 Mã lớp
                             </f:facet>
@@ -80,8 +80,8 @@
                             </f:facet>
                         </p:column>
                     </p:dataTable>
-                    </h:form>
+                </h:form>
             </ui:define>
-       </ui:composition>
+        </ui:composition>
     </h:body>
 </html>
