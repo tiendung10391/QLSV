@@ -5,6 +5,7 @@
  */
 package itplus.project.util;
 
+import itplus.project.bean.SessionBean;
 import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,8 +13,10 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -33,13 +36,27 @@ public class MyFilter implements Filter {
         //kiem tra seession co ton tai khong
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        String username = (String) req.getSession().getAttribute("username");
+        String username;
+        username = (String) req.getSession().getAttribute("username");
+        
+        //cookie
+        Cookie[] cookies = req.getCookies();
+        for (int i = 0; i < cookies.length; i++) {
+            if (cookies[i].getName().equals("username")) {
+                username = cookies[i].getValue();
+                System.out.println("Cookie--MyFilter: " + cookies[i].getName() + "--" + username);
+            }
+            
+        }
+        
         if (username != null) {
+            HttpSession session = req.getSession(true);
+            session.setAttribute("username", username);
             chain.doFilter(req, res);
         } else {
             //day ve trang login
             String contextPath = req.getContextPath();
-            res.sendRedirect(contextPath + "/faces/pages/login.xhtml");
+            res.sendRedirect(contextPath + "/faces/pages/index.xhtml");
         }
 
     }

@@ -9,15 +9,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
-            
-        <title>Facelets Template</title>
+
     </h:head>
 
     <h:body>
         <div id="wrapper">
             <div id="top">
                 <p:graphicImage name="image/Image_banner.png" style="float: left"/>
-                <h:outputLink value="index.xhtml" style="float: right;font-size: 12px;padding: 5px"> Đăng xuất</h:outputLink>
+
+                <h:form>
+                    <h:panelGrid columns="2" rendered="#{sessionBean.mUsername()!=null}" style="float: right;font-size: 12px;padding: 5px">
+                        <h:outputText value="Xin chào: #{sessionBean.mUsername()} - " style="color: #045491; font-weight: bold"/>
+                        <p:commandLink value="Thoát"  style="color: #045491; font-weight: bold" action="#{loginBean.logOut()}"/>
+                    </h:panelGrid>
+                </h:form>
+
+
                 <p:outputLabel value="Quản Lý Sinh Viên" style="font-size: 62px;font-weight: bold;
                                font-family: Miriad Pro; float: right; margin: 40px 100px 0 0" />
                 <div style="clear: both">
@@ -25,7 +32,7 @@
                         <p:growl id="messages"/>
                         <p:menubar style="height: 42px; padding: 0;margin: 0">
                             <p:menuitem value=" Người Dùng" style="padding: 11px 14px" url=" backend_nguoidung.xhtml"/>
-                            
+
                             <p:menuitem value="Quản Lý Sinh Viên" style="padding: 11px 21px" url=" backend_sinhvien.xhtml"/>
                             <p:menuitem value="Quản Lý Lớp" style="padding: 11px 21px" url=" backend_lop.xhtml"/>
                             <p:menuitem value="Quản Lý Ngành,Môn Học" style="padding: 11px 13px" url=" backend_nganh_monhoc.xhtml"/>
@@ -34,7 +41,7 @@
                         </p:menubar>
                     </h:form>
                 </div>
-                
+
             </div>
 
             <div id="content" class="center_content">
@@ -42,7 +49,13 @@
             </div>
 
             <div id="bottom">
-                <ui:insert name="bottom">Bottom</ui:insert>
+                <ui:insert name="bottom">
+
+                    <dir style="text-align: center">ITPLUS ACADEMY - VIỆN CÔNG NGHỆ THÔNG TIN - ĐHQG HÀ NỘI</dir>
+                    <dir style="text-align: center">Địa chỉ : Tầng 5, Nhà E3, ĐHQG HN, 144 Xuân Thủy, Cầu Giấy, Hà Nội</dir>
+                    <dir style="text-align: center">Điện thoại : 04 3754 6732 Hotline: 0963 72 65 65</dir>
+                    <dir style="text-align: center">Email: info@itplus-academy.edu.vn</dir>
+                </ui:insert>
             </div>
         </div>
     </h:body>

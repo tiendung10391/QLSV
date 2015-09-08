@@ -14,21 +14,15 @@ import javax.servlet.http.HttpSession;
  */
 public class SessionBean {
 
-    /**
-     * Creates a new instance of SessionBean
-     */
-    public SessionBean() {
-    }
-
-    public static HttpSession session(boolean value) {
+    public static HttpSession newSession(boolean value) {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(value);
         return session;
     }
 
-    public static String username() {
+    public String mUsername() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         String username = (String) session.getAttribute("username");
         return username;
     }
-
+    
 }

@@ -17,7 +17,10 @@
 #bottom {
     position: relative;
     background-color: #0f84f0;
-    height: 76px
+    padding: 10px;
+    font-size: 12px;
+    color: #FFF;
+    font-weight: bold;
 }
 
 .center_content {

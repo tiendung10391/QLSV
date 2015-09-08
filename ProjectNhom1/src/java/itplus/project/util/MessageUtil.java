@@ -13,7 +13,7 @@ import javax.faces.context.FacesContext;
  * @author Dung NT
  */
 public class MessageUtil {
-    public void addErrorMessage(String message) {
+     public void addErrorMessage(String message) {
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
     }

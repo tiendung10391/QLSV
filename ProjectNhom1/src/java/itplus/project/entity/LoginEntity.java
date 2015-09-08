@@ -10,9 +10,28 @@ package itplus.project.entity;
  * @author Dung NT
  */
 public class LoginEntity {
+
     private String username;
     private String password;
     private boolean remember;
+    private String email;
+    private String TenNguoiDung;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTenNguoiDung() {
+        return TenNguoiDung;
+    }
+
+    public void setTenNguoiDung(String TenNguoiDung) {
+        this.TenNguoiDung = TenNguoiDung;
+    }
 
     public String getUsername() {
         return username;
@@ -37,7 +56,5 @@ public class LoginEntity {
     public void setRemember(boolean remember) {
         this.remember = remember;
     }
-    
-    
-    
+
 }

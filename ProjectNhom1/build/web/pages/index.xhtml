@@ -1,19 +1,48 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Đăng nhập</title>
     </h:head>
     <h:body>
-        <ui:composition template="frontend.xhtml">
-            <ui:define name="content">
-                
-            </ui:define>
-       </ui:composition>
+        <h:form id="frm_login">
+            <p:growl id="growl" autoUpdate="true"/>
+            <p:focus for="#{loginBean.focus}" id="focus"/>
+            <h:panelGrid class="paneldangnhap" style="margin: auto;box-shadow: 0 0 3px 3px #ffe4c9;
+                         margin-top: 150px;">
+                <center class="title">ĐĂNG NHẬP</center>
+                <h:panelGrid columns="2" style="margin: auto;margin-top: 30px ; margin-bottom: 20px ">
+                    <p:outputLabel value="Tên Đăng Nhập:"/>
+                    <p:inputText  id="txtUsername" value="#{loginBean.loginEntity.username}"/>
+                    <p:outputLabel value="Mật Khẩu:"/>
+                    <p:password id="txtPassword" value="#{loginBean.loginEntity.password}"/>
+
+
+                </h:panelGrid>
+
+
+
+                <h:panelGroup style="margin-left: 210px;">
+                    <p:selectBooleanCheckbox value="#{loginBean.loginEntity.remember}" itemLabel="Duy trì trạng thái đăng nhập" />
+                </h:panelGroup>
+
+                <h:panelGrid columns="2" style="margin:auto;margin-top: 20px ; margin-bottom: 20px">
+                    <p:commandButton value="Đăng nhập" action="#{loginBean.checkLogin()}" update="frm_login"/>
+                    <p:commandButton value="Nhập lại" actionListener="#{loginBean.clearText()}" update="frm_login" />
+                </h:panelGrid>
+                <h:outputLink style="color: red;margin-left: 270px"> Quên mật khẩu ?</h:outputLink>
+            </h:panelGrid>
+        </h:form>
     </h:body>
 </html>
-
