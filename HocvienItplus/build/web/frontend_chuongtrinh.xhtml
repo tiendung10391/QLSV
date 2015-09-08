@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="frontend.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid class="panelnguoidung">
+                        <center class="title">Chương Trình Học</center>
+                        <h:panelGrid columns="2" style="margin-top: 25px;margin-bottom: 25px" cellpadding="5px">
+                            <p:outputLabel value="Chọn chương trình học:"/>
+                            <p:selectOneMenu style="width: 200px;" editable="true"  >
+                                    <f:selectItem itemLabel="Select One" itemValue="" />
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                        <p:dataTable emptyMessage="Chưa có bản ghi nào" >
+                            <f:facet name="header" >  
+                                <div style="padding: 5px">Danh sách các môn học</div>
+                            </f:facet>
+                            <p:column styleClass="header" style="width: 50px">
+                                <f:facet name="header">
+                                    STT
+                                </f:facet>
+                            </p:column>
+                            <p:column styleClass="header" style="width: 60px">
+                                <f:facet name="header">
+                                    Mã môn
+                                </f:facet>
+                            </p:column>  
+                            <p:column styleClass="header">
+                                <f:facet name="header">
+                                    Tên môn
+                                </f:facet>
+                            </p:column> 
+                            <p:column styleClass="header" style="width: 60px">
+                                <f:facet name="header" >
+                                    Số Giờ
+                                </f:facet>
+                            </p:column >
+                            <p:column styleClass="header">
+                                <f:facet name="header">
+                                    Ghi chú
+                                </f:facet>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+                    
+                </h:form>
+            </ui:define>
+       </ui:composition>
+    </h:body>
+</html>
+
