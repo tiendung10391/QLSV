@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/github/QLSV/ProjectNhom1/web/pages/login.xhtml</file>
-            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/util/ValidatorUtil.java</file>
-            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/model/CallRestPOSTCheckLogin.java</file>
-            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/bean/LoginBean.java</file>
+            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/entity/SinhVienEntity.java</file>
+            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/entity/NganhEntity.java</file>
+            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/model/SinhVienModel.java</file>
         </group>
     </open-files>
 </project-private>
