@@ -14,6 +14,24 @@ import java.io.Serializable;
 public class KhoaHocEntity implements Serializable{
     private String maKhoaHoc;
     private String tenKhoaHoc;
+    private String HeDaoTao;
+    private String MaNganh;
+
+    public String getHeDaoTao() {
+        return HeDaoTao;
+    }
+
+    public void setHeDaoTao(String HeDaoTao) {
+        this.HeDaoTao = HeDaoTao;
+    }
+
+    public String getMaNganh() {
+        return MaNganh;
+    }
+
+    public void setMaNganh(String MaNganh) {
+        this.MaNganh = MaNganh;
+    }
 
     public String getMaKhoaHoc() {
         return maKhoaHoc;

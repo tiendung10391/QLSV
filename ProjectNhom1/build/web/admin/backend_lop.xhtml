@@ -18,7 +18,7 @@
                         <center class="title">Quản Lý Lớp</center>
                         <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
                             <p:outputLabel value="Mã lớp:"/>
-                            <p:inputText id="txtMaLop" value="#{quanLyLopBean.lopHocEntity.maLop}" maxlength="10"/>
+                            <p:inputText id="txtMaLop" value="#{quanLyLopBean.lopHocEntity.maLop}" maxlength="15"/>
                             <p:outputLabel value="Ngành:"/>
                             <p:selectOneMenu value="#{quanLyLopBean.nganh}" style="width: 181px" effect="fold" editable="false">
                                 <p:ajax listener="#{quanLyLopBean.onKhoaHocChange()}" update="sKhoaHoc" />
@@ -26,11 +26,11 @@
                                 <f:selectItems value="#{quanLyLopBean.nganhList}" />
                             </p:selectOneMenu>
                             <p:outputLabel value="Tên lớp:"/>
-                            <p:inputText id="txtTenLop" value="#{quanLyLopBean.lopHocEntity.tenLop}" maxlength="10"/>
+                            <p:inputText id="txtTenLop" value="#{quanLyLopBean.lopHocEntity.tenLop}" maxlength="15"/>
                             <p:outputLabel value="Khóa học:"/>
                             <p:selectOneMenu id="sKhoaHoc" value="#{quanLyLopBean.khoaHoc}" style="width: 181px" effect="fold" editable="false"
                                              filter="true" filterMatchMode="startsWith">
-                                
+
                                 <f:selectItem itemLabel="Chọn khóa học" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{quanLyLopBean.khoaHocList}" />
                             </p:selectOneMenu>
@@ -41,44 +41,71 @@
                             <p:commandButton value="Thêm mới" actionListener="#{quanLyLopBean.addLop()}" update="frm_lop"/>
                             <p:commandButton value="Cập nhật" disabled="#{quanLyLopBean.checkStatusButton()}"/>
                             <p:commandButton value="Xóa" disabled="#{quanLyLopBean.checkStatusButton()}"/>
-                            <p:commandButton value="Nhập lại"/>
+                            <p:commandButton value="Nhập lại" actionListener="#{quanLyLopBean.clearText()}" update="frm_lop"/>
                         </h:panelGrid>
                     </h:panelGrid>
 
-                    <p:dataTable emptyMessage="Chưa có bản ghi nào" styleClass="table">
+                    <p:dataTable 
+                        emptyMessage="Chưa có lớp học nào" 
+                        styleClass="table"
+                        rowIndexVar="rowIndex" 
+                        var="reg" 
+                        value="#{quanLyLopBean.arrTableLopHoc}"
+                        id="tbl_lop"
+                        rowKey="#{reg.maLop}"
+                        rows="10"
+                        paginator="true"
+                        selection="#{quanLyLopBean.listLopHocSelected}"
+                        rowsPerPageTemplate="5,10,15"
+                        >
+                        
                         <f:facet name="header" >  
-                            <div style="padding: 5px">Danh sách lớp</div>
+                            <div style="padding: 5px">DANH SÁCH LỚP HỌC</div>
                         </f:facet>
-                        <p:column styleClass="header" style="width: 50px">
+                        <p:column styleClass="header" style="width: 25px; text-align: center">
+                            <f:facet name="header">
+                                STT
+                            </f:facet>
+                            <h:outputText value="#{rowIndex+1}" />
+                        </p:column>
+                        <p:column styleClass="header" style="width: 100px" sortBy="#{reg.maLop}" filterBy="#{reg.maLop}">
                             <f:facet name="header">
                                 Mã lớp
                             </f:facet>
+                            <h:outputText value="#{reg.maLop}" />
                         </p:column>
-                        <p:column styleClass="header">
+                        <p:column styleClass="header" style="width: 100px" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}">
                             <f:facet name="header">
                                 Tên lớp
                             </f:facet>
-                        </p:column>  
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Ngành
-                            </f:facet>
-                        </p:column> 
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Khóa học
-                            </f:facet>
-                        </p:column >
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Hệ đào tạo
-                            </f:facet>
+                            <h:outputText value="#{reg.tenLop}" />
                         </p:column>
-                        <p:column styleClass="header" style="width: 150px">
+
+                        <p:column styleClass="header" style="width: 70px; text-align: center" sortBy="#{reg.namNhapHoc}" filterBy="#{reg.namNhapHoc}">
                             <f:facet name="header">
                                 Năm nhập học
                             </f:facet>
+                            <h:outputText value="#{reg.namNhapHoc}"/>
                         </p:column>
+                        <p:column styleClass="header" sortBy="#{reg.tenKhoaHoc}" filterBy="#{reg.tenKhoaHoc}">
+                            <f:facet name="header">
+                                Khóa học
+                            </f:facet>
+                            <h:outputText value="#{reg.tenKhoaHoc}" />
+                        </p:column >
+                        <p:column styleClass="header" style="width: 140px" sortBy="#{reg.tenNganh}" filterBy="#{reg.tenNganh}">
+                            <f:facet name="header">
+                                Ngàng học
+                            </f:facet>
+                            <h:outputText value="#{reg.tenNganh}" />
+                        </p:column >
+                        <p:column styleClass="header" style="width: 70px" sortBy="#{reg.heDaoTao}" filterBy="#{reg.heDaoTao}">
+                            <f:facet name="header">
+                                Hệ đào tạo
+                            </f:facet>
+                            <h:outputText value="#{reg.heDaoTao}" />
+                        </p:column >
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                     </p:dataTable>
                 </h:form>
             </ui:define>

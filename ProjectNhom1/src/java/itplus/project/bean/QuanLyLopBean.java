@@ -5,9 +5,11 @@
  */
 package itplus.project.bean;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import itplus.project.entity.KhoaHocEntity;
 import itplus.project.entity.LopHocEntity;
 import itplus.project.entity.NganhEntity;
+import itplus.project.entity.TblLopHoc;
 import itplus.project.model.KhoaHocModel;
 import itplus.project.model.LopHocModel;
 import itplus.project.model.NganhModel;
@@ -18,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -38,8 +41,10 @@ public class QuanLyLopBean extends MessageUtil {
     private String khoaHoc;
     private Map<String, String> khoaHocList = new HashMap<String, String>();
     private LopHocEntity lopHocEntity;
-    private LopHocModel lopHocModel;
-    private ArrayList<LopHocEntity> arrLopHoc;
+    private LopHocModel lopHocModel, rowLopHoc;
+    private ArrayList<LopHocEntity> arrLopHoc, listLopHocSelected;
+    private TblLopHoc TableLopHoc;
+    private ArrayList<TblLopHoc> arrTableLopHoc;
 
     /**
      * Creates a new instance of QuanLyLopBean
@@ -54,6 +59,7 @@ public class QuanLyLopBean extends MessageUtil {
         lopHocEntity = new LopHocEntity();
         lopHocModel = new LopHocModel();
         getAllLopHoc();
+        getAllTableLopHoc();
         getAllNganh();
         setKhoaHoc();
         checkStatusButton();
@@ -69,6 +75,15 @@ public class QuanLyLopBean extends MessageUtil {
         }
     }
 
+    public void getAllTableLopHoc() {
+        try {
+            arrTableLopHoc = lopHocModel.getTableLopHoc();
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+            Logger.getLogger(QuanLyLopBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void addLop() {
         if (isValidate()) {
             try {
@@ -76,21 +91,47 @@ public class QuanLyLopBean extends MessageUtil {
                 lopHocEntity.setMaKhoaHoc(khoaHoc);
                 System.out.println("Lop hoc entity: " + lopHocEntity.getMaLop() + " " + lopHocEntity.getMaKhoaHoc());
                 id = lopHocModel.addLophoc(lopHocEntity);
-                //add to arraylist
-                arrLopHoc.add(lopHocEntity);
+
+                // lay ve thong tin ten khoa hoc va he dao tao tu ma khoa hoc
+                ArrayList<KhoaHocEntity> arrInfoKhoaHoc = new ArrayList<KhoaHocEntity>();
+                arrInfoKhoaHoc = khoaHocModel.getInfoKhoaHocFormMaKhoaHoc(khoaHoc);
+                String tenKhoaHoc = arrInfoKhoaHoc.get(0).getTenKhoaHoc();
+                String heDaoTao = arrInfoKhoaHoc.get(0).getHeDaoTao();
+
+                // lay ve ten nganh tu ma nganh
+                String tenNganh = nganhModel.getInfoNganhFormMaNganh(nganh);
+
+//                add to arraylist giao dien
+                TableLopHoc = new TblLopHoc();
+                TableLopHoc.setMaLop(lopHocEntity.getMaLop());
+                TableLopHoc.setTenLop(lopHocEntity.getTenLop());
+                TableLopHoc.setNamNhapHoc(lopHocEntity.getNamNhapHoc());
+                TableLopHoc.setTenKhoaHoc(tenKhoaHoc);
+                TableLopHoc.setTenNganh(tenNganh);
+                TableLopHoc.setHeDaoTao(heDaoTao);
+
+                arrTableLopHoc.add(TableLopHoc);
+
                 addSuccessMessage("Thêm mới thành công");
+                // khoi tao lai doi tuong xoa trang tren giao dien
                 lopHocEntity = new LopHocEntity();
                 //focus vao firstname de nguoi dung co the nhap tiep
                 focus = "txtMaLop";
-//                checkStatusButton();
+
             } catch (Exception ex) {
-                addErrorMessage("Không tạo được lớp học");
+                if (ex.toString().equals("Violation of PRIMARY KEY constraint 'PK_LOPHOC'")) {
+                    addErrorMessage("Mã Lớp học đã được tạo");
+                } else {
+                    addErrorMessage("Không tạo được lớp học");
+                }
+                System.out.println(ex.toString());
                 ex.printStackTrace();
             }
         }
     }
 
     public boolean isValidate() {
+
         if (ValidatorUtil.isSpaceString(lopHocEntity.getMaLop())) {
             addErrorMessage("Chưa nhập mã lớp học");
             focus = "txtMaLop";
@@ -99,12 +140,20 @@ public class QuanLyLopBean extends MessageUtil {
             addErrorMessage("Mã lớp không được chưa ký tự đặc biệt");
             focus = "txtMaLop";
             return false;
+        } else if (checkDuplicateMaLop()) {
+            addErrorMessage("Mã lớp đã tồn tại");
+            focus = "txtMaLop";
+            return false;
         } else if (ValidatorUtil.isSpaceString(lopHocEntity.getTenLop())) {
             addErrorMessage("Chưa nhập tên lớp học");
             focus = "txtTenLop";
             return false;
         } else if (!ValidatorUtil.isNotKyThuDacBiet(lopHocEntity.getTenLop())) {
             addErrorMessage("Tên Lớp không được chưa ký tự đặc biệt");
+            focus = "txtTenLop";
+            return false;
+        } else if (checkDuplicateTenLop()) {
+            addErrorMessage("Tên lớp học đã tồn tại");
             focus = "txtTenLop";
             return false;
         } else if (ValidatorUtil.isSpaceString(lopHocEntity.getNamNhapHoc())) {
@@ -121,6 +170,36 @@ public class QuanLyLopBean extends MessageUtil {
         } else {
             return true;
         }
+    }
+
+    public boolean checkDuplicateTenLop() {
+        try {
+            boolean checkDuplicateLopHoc = lopHocModel.checkDuplicateTenLop(lopHocEntity.getTenLop());
+            if (checkDuplicateLopHoc) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(QuanLyLopBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
+
+    public boolean checkDuplicateMaLop() {
+        try {
+            boolean checkDuplicateLopHoc = lopHocModel.checkDuplicateMaLop(lopHocEntity.getMaLop());
+            if (checkDuplicateLopHoc) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception ex) {
+            Logger.getLogger(QuanLyLopBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
     public void getAllNganh() {
@@ -325,5 +404,51 @@ public class QuanLyLopBean extends MessageUtil {
     public void setData(Map<String, Map<String, String>> data) {
         this.data = data;
     }
+
+    public LopHocModel getRowLopHoc() {
+        return rowLopHoc;
+    }
+
+    public void getObject(LopHocModel rowLopHoc) {
+        this.rowLopHoc = rowLopHoc;
+    }
+
+    public ArrayList<LopHocEntity> getArrLopHoc() {
+        return arrLopHoc;
+    }
+
+    public void setArrLopHoc(ArrayList<LopHocEntity> arrLopHoc) {
+        this.arrLopHoc = arrLopHoc;
+    }
+
+    public ArrayList<LopHocEntity> getListLopHocSelected() {
+        return listLopHocSelected;
+    }
+
+    public void setListLopHocSelected(ArrayList<LopHocEntity> listLopHocSelected) {
+        this.listLopHocSelected = listLopHocSelected;
+    }
+
+    public TblLopHoc getTableLopHoc() {
+        return TableLopHoc;
+    }
+
+    public void setTableLopHoc(TblLopHoc TableLopHoc) {
+        this.TableLopHoc = TableLopHoc;
+    }
+
+    public ArrayList<TblLopHoc> getArrTableLopHoc() {
+        return arrTableLopHoc;
+    }
+
+    public void setArrTableLopHoc(ArrayList<TblLopHoc> arrTableLopHoc) {
+        this.arrTableLopHoc = arrTableLopHoc;
+    }
+
+    public void clearText() {
+        lopHocEntity = new LopHocEntity();
+        focus = "txtMaLop";
+    }
+    
 
 }

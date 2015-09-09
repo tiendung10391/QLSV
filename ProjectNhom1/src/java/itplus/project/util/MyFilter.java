@@ -41,6 +41,7 @@ public class MyFilter implements Filter {
         
         //cookie
         Cookie[] cookies = req.getCookies();
+        System.out.println("cookies length: " + cookies.length);
         for (int i = 0; i < cookies.length; i++) {
             if (cookies[i].getName().equals("username")) {
                 username = cookies[i].getValue();

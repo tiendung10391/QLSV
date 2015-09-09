@@ -6,9 +6,11 @@
 package itplus.project.model;
 
 
+import itplus.project.entity.KhoaHocEntity;
 import itplus.project.entity.NganhEntity;
 import itplus.project.pool.DBPool;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -51,6 +53,32 @@ public class NganhModel {
             }
         }
         return arr;
+    }
+    
+    public String getInfoNganhFormMaNganh(String MaNganh) throws Exception {
+        String TenNganh = "";
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT * from NGANH WHERE MaNganh = ?";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, MaNganh);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                TenNganh = rs.getString(2);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return TenNganh;
     }
 
 }
