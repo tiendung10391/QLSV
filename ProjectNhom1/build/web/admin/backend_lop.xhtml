@@ -15,18 +15,20 @@
                     <p:growl id="growl" autoUpdate="true"/>
                     <p:focus for="#{quanLyLopBean.focus}" id="focus"/>
                     <h:panelGrid class="panel1">
-                        <center class="title">Quản Lý Lớp</center>
+                        <center class="title">NHẬP THÔNG TIN LỚP HỌC</center>
                         <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
-                            <p:outputLabel value="Mã lớp:"/>
-                            <p:inputText id="txtMaLop" value="#{quanLyLopBean.lopHocEntity.maLop}" maxlength="15"/>
+                            
+                            <p:outputLabel value="Tên lớp:"/>
+                            <p:inputText id="txtTenLop" value="#{quanLyLopBean.lopHocEntity.tenLop}" maxlength="15"/>
                             <p:outputLabel value="Ngành:"/>
                             <p:selectOneMenu value="#{quanLyLopBean.nganh}" style="width: 181px" effect="fold" editable="false">
                                 <p:ajax listener="#{quanLyLopBean.onKhoaHocChange()}" update="sKhoaHoc" />
                                 <f:selectItem itemLabel="Chọn ngành học" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{quanLyLopBean.nganhList}" />
                             </p:selectOneMenu>
-                            <p:outputLabel value="Tên lớp:"/>
-                            <p:inputText id="txtTenLop" value="#{quanLyLopBean.lopHocEntity.tenLop}" maxlength="15"/>
+
+                            <p:outputLabel value="Năm nhập học:"/>
+                            <p:inputMask mask="2099" id="txtNamNhapHoc" value="#{quanLyLopBean.lopHocEntity.namNhapHoc}"/>
                             <p:outputLabel value="Khóa học:"/>
                             <p:selectOneMenu id="sKhoaHoc" value="#{quanLyLopBean.khoaHoc}" style="width: 181px" effect="fold" editable="false"
                                              filter="true" filterMatchMode="startsWith">
@@ -34,14 +36,13 @@
                                 <f:selectItem itemLabel="Chọn khóa học" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{quanLyLopBean.khoaHocList}" />
                             </p:selectOneMenu>
-                            <p:outputLabel value="Năm nhập học:"/>
-                            <p:inputMask mask="2099" id="txtNamNhapHoc" value="#{quanLyLopBean.lopHocEntity.namNhapHoc}"/>
+
                         </h:panelGrid>
                         <h:panelGrid columns="4" style="margin: auto">
                             <p:commandButton value="Thêm mới" actionListener="#{quanLyLopBean.addLop()}" update="frm_lop"/>
-                            <p:commandButton value="Cập nhật" disabled="#{quanLyLopBean.checkStatusButton()}"/>
-                            <p:commandButton value="Xóa" disabled="#{quanLyLopBean.checkStatusButton()}"/>
-                            <p:commandButton value="Nhập lại" actionListener="#{quanLyLopBean.clearText()}" update="frm_lop"/>
+                            <p:commandButton value="Cập nhật" disabled="#{quanLyLopBean.checkStatusButton()}" actionListener="#{quanLyLopBean.editLop()}" update="frm_lop"/>
+                            <p:commandButton value="Xóa" disabled="#{quanLyLopBean.checkStatusButton()}" onclick="PF('confirm_delete').show()"/>
+                            <p:commandButton value="Nhập lại" actionListener="#{quanLyLopBean.clearText()}" update="frm_lop" />
                         </h:panelGrid>
                     </h:panelGrid>
 
@@ -50,7 +51,7 @@
                         styleClass="table"
                         rowIndexVar="rowIndex" 
                         var="reg" 
-                        value="#{quanLyLopBean.arrTableLopHoc}"
+                        value="#{quanLyLopBean.arrLopHoc}"
                         id="tbl_lop"
                         rowKey="#{reg.maLop}"
                         rows="10"
@@ -58,55 +59,46 @@
                         selection="#{quanLyLopBean.listLopHocSelected}"
                         rowsPerPageTemplate="5,10,15"
                         >
-                        
+                        <p:ajax listener="#{quanLyLopBean.selectedRowtable}" event="rowSelect" update=":frm_lop"/>
                         <f:facet name="header" >  
                             <div style="padding: 5px">DANH SÁCH LỚP HỌC</div>
                         </f:facet>
-                        <p:column styleClass="header" style="width: 25px; text-align: center">
-                            <f:facet name="header">
-                                STT
-                            </f:facet>
+                        <p:column styleClass="header" headerText="STT" style="width: 25px; text-align: center">
+
                             <h:outputText value="#{rowIndex+1}" />
                         </p:column>
-                        <p:column styleClass="header" style="width: 100px" sortBy="#{reg.maLop}" filterBy="#{reg.maLop}">
-                            <f:facet name="header">
-                                Mã lớp
-                            </f:facet>
-                            <h:outputText value="#{reg.maLop}" />
-                        </p:column>
-                        <p:column styleClass="header" style="width: 100px" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}">
-                            <f:facet name="header">
-                                Tên lớp
-                            </f:facet>
+                        
+                        <p:column styleClass="header" headerText="Tên lớp" style="width: 100px" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}">
+
                             <h:outputText value="#{reg.tenLop}" />
                         </p:column>
 
-                        <p:column styleClass="header" style="width: 70px; text-align: center" sortBy="#{reg.namNhapHoc}" filterBy="#{reg.namNhapHoc}">
-                            <f:facet name="header">
-                                Năm nhập học
-                            </f:facet>
+                        <p:column styleClass="header" headerText="Năm nhập học" style="width: 70px; text-align: center" sortBy="#{reg.namNhapHoc}" filterBy="#{reg.namNhapHoc}">
+
                             <h:outputText value="#{reg.namNhapHoc}"/>
                         </p:column>
-                        <p:column styleClass="header" sortBy="#{reg.tenKhoaHoc}" filterBy="#{reg.tenKhoaHoc}">
-                            <f:facet name="header">
-                                Khóa học
-                            </f:facet>
+                        <p:column styleClass="header" headerText="Khóa học" sortBy="#{reg.tenKhoaHoc}" filterBy="#{reg.tenKhoaHoc}">
+
                             <h:outputText value="#{reg.tenKhoaHoc}" />
                         </p:column >
-                        <p:column styleClass="header" style="width: 140px" sortBy="#{reg.tenNganh}" filterBy="#{reg.tenNganh}">
-                            <f:facet name="header">
-                                Ngàng học
-                            </f:facet>
+                        <p:column styleClass="header" headerText="Ngành học" style="width: 140px" sortBy="#{reg.tenNganh}" filterBy="#{reg.tenNganh}">
+
                             <h:outputText value="#{reg.tenNganh}" />
                         </p:column >
-                        <p:column styleClass="header" style="width: 70px" sortBy="#{reg.heDaoTao}" filterBy="#{reg.heDaoTao}">
-                            <f:facet name="header">
-                                Hệ đào tạo
-                            </f:facet>
+                        <p:column styleClass="header" headerText="Hệ đào tạo" style="width: 70px" sortBy="#{reg.heDaoTao}" filterBy="#{reg.heDaoTao}">
+
                             <h:outputText value="#{reg.heDaoTao}" />
                         </p:column >
                         <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                     </p:dataTable>
+
+                    <p:confirmDialog id="confirm_delete" message="Bạn chắc chắn muốn xóa không ?"  
+                                     header="Thông báo!" widgetVar="confirm_delete" style="width: 100px" closable="false"> 
+                        <center><p:commandButton id="confirm_dl" value="Đồng ý" oncomplete="PF('confirm_delete').hide()"  
+                                                 actionListener="#{quanLyLopBean.deleteLop()}"  update="tbl_lop :frm_lop" />
+                            <p:commandButton id="cancel_dl"  value="Bỏ qua" onclick="PF('confirm_delete').hide()" type="button" />   </center>
+                    </p:confirmDialog>
+
                 </h:form>
             </ui:define>
         </ui:composition>

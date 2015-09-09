@@ -7,7 +7,6 @@ package itplus.project.model;
 
 import itplus.project.entity.KhoaHocEntity;
 import itplus.project.entity.LopHocEntity;
-import itplus.project.entity.TblLopHoc;
 import itplus.project.pool.DBPool;
 import java.sql.Connection;
 import java.sql.Date;
@@ -30,28 +29,30 @@ public class LopHocModel {
         DBPool db = new DBPool();
     }
 
-    public ArrayList<TblLopHoc> getTableLopHoc() throws Exception {
-        ArrayList<TblLopHoc> arr = new ArrayList<TblLopHoc>();
+    public ArrayList<LopHocEntity> getAllLopHoc() throws Exception {
+        ArrayList<LopHocEntity> arr = new ArrayList<LopHocEntity>();
         Statement stmt = null;
         ResultSet rs = null;
         Connection cn = null;
         try {
             cn = DBPool.getConnection();
             stmt = cn.createStatement();
-            String SQL = "SELECT LOPHOC.MaLop, LOPHOC.TenLop, LOPHOC.NamNhapHoc, KHOAHOC.TenKhoaHoc, NGANH.TenNganh, KHOAHOC.HeDaoTao FROM KHOAHOC "
+            String SQL = "SELECT LOPHOC.MaLop, LOPHOC.TenLop, LOPHOC.NamNhapHoc, KHOAHOC.TenKhoaHoc, NGANH.TenNganh, KHOAHOC.HeDaoTao, NGANH.MaNganh, KHOAHOC.MaKhoaHoc FROM KHOAHOC "
                     + "INNER JOIN LOPHOC ON KHOAHOC.MaKhoaHoc = LOPHOC.MaKhoaHoc "
                     + "INNER JOIN NGANH ON KHOAHOC.MaNganh = NGANH.MaNganh "
                     + "ORDER BY LOPHOC.NgayTao DESC";
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
-                TblLopHoc lopHoc = new TblLopHoc();
+                LopHocEntity lopHoc = new LopHocEntity();
                 lopHoc.setMaLop(rs.getString(1));
                 lopHoc.setTenLop(rs.getString(2));
                 lopHoc.setNamNhapHoc(rs.getString(3));
                 lopHoc.setTenKhoaHoc(rs.getString(4));
                 lopHoc.setTenNganh(rs.getString(5));
                 lopHoc.setHeDaoTao(rs.getString(6));
+                lopHoc.setMaNganh(rs.getString(7));
+                lopHoc.setMaKhoaHoc(rs.getString(8));
                 arr.add(lopHoc);
             }
         } catch (Exception ex) {
@@ -97,8 +98,34 @@ public class LopHocModel {
         return arr;
     }
     
+    public String getTenLopOld(String MaLop) throws Exception {
+        String TenLop = "";
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT TenLop from LOPHOC WHERE MaLop = ?";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, MaLop);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                TenLop = rs.getString(1);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return TenLop;
+    }
+
     public boolean checkDuplicateTenLop(String TenLop) throws Exception {
-        
+
         PreparedStatement stmt = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -122,9 +149,9 @@ public class LopHocModel {
         }
         return false;
     }
-    
+
     public boolean checkDuplicateMaLop(String MaLop) throws Exception {
-        
+
         PreparedStatement stmt = null;
         Connection conn = null;
         ResultSet rs = null;
@@ -162,7 +189,7 @@ public class LopHocModel {
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
 //            stmt = conn.prepareStatement(SQL);
-            stmt.setString(1, lop.getMaLop());
+            stmt.setString(1, lop.getTenLop());
             stmt.setString(2, lop.getTenLop());
             stmt.setString(3, lop.getNamNhapHoc());
             stmt.setString(4, lop.getMaKhoaHoc());
@@ -184,16 +211,19 @@ public class LopHocModel {
     }
 
     public void editLophoc(LopHocEntity lop) throws SQLException {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
-            String SQL = "update LOPHOC set TenLop = ?, NamNhapHoc = ?, MaKhoaHoc = ? where MaLop = ?";
+            String SQL = "update LOPHOC set TenLop = ?, NamNhapHoc = ?, MaKhoaHoc = ?, NgayTao = ? where MaLop = ?";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL);
             stmt.setString(1, lop.getTenLop());
             stmt.setString(2, lop.getNamNhapHoc());
             stmt.setString(3, lop.getMaKhoaHoc());
-            stmt.setString(4, lop.getMaLop());
+            stmt.setString(4, dateFormat.format(cal.getTime()));
+            stmt.setString(5, lop.getMaLop());
             stmt.executeUpdate();
         } finally {
             try {
