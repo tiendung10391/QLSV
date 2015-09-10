@@ -19,4 +19,10 @@
         <managed-bean-class>itplus.project.bean.QuanLyLopBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <description>contrator sinh vien</description>
+        <managed-bean-name>sinhVienBean</managed-bean-name>
+        <managed-bean-class>itplus.project.bean.QuanLySinhVienBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

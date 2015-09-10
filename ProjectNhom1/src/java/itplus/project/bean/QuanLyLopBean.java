@@ -140,7 +140,6 @@ public class QuanLyLopBean extends MessageUtil {
                 lopHocEntity.setHeDaoTao(heDaoTao);
                 lopHocEntity.setTenNganh(tenNganh);
 
-                arrLopHoc.add(lopHocEntity);
                 
                 for (LopHocEntity lopHoc : arrLopHoc) {
                     if (lopHoc.getMaLop() == lopHocEntity.getMaLop()) {

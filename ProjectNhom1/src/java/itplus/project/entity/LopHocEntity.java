@@ -22,15 +22,7 @@ public class LopHocEntity implements Serializable, Cloneable {
     private String TenNganh;
     private String HeDaoTao;
 
-    public LopHocEntity Clone() {
-        try {
-            return (LopHocEntity) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
-    }
-
+    
     @Override
     public LopHocEntity clone() throws CloneNotSupportedException {
         return (LopHocEntity) super.clone();

@@ -5,9 +5,10 @@
         <group>
             <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/bean/QuanLyLopBean.java</file>
             <file>file:/D:/github/QLSV/ProjectNhom1/web/admin/backend_lop.xhtml</file>
-            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/entity/TblLopHoc.java</file>
-            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/entity/KhoaHocEntity.java</file>
+            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/bean/QuanLySinhVienBean.java</file>
+            <file>file:/D:/github/QLSV/ProjectNhom1/web/admin/backend_sinhvien.xhtml</file>
             <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/model/LopHocModel.java</file>
+            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/bean/LoginBean.java</file>
         </group>
     </open-files>
 </project-private>
