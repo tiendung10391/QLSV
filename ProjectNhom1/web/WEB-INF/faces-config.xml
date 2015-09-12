@@ -25,4 +25,10 @@
         <managed-bean-class>itplus.project.bean.QuanLySinhVienBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <description>quan ly mon hoc</description>
+        <managed-bean-name>quanLyMonHocBean</managed-bean-name>
+        <managed-bean-class>itplus.project.bean.QuanLyMonHocBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

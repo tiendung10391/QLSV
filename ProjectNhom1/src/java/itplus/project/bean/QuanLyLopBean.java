@@ -14,6 +14,7 @@ import itplus.project.model.LopHocModel;
 import itplus.project.model.NganhModel;
 import itplus.project.util.MessageUtil;
 import itplus.project.util.ValidatorUtil;
+import static java.awt.SystemColor.window;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -126,7 +127,7 @@ public class QuanLyLopBean extends MessageUtil {
                 System.out.println("MaKhoaHoc: " + khoaHoc);
                 lopHocModel.editLophoc(lopHocEntity);
                 //cap nhat tren giao dien
-                
+
                 // lay ve thong tin ten khoa hoc va he dao tao tu ma khoa hoc
                 ArrayList<KhoaHocEntity> arrInfoKhoaHoc = new ArrayList<KhoaHocEntity>();
                 arrInfoKhoaHoc = khoaHocModel.getInfoKhoaHocFormMaKhoaHoc(khoaHoc);
@@ -140,7 +141,6 @@ public class QuanLyLopBean extends MessageUtil {
                 lopHocEntity.setHeDaoTao(heDaoTao);
                 lopHocEntity.setTenNganh(tenNganh);
 
-                
                 for (LopHocEntity lopHoc : arrLopHoc) {
                     if (lopHoc.getMaLop() == lopHocEntity.getMaLop()) {
                         arrLopHoc.set(arrLopHoc.indexOf(lopHoc), lopHocEntity);
@@ -176,7 +176,6 @@ public class QuanLyLopBean extends MessageUtil {
     }
 
     public boolean isValidate() {
-
         if (ValidatorUtil.isSpaceString(lopHocEntity.getTenLop())) {
             addErrorMessage("Chưa nhập tên lớp học");
             focus = "txtTenLop";
@@ -206,11 +205,12 @@ public class QuanLyLopBean extends MessageUtil {
     }
 
     public void selectedRowtable(SelectEvent event) {
+        System.out.println("size: " + listLopHocSelected.size());
         disableMaLop = false;
         rowSelected = (LopHocEntity) event.getObject();
-        try{
+        try {
             lopHocEntity = rowSelected.clone();
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         System.out.println("Malop " + lopHocEntity.getMaLop() + " TenLop: " + lopHocEntity.getTenLop() + " Nam: " + lopHocEntity.getNamNhapHoc());
@@ -241,7 +241,7 @@ public class QuanLyLopBean extends MessageUtil {
                     } else {
                         return false;
                     }
-                }else {
+                } else {
                     return false;
                 }
 
@@ -252,8 +252,6 @@ public class QuanLyLopBean extends MessageUtil {
 
         return false;
     }
-
-    
 
     public void getAllNganh() {
         try {
@@ -325,8 +323,8 @@ public class QuanLyLopBean extends MessageUtil {
         }
 
     }
-    
-    public void clearText(){
+
+    public void clearText() {
         lopHocEntity = new LopHocEntity();
         focus = "txtTenLop";
     }
@@ -346,6 +344,8 @@ public class QuanLyLopBean extends MessageUtil {
             return "false";
         }
     }
+    
+    
 
     public Map<String, Map<String, String>> getDataKhoaHoc() {
         return data;
@@ -489,6 +489,7 @@ public class QuanLyLopBean extends MessageUtil {
 
     public ArrayList<LopHocEntity> getListLopHocSelected() {
         return listLopHocSelected;
+
     }
 
     public void setListLopHocSelected(ArrayList<LopHocEntity> listLopHocSelected) {

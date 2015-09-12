@@ -18,7 +18,7 @@
                         <center class="title">QUẢN LÝ SINH VIÊN</center>
                         <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
                             <p:outputLabel value="Mã sinh viên:"/>
-                            <p:inputText value="#{sinhVienBean.sinhVienEntity.maSinhVien}" id="txtMaSinhVien" maxlength="10"/>
+                            <p:inputText value="#{sinhVienBean.sinhVienEntity.maSinhVien}" id="txtMaSinhVien" maxlength="10" disabled="#{sinhVienBean.checkSelectedTable()}"/>
                             <p:outputLabel value="Số điện thoại:"/>
                             <p:inputText value="#{sinhVienBean.sinhVienEntity.SDT}" id="txtSDT" maxlength="20"/>
                             <p:outputLabel value="Tên sinh viên:"/>

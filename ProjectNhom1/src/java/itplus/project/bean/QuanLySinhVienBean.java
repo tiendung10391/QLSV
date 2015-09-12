@@ -42,6 +42,7 @@ public class QuanLySinhVienBean extends MessageUtil {
     private LopHocModel lopHocModel;
     private LopHocEntity lopHocEntity;
     private boolean checkUpdate;
+    private boolean eventSelected = false;
 
     /**
      * Creates a new instance of SinhVienBean
@@ -54,6 +55,7 @@ public class QuanLySinhVienBean extends MessageUtil {
         getAllSinhVien();
         getAllLopHoc();
         checkStatusButton();
+        checkSelectedTable();
     }
 
     public void getAllSinhVien() {
@@ -175,7 +177,7 @@ public class QuanLySinhVienBean extends MessageUtil {
 //            checkStatusButton();//ham enable hoac disable button tren giao dien
             SinhVienEntity = new SinhVienEntity();
             focus = "txtMaSinhVien";
-            addSuccessMessage("Xoa thanh cong");
+            addSuccessMessage("Xóa thành công");
         } catch (Exception ex) {
             addErrorMessage(ex);
         }
@@ -284,10 +286,12 @@ public class QuanLySinhVienBean extends MessageUtil {
 
     public void clearText() {
         SinhVienEntity = new SinhVienEntity();
+        eventSelected = false;
         focus = "txtMaSinhVien";
     }
 
     public void selectedRowtable(SelectEvent event) {
+        eventSelected = true;
         rowSelected = (SinhVienEntity) event.getObject();
         try {
             SinhVienEntity = rowSelected.clone();
@@ -295,6 +299,14 @@ public class QuanLySinhVienBean extends MessageUtil {
             ex.printStackTrace();
         }
         System.out.println("Malop " + SinhVienEntity.getMaLop() + " TenLop: " + SinhVienEntity.getTenLop());
+    }
+    
+    public String checkSelectedTable(){
+        if(eventSelected){
+            return "true";
+        }else {
+            return "false";
+        }
     }
 
     // getter and setter

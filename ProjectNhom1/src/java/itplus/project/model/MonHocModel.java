@@ -5,52 +5,47 @@
  */
 package itplus.project.model;
 
-import itplus.project.entity.SinhVienEntity;
+import itplus.project.entity.LopHocEntity;
+import itplus.project.entity.MonHocEntity;
 import itplus.project.pool.DBPool;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  *
  * @author Dung NT
  */
-public class SinhVienModel {
+public class MonHocModel {
 
-    public SinhVienModel() {
+    public MonHocModel() {
         DBPool db = new DBPool();
     }
 
-    public ArrayList<SinhVienEntity> getSinhVien() throws Exception {
-        ArrayList<SinhVienEntity> arr = new ArrayList<SinhVienEntity>();
+    public ArrayList<MonHocEntity> getAllMonHoc() throws Exception {
+        ArrayList<MonHocEntity> arrMonHoc = new ArrayList<MonHocEntity>();
         Statement stmt = null;
         ResultSet rs = null;
         Connection cn = null;
         try {
             cn = DBPool.getConnection();
             stmt = cn.createStatement();
-            String SQL = "SELECT SINHVIEN.*, LOPHOC.TenLop FROM SINHVIEN INNER JOIN LOPHOC ON SINHVIEN.MaLop = LOPHOC.MaLop";
+            String SQL = "SELECT * FROM MONHOC";
             rs = stmt.executeQuery(SQL);
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
             while (rs.next()) {
-                SinhVienEntity sv = new SinhVienEntity();
-                sv.setMaSinhVien(rs.getString(1));
-                sv.setTenSinhVien(rs.getString(2));
-                sv.setNgaySinhView(format.format(rs.getDate(3)));
-                sv.setGioiTinh(rs.getString(4));
-                sv.setSDT(rs.getString(5));
-                sv.setDiaChi(rs.getString(6));
-                sv.setQueQuan(rs.getString(7));
-                sv.setEmail(rs.getString(8));
-                sv.setMaLop(rs.getString(9));
-                sv.setTenLop(rs.getString(11));
-                sv.setNgaySinh(rs.getDate(3));
-                arr.add(sv);
+                MonHocEntity monHoc = new MonHocEntity();
+                monHoc.setMaMonHoc(rs.getString(1));
+                monHoc.setTenMonHoc(rs.getString(2));
+                monHoc.setSoGio(rs.getString(3));
+                monHoc.setGhiChu(rs.getString(4));
+                arrMonHoc.add(monHoc);
             }
         } catch (Exception ex) {
             throw ex;
@@ -61,28 +56,24 @@ public class SinhVienModel {
                 throw e;
             }
         }
-        return arr;
-    }
 
-    public int addSinhVien(SinhVienEntity sv) throws SQLException {
+        return arrMonHoc;
+    }
+    
+    public int addMonHoc(MonHocEntity monHoc) throws SQLException {
         int id = 0;
         PreparedStatement stmt = null;
         Connection conn = null;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         try {
-            String SQL = "insert into SINHVIEN values(?,?,?,?,?,?,?,?,?,?)";
+
+            String SQL = "insert into MONHOC values(?,?,?,?)";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, sv.getMaSinhVien());
-            stmt.setString(2, sv.getTenSinhVien());
-            stmt.setString(3, format.format(sv.getNgaySinh()));
-            stmt.setString(4, sv.getGioiTinh());
-            stmt.setString(5, sv.getSDT());
-            stmt.setString(6, sv.getDiaChi());
-            stmt.setString(7, sv.getQueQuan());
-            stmt.setString(8, sv.getEmail());
-            stmt.setString(9, sv.getMaLop());
-            stmt.setString(10,"svitplus");
+//            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, monHoc.getMaMonHoc());
+            stmt.setString(2, monHoc.getTenMonHoc());
+            stmt.setString(3, monHoc.getSoGio());
+            stmt.setString(4, monHoc.getGhiChu());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -99,23 +90,17 @@ public class SinhVienModel {
         return id;
     }
 
-    public void editSinhVien(SinhVienEntity sv) throws SQLException {
+    public void editMonHoc(MonHocEntity monHoc) throws SQLException {
         PreparedStatement stmt = null;
         Connection conn = null;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         try {
-            String SQL = "update SINHVIEN set TenSV = ?, NgaySinh = ?, GioiTinh = ?, SDT = ?, DiaChi = ?, QueQuan = ?, Email = ?, MaLop = ? WHERE MaSV = ?";
+            String SQL = "UPDATE MONHOC set TenMonHoc = ?, SoGio = ?, GhiChu = ? where MaMonHoc = ?";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL);
-            stmt.setString(1, sv.getTenSinhVien());
-            stmt.setString(2, format.format(sv.getNgaySinh()));
-            stmt.setString(3, sv.getGioiTinh());
-            stmt.setString(4, sv.getSDT());
-            stmt.setString(5, sv.getDiaChi());
-            stmt.setString(6, sv.getQueQuan());
-            stmt.setString(7, sv.getEmail());
-            stmt.setString(8, sv.getMaLop());
-            stmt.setString(9, sv.getMaSinhVien());
+            stmt.setString(1, monHoc.getTenMonHoc());
+            stmt.setString(2, monHoc.getSoGio());
+            stmt.setString(3, monHoc.getGhiChu());
+            stmt.setString(4, monHoc.getMaMonHoc());
             stmt.executeUpdate();
         } finally {
             try {
@@ -126,17 +111,17 @@ public class SinhVienModel {
             }
         }
     }
-
-    public void deleteSinhVien(ArrayList<SinhVienEntity> arr) throws SQLException, Exception {
+    
+    public void deleteMonHoc(ArrayList<MonHocEntity> arr) throws SQLException, Exception {
         PreparedStatement stmt = null;
         Connection conn = null;
         try {
             conn = DBPool.getConnection();
             conn.setAutoCommit(false);//tao transaction
-            for (SinhVienEntity SinhVien : arr) {
-                String SQL = "delete SINHVIEN  where MaSV = ? ";
+            for (MonHocEntity monHoc : arr) {
+                String SQL = "DELETE MONHOC  where MaMonHoc = ? ";
                 stmt = conn.prepareStatement(SQL);
-                stmt.setString(1, SinhVien.getMaSinhVien());
+                stmt.setString(1, monHoc.getMaMonHoc());
                 stmt.executeUpdate();
             }
             conn.commit();
@@ -147,21 +132,20 @@ public class SinhVienModel {
             throw new Exception(ex.getMessage());
 
         } finally {
-
             DBPool.releaseConnection(conn, stmt);
         }
     }
-
-    public boolean checkDuplicateMaSinhVien(String MaSV) throws Exception {
+    
+    public boolean checkDuplicateMaMonHoc(String MaMonHoc) throws Exception {
 
         PreparedStatement stmt = null;
         Connection conn = null;
         ResultSet rs = null;
         try {
-            String SQL = "SELECT * from SINHVIEN WHERE MaSV = ?";
+            String SQL = "SELECT * from MONHOC WHERE MaMonHoc = ?";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL);
-            stmt.setString(1, MaSV);
+            stmt.setString(1, MaMonHoc);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 return true;
@@ -177,5 +161,5 @@ public class SinhVienModel {
         }
         return false;
     }
-
+    
 }

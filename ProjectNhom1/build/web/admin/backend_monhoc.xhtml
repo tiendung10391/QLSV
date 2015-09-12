@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Quản lý môn học</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="backend.xhtml">
+            <ui:define name="content">
+                <h:form id="frm_monhoc">
+                    <p:growl id="growl" autoUpdate="true"/>
+                    <p:focus for="#{quanLyMonHocBean.focus}" id="focus"/>
+                    <h:panelGrid class="panel1">
+                        <center class="title">QUẢN LÝ MÔN HỌC</center>
+                        <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
+
+                            <p:outputLabel value="Mã môn học:"/>
+                            <p:inputText id="txtMaMon" maxlength="10" value="#{quanLyMonHocBean.monHocEntity.maMonHoc}" disabled="#{quanLyMonHocBean.checkSelectedTable()}"/>
+
+                            <p:outputLabel value="Tên môn học:"/>
+                            <p:inputText id="txtTenMon" maxlength="50" value="#{quanLyMonHocBean.monHocEntity.tenMonHoc}"/>
+
+                            <p:outputLabel value="Số giờ:" />
+                            <p:inputText id="txtSoGio" maxlength="5" value="#{quanLyMonHocBean.monHocEntity.soGio}"/>
+
+                            <p:outputLabel value="Ghi chú:" />
+                            <p:inputTextarea id="txtGhiChu" value="#{quanLyMonHocBean.monHocEntity.ghiChu}" rows="6" cols="30" maxlength="1000" />
+
+                        </h:panelGrid>
+                        <h:panelGrid columns="4" style="margin: auto">
+                            <p:commandButton value="Thêm mới" actionListener="#{quanLyMonHocBean.addMonHoc()}" update="frm_monhoc"/>
+                            <p:commandButton value="Cập nhật" disabled="#{quanLyMonHocBean.checkStatusButton()}" actionListener="#{quanLyMonHocBean.editMonHoc()}" update="frm_monhoc"/>
+                            <p:commandButton value="Xóa" disabled="#{quanLyMonHocBean.checkStatusButton()}" onclick="PF('confirm_delete').show()"/>
+                            <p:commandButton value="Nhập lại" actionListener="#{quanLyMonHocBean.clearText()}" update="frm_monhoc" />
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <p:dataTable 
+                        emptyMessage="Chưa có bản ghi nào" 
+                        styleClass="table"
+                        rowIndexVar="rowIndex" 
+                        var="reg" 
+                        value="#{quanLyMonHocBean.arrMonHoc}"
+                        id="tbl_monhoc"
+                        rowKey="#{reg.maMonHoc}"
+                        rows="10"
+                        paginator="true"
+                        selection="#{quanLyMonHocBean.listLopHocSelected}"
+                        rowsPerPageTemplate="5,10,15"
+                        >
+                        <p:ajax listener="#{quanLyMonHocBean.selectedRowtable}" event="rowSelect" update=":frm_monhoc"/>
+                        <f:facet name="header" >  
+                            <div style="padding: 5px">DANH SÁCH MÔN HỌC</div>
+                        </f:facet>
+                        <p:column styleClass="header" headerText="STT" style="width: 25px; text-align: center">
+                            <h:outputText value="#{rowIndex+1}" />
+                        </p:column>
+                        <p:column styleClass="header" headerText="Mã môn học" sortBy="#{reg.maMonHoc}" filterBy="#{reg.maMonHoc}" >
+                            <h:outputText value="#{reg.maMonHoc}" />
+                        </p:column>
+                        <p:column styleClass="header" headerText="Tên môn học" sortBy="#{reg.tenMonHoc}" filterBy="#{reg.tenMonHoc}">
+                            <h:outputText value="#{reg.tenMonHoc}" />
+                        </p:column>  
+                        <p:column styleClass="header" headerText="Số giờ" sortBy="#{reg.soGio}" filterBy="#{reg.soGio}">
+                            <h:outputText value="#{reg.soGio}" />
+                        </p:column> 
+                        <p:column styleClass="header" headerText="Ghi chú" sortBy="#{reg.ghiChu}" filterBy="#{reg.ghiChu}">
+                            <h:outputText value="#{reg.ghiChu}" />
+                        </p:column >
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                    </p:dataTable>
+                    <p:confirmDialog id="confirm_delete" message="Bạn chắc chắn muốn xóa không ?"  
+                                     header="Thông báo!" widgetVar="confirm_delete" style="width: 100px" closable="false"> 
+                        <center><p:commandButton id="confirm_dl" value="Đồng ý" oncomplete="PF('confirm_delete').hide()"  
+                                                 actionListener="#{quanLyMonHocBean.deleteMonHoc()}"  update="tbl_monhoc :frm_monhoc" />
+                            <p:commandButton id="cancel_dl"  value="Bỏ qua" onclick="PF('confirm_delete').hide()" type="button" />   </center>
+                    </p:confirmDialog>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
