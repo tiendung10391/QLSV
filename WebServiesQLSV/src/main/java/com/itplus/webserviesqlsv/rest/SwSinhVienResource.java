@@ -7,6 +7,7 @@ package com.itplus.webserviesqlsv.rest;
 
 import com.itplus.webserviesqlsv.Entity.LopHocEntity;
 import com.itplus.webserviesqlsv.Entity.SinhVienEntity;
+import com.itplus.webserviesqlsv.Entity.Utility;
 import com.itplus.webserviesqlsv.Model.SinhVienModel;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -22,6 +23,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -42,6 +44,18 @@ public class SwSinhVienResource {
     SinhVienModel sinhVienModel ;
     public SwSinhVienResource() {
         sinhVienModel = new SinhVienModel();
+    }
+     @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/checkLogin")
+     public String checkLogin(@QueryParam("TaiKhoan") String uname, @QueryParam("MatKhau") String pwd) throws Exception{
+        String response = "";
+        if(sinhVienModel.checkLogin(uname, pwd)){
+            response = Utility.constructJSON("login",true);
+        }else{
+            response = Utility.constructJSON("login", false, "Tài khoản hoặc mật khẩu sai!");
+        }
+    return response;        
     }
 
     /**

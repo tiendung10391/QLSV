@@ -20,6 +20,15 @@ public class SinhVienEntity {
     private String queQuan = "";
     private String email = "";
     private String maLop = "";
+    private String matKhau = "";
+
+    public String getMatKhau() {
+        return matKhau;
+    }
+
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
+    }
 
     public String getMaSV() {
         return maSV;

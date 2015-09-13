@@ -25,6 +25,33 @@ public class SinhVienModel {
     public SinhVienModel() {
         DBPool db = new DBPool();
     }
+    // check username va password trong csdl
+    public boolean checkLogin(String username, String password) throws Exception{
+        boolean isUserAvailable = false;
+        Statement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT * FROM SINHVIEN WHERE MaSV = '"+username+"' AND MatKhau = '"+password+"'";
+            conn = DBPool.getConnection();         
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                isUserAvailable = true;
+            }
+        }catch(Exception ex){
+            throw new Exception();
+        }
+        finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception ex) {
+                throw new Exception();
+            }
+        }
+        
+        return isUserAvailable;
+    }
 
     public ArrayList<SinhVienEntity> getSinhVien() throws Exception {
         ArrayList<SinhVienEntity> arr = new ArrayList<SinhVienEntity>();
@@ -39,7 +66,7 @@ public class SinhVienModel {
 
             while (rs.next()) {
                 SinhVienEntity sv = new SinhVienEntity();
-                sv.setMaLop(rs.getString(1));
+                sv.setMaSV(rs.getString(1));
                 sv.setTenSV(rs.getString(2));
                 sv.setNgaySinh(rs.getString(3));
                 sv.setGioiTinh(rs.getBoolean(4));
@@ -48,6 +75,7 @@ public class SinhVienModel {
                 sv.setQueQuan(rs.getString(7));
                 sv.setEmail(rs.getString(8));
                 sv.setMaLop(rs.getString(9));
+                sv.setMatKhau(rs.getString(10));
                 arr.add(sv);
             }
         } catch (Exception ex) {
@@ -79,6 +107,7 @@ public class SinhVienModel {
             stmt.setString(7, sv.getQueQuan());
             stmt.setString(8, sv.getEmail());
             stmt.setString(9, sv.getMaLop());
+            stmt.setString(10, sv.getMatKhau());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -111,6 +140,7 @@ public class SinhVienModel {
             stmt.setString(7, sv.getEmail());
             stmt.setString(8, sv.getMaLop());
             stmt.setString(9, sv.getMaSV());
+            stmt.setString(10, sv.getMatKhau());
             stmt.executeUpdate();
         } finally {
             try {
