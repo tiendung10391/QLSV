@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Quản lý khóa học</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="backend.xhtml">
+            <ui:define name="content">
+                <h:form id="frm_khoahoc">
+                    <p:growl id="growl" autoUpdate="true"/>
+                    <p:focus for="#{quanLyKhoaHocMonHocBean.focus}" id="focus"/>
+                    <h:panelGrid class="panel1">
+                        <center class="title">QUẢN LÝ KHÓA HỌC</center>
+                        <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
+
+                            <p:outputLabel value="Khóa học: "/>
+                            <p:selectOneMenu value="#{quanLyKhoaHocMonHocBean.khoaHoc}" id="txtKhoaHoc" style="width: 181px" effect="fold" editable="false" filter="true" filterMatchMode="startsWith">
+
+                                <f:selectItem itemLabel="Chọn khóa học" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{quanLyKhoaHocMonHocBean.khoaHocList}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Học kỳ: "/>
+                            <p:selectOneMenu value="#{quanLyKhoaHocMonHocBean.hocKy}" id="txtHocKy" style="width: 181px" effect="fold" editable="false">
+
+                                <f:selectItem itemLabel="Chọn học kỳ" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{quanLyKhoaHocMonHocBean.hocKyList}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Môn học:" />
+                            <p:selectOneMenu value="#{quanLyKhoaHocMonHocBean.monHoc}" id="txtMonHoc" style="width: 181px" effect="fold" editable="false" filter="true" filterMatchMode="startsWith">
+
+                                <f:selectItem itemLabel="Chọn Môn học" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{quanLyKhoaHocMonHocBean.monHocList}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Thứ tự:" />
+                            <p:inputText id="txtThuTu"/>
+
+                        </h:panelGrid>
+                        <h:panelGrid columns="4" style="margin: auto">
+                            <p:commandButton value="Thêm mới" />
+                            <p:commandButton value="Cập nhật" disabled="#{quanLyKhoaHocMonHocBean.checkStatusButton()}" />
+                            <p:commandButton value="Xóa" disabled="#{quanLyKhoaHocMonHocBean.checkStatusButton()}" onclick="PF('confirm_delete').show()"/>
+                            <p:commandButton value="Nhập lại" />
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <p:dataTable 
+                        emptyMessage="Chưa có khóa học nào" 
+                        styleClass="table"
+                        rowIndexVar="rowIndex" 
+                        var="reg" 
+                        value="#{quanLyKhoaHocMonHocBean.arrKhoaHocMonHoc}"
+                        id="tbl_sinhvien"
+                        rowKey="#{reg.idKhoaHocMonHoc}"
+                        rows="10"
+                        paginator="true"
+                        selection="#{quanLyKhoaHocMonHocBean.listKhoaHocMonHocSelected}"
+                        rowsPerPageTemplate="5,10,15"
+                        >
+
+                        <f:facet name="header" >  
+                            <div style="padding: 5px">DANH SÁCH KHÓA HỌC</div>
+                        </f:facet>
+                        <p:column styleClass="header" headerText="STT" style="width: 25px; text-align: center">
+                            <h:outputText value="#{rowIndex+1}" />
+                        </p:column>
+                        <p:column styleClass="header" headerText="Khóa học" sortBy="#{reg.tenKhoaHoc}" filterBy="#{reg.tenKhoaHoc}" >
+                            <h:outputText value="#{reg.tenKhoaHoc}" />
+                        </p:column>
+                        <p:column styleClass="header" headerText="Học kỳ" sortBy="#{reg.tenHocKy}" filterBy="#{reg.tenHocKy}">
+                            <h:outputText value="#{reg.tenHocKy}" />
+                        </p:column>  
+                        <p:column styleClass="header" headerText="Môn học" sortBy="#{reg.tenMonHoc}" filterBy="#{reg.tenMonHoc}">
+                            <h:outputText value="#{reg.tenMonHoc}" />
+                        </p:column> 
+                        <p:column styleClass="header" headerText="Thứ tự" sortBy="#{reg.thuTu}" filterBy="#{reg.thuTu}">
+                            <h:outputText value="#{reg.thuTu}" />
+                        </p:column >
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                    </p:dataTable>
+
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
