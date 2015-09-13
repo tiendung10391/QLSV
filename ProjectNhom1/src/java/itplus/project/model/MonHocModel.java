@@ -162,4 +162,30 @@ public class MonHocModel {
         return false;
     }
     
+    public String getTenMonHoc(String MaMonHoc) throws Exception {
+        String TenMonHoc = "";
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT TenMonHoc from MONHOC WHERE MaMonHoc = ?";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, MaMonHoc);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                TenMonHoc = rs.getString(1);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return TenMonHoc;
+    }
+    
 }

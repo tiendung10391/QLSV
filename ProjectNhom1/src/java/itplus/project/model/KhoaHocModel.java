@@ -116,5 +116,31 @@ public class KhoaHocModel {
         }
         return arr;
     }
+    
+    public String getTenKhoaHoc(String MaKhoaHoc) throws Exception {
+        String TenKhoaHoc = "";
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT TenKhoaHoc from KHOAHOC WHERE MaKhoaHoc = ?";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, MaKhoaHoc);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                TenKhoaHoc = rs.getString(1);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return TenKhoaHoc;
+    }
 
 }

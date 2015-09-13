@@ -17,6 +17,7 @@ import itplus.project.model.KhoaHocMonHocModel;
 import itplus.project.model.MonHocModel;
 import itplus.project.util.MessageUtil;
 import itplus.project.util.ValidatorUtil;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -92,40 +93,95 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
         }
 
     }
-    
-    public void addSinhVien() {
+
+    public void addKhoaHoc() {
 
         if (isValidate()) {
-//            try {
-//                int id;
-//                khoaHocMonHocEntity.setMaLop(lopHoc);
-//                System.out.println("Ma Lop: " + lopHoc);
-//
-//                id = khoaHocMonHocModel.addSinhVien(SinhVienEntity);
-//
-//                // lay ve thong tin ten khoa hoc va he dao tao tu ma khoa hoc
-//                ArrayList<LopHocEntity> arrInfoLopHoc = new ArrayList<LopHocEntity>();
-//                String TenLopHoc = lopHocModel.getTenLopOld(lopHoc);
-//
-//                SinhVienEntity.setTenLop(TenLopHoc);
-//                SinhVienEntity.setNgaySinhView(ngaysinh);
-//                arrSinhVien.add(SinhVienEntity);
-//
-//                addSuccessMessage("Thêm mới thành công");
-//                // khoi tao lai doi tuong xoa trang tren giao dien
-//                SinhVienEntity = new SinhVienEntity();
-//                //focus vao firstname de nguoi dung co the nhap tiep
-//                focus = "txtMaSinhVien";
-//
-//            } catch (Exception ex) {
-//                if (ex.toString().equals("Violation of PRIMARY KEY constraint 'PK_LOPHOC'")) {
-//                    addErrorMessage("Mã Lớp học đã được tạo");
-//                } else {
-//                    addErrorMessage("Không tạo được lớp học");
+            try {
+                int id;
+                khoaHocMonHocEntity.setMaHocKy(hocKy);
+                khoaHocMonHocEntity.setMaKhoaHoc(khoaHoc);
+                khoaHocMonHocEntity.setMaMonHoc(monHoc);
+
+                id = khoaHocMonHocModel.addKhoaHocMonHoc(khoaHocMonHocEntity);
+
+                arrKhoaHocMonHoc.add(khoaHocMonHocEntity);
+                String tenKhoaHoc = khoaHocModel.getTenKhoaHoc(khoaHoc);
+                String tenHocKy = hocKyModel.getTenHocKy(hocKy);
+                String tenMonHoc = monHocModel.getTenMonHoc(monHoc);
+
+                khoaHocMonHocEntity.setTenKhoaHoc(tenKhoaHoc);
+                khoaHocMonHocEntity.setTenHocKy(tenHocKy);
+                khoaHocMonHocEntity.setTenMonHoc(tenMonHoc);
+
+                addSuccessMessage("Thêm mới thành công");
+                // khoi tao lai doi tuong xoa trang tren giao dien
+                khoaHocMonHocEntity = new KhoaHocMonHocEntity();
+                //focus vao firstname de nguoi dung co the nhap tiep
+
+            } catch (Exception ex) {
+                addErrorMessage("Không tạo được khóa học");
+                System.out.println(ex.toString());
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public void editKhoaHoc() {
+        if (isValidate()) {
+            try {
+                System.out.println(khoaHocMonHocEntity.getIdKhoaHocMonHoc() + ": id khoahoc");
+                khoaHocMonHocEntity.setMaHocKy(hocKy);
+                khoaHocMonHocEntity.setMaKhoaHoc(khoaHoc);
+                khoaHocMonHocEntity.setMaMonHoc(monHoc);
+
+                khoaHocMonHocModel.editKhoaHocMonHoc(khoaHocMonHocEntity);
+                //cap nhat tren giao dien
+
+                // lay ve thong tin ten khoa hoc va he dao tao tu ma khoa hoc
+                String tenKhoaHoc = khoaHocModel.getTenKhoaHoc(khoaHoc);
+                String tenHocKy = hocKyModel.getTenHocKy(hocKy);
+                String tenMonHoc = monHocModel.getTenMonHoc(monHoc);
+
+                khoaHocMonHocEntity.setTenKhoaHoc(tenKhoaHoc);
+                khoaHocMonHocEntity.setTenHocKy(tenHocKy);
+                khoaHocMonHocEntity.setTenMonHoc(tenMonHoc);
+
+//                for (int i = 0; i < arrSinhVien.size(); i++) {
+//                    if (arrSinhVien.get(i).getMaSinhVien().equals(SinhVienEntity.getMaSinhVien())) {
+//                        arrSinhVien.set(i, SinhVienEntity);
+//                    }
+//                    System.out.println("arr: " + arrSinhVien.get(i).getMaSinhVien());
 //                }
-//                System.out.println(ex.toString());
-//                ex.printStackTrace();
-//            }
+
+                for (KhoaHocMonHocEntity khoaHoc : arrKhoaHocMonHoc) {
+                    if (khoaHoc.getIdKhoaHocMonHoc() == khoaHocMonHocEntity.getIdKhoaHocMonHoc()) {
+                        arrKhoaHocMonHoc.set(arrKhoaHocMonHoc.indexOf(khoaHoc), khoaHocMonHocEntity);
+                    }
+                }
+                addSuccessMessage("Sửa thành công");
+            } catch (SQLException ex) {
+                System.out.println(ex.toString());
+                addErrorMessage(ex);
+            } catch (Exception ex) {
+                Logger.getLogger(QuanLyLopBean.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public void deleteKhoaHoc(){
+         try {
+            //goi ham xoa ben model
+            khoaHocMonHocModel.deleteKhoaHocMonHoc(listKhoaHocMonHocSelected);
+            //xoa tren giao dien
+            for (KhoaHocMonHocEntity khoaHoc : listKhoaHocMonHocSelected) {
+                arrKhoaHocMonHoc.remove(khoaHoc);
+            }
+//            checkStatusButton();//ham enable hoac disable button tren giao dien
+            khoaHocMonHocEntity = new KhoaHocMonHocEntity();
+            addSuccessMessage("Xóa thành công");
+        } catch (Exception ex) {
+            addErrorMessage(ex);
         }
     }
 
@@ -144,6 +200,10 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
             return false;
         } else if (!ValidatorUtil.isNumber(String.valueOf(khoaHocMonHocEntity.getThuTu()))) {
             addErrorMessage("Thứ tự chỉ được nhập số");
+            focus = "txtThuTu";
+            return false;
+        } else if (ValidatorUtil.isChuaNhapInt(khoaHocMonHocEntity.getThuTu())) {
+            addErrorMessage("bạn chưa nhập thứ tự");
             focus = "txtThuTu";
             return false;
         } else {

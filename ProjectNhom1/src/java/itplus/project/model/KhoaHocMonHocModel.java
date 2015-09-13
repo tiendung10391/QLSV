@@ -36,9 +36,9 @@ public class KhoaHocMonHocModel {
         try {
             cn = DBPool.getConnection();
             stmt = cn.createStatement();
-            String SQL = "SELECT KHOAHOC_MONHOC.IdKhoaHocMonHoc, KHOAHOC_MONHOC.MaKhoaHoc, KHOAHOC.TenKhoaHoc, KHOAHOC_MONHOC.MaHocKy, HOCKY.TenHocKy, KHOAHOC_MONHOC.MaMonHoc, MONHOC.MaMonHoc, KHOAHOC_MONHOC.ThuTu from KHOAHOC_MONHOC"
+            String SQL = "SELECT KHOAHOC_MONHOC.IdKhoaHocMonHoc, KHOAHOC_MONHOC.MaKhoaHoc, KHOAHOC.TenKhoaHoc, KHOAHOC_MONHOC.MaHocKy, HOCKY.TenHocKy, KHOAHOC_MONHOC.MaMonHoc, MONHOC.TenMonHoc, KHOAHOC_MONHOC.ThuTu from KHOAHOC_MONHOC"
                     + " INNER JOIN HOCKY ON KHOAHOC_MONHOC.MaHocKy = HOCKY.MaHocKy"
-                    + " INNER JOIN KHOAHOC ON KHOAHOC_MONHOC.MaKhoaHoc = KHOAHOC.MaNganh"
+                    + " INNER JOIN KHOAHOC ON KHOAHOC_MONHOC.MaKhoaHoc = KHOAHOC.MaKhoaHoc"
                     + " INNER JOIN MONHOC ON KHOAHOC_MONHOC.MaMonHoc = MONHOC.MaMonHoc";
             rs = stmt.executeQuery(SQL);
 
@@ -65,7 +65,7 @@ public class KhoaHocMonHocModel {
         }
         return arr;
     }
-    
+
     public int addKhoaHocMonHoc(KhoaHocMonHocEntity k) throws SQLException {
         int id = 0;
         PreparedStatement stmt = null;
@@ -92,6 +92,53 @@ public class KhoaHocMonHocModel {
             }
         }
         return id;
+    }
+
+    public void editKhoaHocMonHoc(KhoaHocMonHocEntity k) throws SQLException {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        try {
+            String SQL = "update KHOAHOC_MONHOC set MaHocKy = ?, MaKhoaHoc = ?, MaMonHoc = ?, ThuTu = ? WHERE IdKhoaHocMonHoc = ?";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, k.getMaHocKy());
+            stmt.setString(2, k.getMaKhoaHoc());
+            stmt.setString(3, k.getMaMonHoc());
+            stmt.setString(4, String.valueOf(k.getThuTu()));
+            stmt.setString(5, String.valueOf(k.getIdKhoaHocMonHoc()));
+            stmt.executeUpdate();
+        } finally {
+            try {
+                stmt.close();
+                conn.close();
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+    }
+
+    public void deleteKhoaHocMonHoc(ArrayList<KhoaHocMonHocEntity> arr) throws SQLException, Exception {
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        try {
+            conn = DBPool.getConnection();
+            conn.setAutoCommit(false);//tao transaction
+            for (KhoaHocMonHocEntity k : arr) {
+                String SQL = "delete KHOAHOC_MONHOC where IdKhoaHocMonHoc = ? ";
+                stmt = conn.prepareStatement(SQL);
+                stmt.setString(1, String.valueOf(k.getIdKhoaHocMonHoc()));
+                stmt.executeUpdate();
+            }
+            conn.commit();
+
+        } catch (Exception ex) {
+            conn.rollback();
+            conn.setAutoCommit(true);
+            throw new Exception(ex.getMessage());
+
+        } finally {
+            DBPool.releaseConnection(conn, stmt);
+        }
     }
 
 }

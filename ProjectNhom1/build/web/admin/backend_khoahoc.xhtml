@@ -45,14 +45,14 @@ and open the template in the editor.
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Thứ tự:" />
-                            <p:inputText id="txtThuTu"/>
+                            <p:inputText id="txtThuTu" value="#{quanLyKhoaHocMonHocBean.khoaHocMonHocEntity.thuTu}"/>
 
                         </h:panelGrid>
                         <h:panelGrid columns="4" style="margin: auto">
-                            <p:commandButton value="Thêm mới" />
-                            <p:commandButton value="Cập nhật" disabled="#{quanLyKhoaHocMonHocBean.checkStatusButton()}" />
+                            <p:commandButton value="Thêm mới" actionListener="#{quanLyKhoaHocMonHocBean.addKhoaHoc()}" update="frm_khoahoc" />
+                            <p:commandButton value="Cập nhật" disabled="#{quanLyKhoaHocMonHocBean.checkStatusButton()}" actionListener="#{quanLyKhoaHocMonHocBean.editKhoaHoc()}" update="frm_khoahoc" />
                             <p:commandButton value="Xóa" disabled="#{quanLyKhoaHocMonHocBean.checkStatusButton()}" onclick="PF('confirm_delete').show()"/>
-                            <p:commandButton value="Nhập lại" />
+                            <p:commandButton value="Nhập lại" actionListener="#{quanLyKhoaHocMonHocBean.clearText()}" update="frm_khoahoc" />
                         </h:panelGrid>
                     </h:panelGrid>
                     <p:dataTable 
@@ -61,14 +61,14 @@ and open the template in the editor.
                         rowIndexVar="rowIndex" 
                         var="reg" 
                         value="#{quanLyKhoaHocMonHocBean.arrKhoaHocMonHoc}"
-                        id="tbl_sinhvien"
+                        id="tbl_khoahoc"
                         rowKey="#{reg.idKhoaHocMonHoc}"
                         rows="10"
                         paginator="true"
                         selection="#{quanLyKhoaHocMonHocBean.listKhoaHocMonHocSelected}"
                         rowsPerPageTemplate="5,10,15"
                         >
-
+                        <p:ajax listener="#{quanLyKhoaHocMonHocBean.selectedRowtable}" event="rowSelect" update=":frm_khoahoc"/>
                         <f:facet name="header" >  
                             <div style="padding: 5px">DANH SÁCH KHÓA HỌC</div>
                         </f:facet>
@@ -89,7 +89,12 @@ and open the template in the editor.
                         </p:column >
                         <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                     </p:dataTable>
-
+                    <p:confirmDialog id="confirm_delete" message="Bạn chắc chắn muốn xóa không ?"  
+                                     header="Thông báo!" widgetVar="confirm_delete" style="width: 100px" closable="false"> 
+                        <center><p:commandButton id="confirm_dl" value="Đồng ý" oncomplete="PF('confirm_delete').hide()"  
+                                                 actionListener="#{quanLyKhoaHocMonHocBean.deleteKhoaHoc()}"  update="tbl_khoahoc :frm_khoahoc" />
+                            <p:commandButton id="cancel_dl"  value="Bỏ qua" onclick="PF('confirm_delete').hide()" type="button" />   </center>
+                    </p:confirmDialog>
                 </h:form>
             </ui:define>
         </ui:composition>

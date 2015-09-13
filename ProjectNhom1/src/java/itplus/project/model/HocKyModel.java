@@ -9,6 +9,7 @@ import itplus.project.entity.HocKyEntity;
 import itplus.project.entity.KhoaHocEntity;
 import itplus.project.pool.DBPool;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -50,5 +51,31 @@ public class HocKyModel {
             }
         }
         return arr;
+    }
+    
+    public String getTenHocKy(String MaHocKy) throws Exception {
+        String TenHocKy = "";
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT TenHocKy from HOCKY WHERE MaHocKy = ?";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, MaHocKy);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                TenHocKy = rs.getString(1);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return TenHocKy;
     }
 }
