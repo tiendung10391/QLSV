@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.qlsv.MainActivity" >
+
+    <item
+        android:id="@+id/nguoi_dung"
+         android:title="Người Dùng" android:icon="@drawable/ic_user" android:showAsAction="always"/>
+    <item android:id="@+id/item1" android:title="Đổi mật khẩu" android:showAsAction="never"></item>
+    <item android:id="@+id/item2" android:title="Đăng xuất" android:showAsAction="never"></item>
+   
+
+</menu>

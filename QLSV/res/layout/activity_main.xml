@@ -1,0 +1,104 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#296bd7"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:weightSum="1"
+    tools:context=".MainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="93dp"
+        android:layout_weight="0.28"
+        android:orientation="vertical"
+        android:weightSum="1" >
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:layout_weight="1.52"
+            android:gravity="center"
+            android:text="Học Viên ITPlus"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#fcfdfe"
+            android:textSize="28dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:orientation="vertical"
+        android:weightSum="1" >
+
+        <EditText
+            android:id="@+id/taikhoan"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="@drawable/my_edittext"
+            android:hint="Mã học viên"
+            android:padding="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:orientation="vertical"
+        android:weightSum="1" >
+
+        <EditText
+            android:id="@+id/matkhau"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="@drawable/my_edittext"
+            android:hint="Mật khẩu"
+            android:inputType="textPassword"
+            android:padding="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:layout_weight="0.46"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp" >
+
+            <Button
+                android:id="@+id/dangnhap"
+                android:layout_width="138dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/my_button"
+                android:height="40dp"
+                android:text="Đăng Nhập"
+                android:textColor="#fff"
+                android:textSize="17sp"
+                android:width="90dp" />
+
+            <Button
+                android:id="@+id/nhaplai"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/my_button"
+                android:text="Nhập Lại"
+                android:textColor="#fff"
+                android:textSize="17sp"
+                android:width="90dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

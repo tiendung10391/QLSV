@@ -1,0 +1,17 @@
+package com.qlsv.fragment;
+
+import com.example.qlsv.R;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+public class Fragment_chuongtrinh extends Fragment {
+
+	@Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.chuong_trinh, container, false);
+    }
+}
