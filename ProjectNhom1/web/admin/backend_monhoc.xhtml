@@ -16,21 +16,26 @@
                     <p:focus for="#{quanLyMonHocBean.focus}" id="focus"/>
                     <h:panelGrid class="panel1">
                         <center class="title">QUẢN LÝ MÔN HỌC</center>
-                        <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
+                        <h:panelGrid columns="2" style="margin: auto;margin-top: 25px;margin-bottom: 20px">
+                            <h:panelGrid  cellpadding="5px" columns="2" >
+                                <p:outputLabel value="Mã môn học:"/>
+                                <p:inputText id="txtMaMon" maxlength="10" value="#{quanLyMonHocBean.monHocEntity.maMonHoc}" disabled="#{quanLyMonHocBean.checkSelectedTable()}"/>
 
-                            <p:outputLabel value="Mã môn học:"/>
-                            <p:inputText id="txtMaMon" maxlength="10" value="#{quanLyMonHocBean.monHocEntity.maMonHoc}" disabled="#{quanLyMonHocBean.checkSelectedTable()}"/>
+                                <p:outputLabel value="Tên môn học:"/>
+                                <p:inputText id="txtTenMon" maxlength="50" value="#{quanLyMonHocBean.monHocEntity.tenMonHoc}"/>
 
-                            <p:outputLabel value="Tên môn học:"/>
-                            <p:inputText id="txtTenMon" maxlength="50" value="#{quanLyMonHocBean.monHocEntity.tenMonHoc}"/>
+                                <p:outputLabel value="Số giờ:" />
+                                <p:inputText id="txtSoGio" maxlength="5" value="#{quanLyMonHocBean.monHocEntity.soGio}"/>
 
-                            <p:outputLabel value="Số giờ:" />
-                            <p:inputText id="txtSoGio" maxlength="5" value="#{quanLyMonHocBean.monHocEntity.soGio}"/>
-
-                            <p:outputLabel value="Ghi chú:" />
+                            </h:panelGrid>
+                            <h:panelGrid  cellpadding="5px" columns="2" >
+                                <p:outputLabel value="Ghi chú:" />
                             <p:inputTextarea id="txtGhiChu" value="#{quanLyMonHocBean.monHocEntity.ghiChu}" rows="6" cols="30" maxlength="1000" />
 
+                            </h:panelGrid>
+                            
                         </h:panelGrid>
+                        
                         <h:panelGrid columns="4" style="margin: auto">
                             <p:commandButton value="Thêm mới" actionListener="#{quanLyMonHocBean.addMonHoc()}" update="frm_monhoc"/>
                             <p:commandButton value="Cập nhật" disabled="#{quanLyMonHocBean.checkStatusButton()}" actionListener="#{quanLyMonHocBean.editMonHoc()}" update="frm_monhoc"/>
@@ -58,16 +63,16 @@
                         <p:column styleClass="header" headerText="STT" style="width: 25px; text-align: center">
                             <h:outputText value="#{rowIndex+1}" />
                         </p:column>
-                        <p:column styleClass="header" headerText="Mã môn học" sortBy="#{reg.maMonHoc}" filterBy="#{reg.maMonHoc}" >
+                        <p:column filterStyle="width:90%" styleClass="header" headerText="Mã môn học" style="width: 120px" sortBy="#{reg.maMonHoc}" filterBy="#{reg.maMonHoc}" >
                             <h:outputText value="#{reg.maMonHoc}" />
                         </p:column>
-                        <p:column styleClass="header" headerText="Tên môn học" sortBy="#{reg.tenMonHoc}" filterBy="#{reg.tenMonHoc}">
+                        <p:column filterStyle="width:90%" styleClass="header" headerText="Tên môn học" sortBy="#{reg.tenMonHoc}" filterBy="#{reg.tenMonHoc}">
                             <h:outputText value="#{reg.tenMonHoc}" />
                         </p:column>  
-                        <p:column styleClass="header" headerText="Số giờ" sortBy="#{reg.soGio}" filterBy="#{reg.soGio}">
+                        <p:column filterStyle="width:90%" styleClass="header" style="width: 70px" headerText="Số giờ" sortBy="#{reg.soGio}" filterBy="#{reg.soGio}">
                             <h:outputText value="#{reg.soGio}" />
                         </p:column> 
-                        <p:column styleClass="header" headerText="Ghi chú" sortBy="#{reg.ghiChu}" filterBy="#{reg.ghiChu}">
+                        <p:column filterStyle="width:90%" styleClass="header" headerText="Ghi chú" sortBy="#{reg.ghiChu}" filterBy="#{reg.ghiChu}">
                             <h:outputText value="#{reg.ghiChu}" />
                         </p:column >
                         <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
