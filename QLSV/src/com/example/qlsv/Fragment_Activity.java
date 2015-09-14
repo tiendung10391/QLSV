@@ -20,12 +20,15 @@ ActionBar.TabListener{
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
+	String masv;
 	// Tab titles
 	private String[] tabs = { "Trang chủ","Chương trình", "Lịch học", "Xem Điểm" };
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_main);
+		Intent intent = getIntent();
+		masv = intent.getStringExtra("MaSV");
 
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager);
@@ -96,6 +99,7 @@ ActionBar.TabListener{
 		switch(id){
 			case R.id.nguoi_dung:
 				Intent i1 = new Intent(Fragment_Activity.this, Fragment_thongtinsv.class);
+				i1.putExtra("MaSV", masv);
 				startActivity(i1);
 				break;
 		}
