@@ -57,6 +57,18 @@ public class SwSinhVienResource {
         }
     return response;        
     }
+     @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/checkSinhvien")
+     public String checkSinhVien(@QueryParam("MaSV") String masv){
+        String response = "";
+         try {
+             response = sinhVienModel.checkSinhVien(masv);
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+    return response;        
+    }
 
     /**
      * Retrieves representation of an instance of com.itplus.webserviesqlsv.rest.SwSinhVienResource

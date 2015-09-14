@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
@@ -52,6 +53,40 @@ public class SinhVienModel {
         
         return isUserAvailable;
     }
+     public String checkSinhVien(String masv) throws Exception{
+        JSONObject obj = new JSONObject() ;
+        Statement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT * FROM SINHVIEN WHERE MaSV = '"+masv+"' ";
+            conn = DBPool.getConnection();         
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(SQL);
+            while (rs.next()) {
+                obj.put("MaSV", rs.getString(1));
+                obj.put("TenSV", rs.getString(2));
+                obj.put("NgaySinh", rs.getString(3));
+                obj.put("GioiTinh", rs.getBoolean(4));
+                obj.put("Sdt", rs.getString(5));
+                obj.put("DiaChi", rs.getString(6));
+                obj.put("QueQuan", rs.getString(7));
+                obj.put("Email", rs.getString(8));
+                obj.put("MaLop", rs.getString(9));            
+            }
+        }catch(Exception ex){
+            throw new Exception();
+        }
+        finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception ex) {
+                throw new Exception();
+            }
+        }
+        
+        return obj.toString();
+    }
 
     public ArrayList<SinhVienEntity> getSinhVien() throws Exception {
         ArrayList<SinhVienEntity> arr = new ArrayList<SinhVienEntity>();
@@ -61,7 +96,7 @@ public class SinhVienModel {
         try {
             cn = DBPool.getConnection();
             stmt = cn.createStatement();
-            String SQL = "SELECT * from SINHVIEN";
+            String SQL = "SELECT * from SINHVIEN where MaSV = 'sv001'";
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
