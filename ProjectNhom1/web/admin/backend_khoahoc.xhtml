@@ -23,28 +23,28 @@ and open the template in the editor.
                         <center class="title">QUẢN LÝ KHÓA HỌC</center>
                         <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
 
-                            <p:outputLabel value="Khóa học: "/>
-                            <p:selectOneMenu value="#{quanLyKhoaHocMonHocBean.khoaHoc}" id="txtKhoaHoc" style="width: 181px" effect="fold" editable="false" filter="true" filterMatchMode="startsWith">
+                            <p:outputLabel value="Khóa học (*): "/>
+                            <p:selectOneMenu value="#{quanLyKhoaHocMonHocBean.khoaHoc}" id="txtKhoaHoc" style="width: 200px" panelStyle="width: 195px" effect="fold" editable="false" filter="true" filterMatchMode="startsWith">
 
                                 <f:selectItem itemLabel="Chọn khóa học" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{quanLyKhoaHocMonHocBean.khoaHocList}" />
                             </p:selectOneMenu>
 
-                            <p:outputLabel value="Học kỳ: "/>
-                            <p:selectOneMenu value="#{quanLyKhoaHocMonHocBean.hocKy}" id="txtHocKy" style="width: 181px" effect="fold" editable="false">
+                            <p:outputLabel value="Học kỳ (*): "/>
+                            <p:selectOneMenu value="#{quanLyKhoaHocMonHocBean.hocKy}" id="txtHocKy" style="width: 200px" panelStyle="width: 195px" effect="fold" editable="false">
 
                                 <f:selectItem itemLabel="Chọn học kỳ" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{quanLyKhoaHocMonHocBean.hocKyList}" />
                             </p:selectOneMenu>
 
-                            <p:outputLabel value="Môn học:" />
-                            <p:selectOneMenu value="#{quanLyKhoaHocMonHocBean.monHoc}" id="txtMonHoc" style="width: 181px" effect="fold" editable="false" filter="true" filterMatchMode="startsWith">
+                            <p:outputLabel value="Môn học (*):" />
+                            <p:selectOneMenu value="#{quanLyKhoaHocMonHocBean.monHoc}" id="txtMonHoc" style="width: 200px" panelStyle="width: 195px" effect="fold" editable="false" filter="true" filterMatchMode="startsWith">
 
                                 <f:selectItem itemLabel="Chọn Môn học" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{quanLyKhoaHocMonHocBean.monHocList}" />
                             </p:selectOneMenu>
 
-                            <p:outputLabel value="Thứ tự:" />
+                            <p:outputLabel value="Thứ tự (*):" />
                             <p:inputText id="txtThuTu" value="#{quanLyKhoaHocMonHocBean.khoaHocMonHocEntity.thuTu}"/>
 
                         </h:panelGrid>

@@ -14,32 +14,57 @@
                 <h:form>
                     <h:panelGrid class="panel1">
                         <center class="title">Thời Khóa Biểu</center>
-                        <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
-                            <p:outputLabel value="Lớp học:&nbsp;&nbsp;&nbsp;"/>
-                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
-                                <f:selectItem itemLabel="Chọn lớp học" />
-                                <f:selectItems />
-                           </p:selectOneMenu>
-                            <p:outputLabel value="Môn học:"/>
-                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
-                                <f:selectItem itemLabel="Chọn môn học" />
-                                <f:selectItems />
-                           </p:selectOneMenu>
-                            <p:outputLabel value="Giờ học:"/>
-                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
-                                <f:selectItem itemLabel="Chọn giờ học" />
-                                <f:selectItems />
-                           </p:selectOneMenu>
-                            <p:outputLabel value="Phòng học:"/>
-                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
-                                <f:selectItem itemLabel="Chọn phòng học" />
-                                <f:selectItems />
-                           </p:selectOneMenu>
-                            <p:outputLabel value="Học kỳ:"/>
-                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
-                                <f:selectItem itemLabel="Chọn học kỳ" />
-                                <f:selectItems />
-                           </p:selectOneMenu>
+                        <h:panelGrid style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
+                            <h:panelGrid columns="4" cellpadding="5px">
+                                <p:outputLabel value="Lớp học (*):&nbsp;&nbsp;&nbsp;"/>
+                                <p:selectOneMenu style="width: 200px" effect="fold" editable="true">
+                                    <f:selectItem itemLabel="Chọn lớp học" />
+                                    <f:selectItems />
+                               </p:selectOneMenu>
+                                <p:outputLabel value="Môn học (*):"/>
+                                <p:selectOneMenu style="width: 200px" effect="fold" editable="true">
+                                    <f:selectItem itemLabel="Chọn môn học" />
+                                    <f:selectItems />
+                               </p:selectOneMenu>
+                                <p:outputLabel value="Giờ học (*):"/>
+                                <p:selectOneMenu style="width: 200px" effect="fold" editable="true">
+                                    <f:selectItem itemLabel="Chọn giờ học" />
+                                    <f:selectItems />
+                               </p:selectOneMenu>
+                                <p:outputLabel value="Phòng học (*):"/>
+                                <p:selectOneMenu style="width: 200px" effect="fold" editable="true">
+                                    <f:selectItem itemLabel="Chọn phòng học" />
+                                    <f:selectItems />
+                               </p:selectOneMenu>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5px">
+                                <p:outputLabel value="Ngày học (*):"/>
+                                <p:selectManyCheckbox id="ckbox" >
+                                    <f:selectItem itemLabel="Thứ 2&nbsp;" itemValue=""/>
+                                    <f:selectItem itemLabel="Thứ 3&nbsp;" itemValue=""/>
+                                    <f:selectItem itemLabel="Thứ 4&nbsp;" itemValue=""/>
+                                    <f:selectItem itemLabel="Thứ 5&nbsp;" itemValue=""/>
+                                    <f:selectItem itemLabel="Thứ 6&nbsp;" itemValue=""/>
+                                    <f:selectItem itemLabel="Thứ 7&nbsp;&nbsp;" itemValue=""/>
+                                    <f:selectItem itemLabel="Chủ Nhật" itemValue=""/>
+                                </p:selectManyCheckbox>
+                            </h:panelGrid>
+                            <h:panelGrid columns="2" cellpadding="5px" style="margin: auto">
+                                <p:outputLabel value="Ngày bắt đầu học (*):"/>
+                                <p:calendar  id="txtngaybd" locale="de" navigator="true" pattern="dd/MM/yyyy" />
+                            </h:panelGrid>
+                            
+                            <h:panelGrid style="margin: auto;font-weight: bold;font-size: 17px;margin-top: 15px;margin-bottom: 10px">
+                                <p:outputLabel value="Ngày Nghỉ Dự Kiến"/>
+                            </h:panelGrid>
+                            
+                            <h:panelGrid columns="4" cellpadding="5px">
+                                <p:outputLabel value="Từ ngày:&nbsp;&nbsp;&nbsp;"/>
+                                <p:calendar  id="txttungay" locale="de" navigator="true" pattern="dd/MM/yyyy" />
+                                <p:outputLabel value="Đến ngày:&nbsp;&nbsp;"/>
+                                <p:calendar  id="txtdenngay" locale="de" navigator="true" pattern="dd/MM/yyyy" />
+                                
+                            </h:panelGrid>
                         </h:panelGrid>
                         <h:panelGrid columns="4" style="margin: auto">
                             <p:button value="Thêm mới"/>

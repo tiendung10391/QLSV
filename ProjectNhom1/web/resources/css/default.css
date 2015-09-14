@@ -89,6 +89,10 @@ h1 {
     border: 1px solid #0f84f0;
     color: #4f4f4f;
 }
-.ui-widget-content.ui-datatable-even{
+.ui-widget-content.ui-datatable-even,.ui-state-default.ui-selection-column,.ui-widget-content.ui-datatable-odd.ui-datatable-selectable{
     border: 1px solid #0f84f0;
+}
+
+.ui-paginator-rpp-options.ui-widget.ui-state-default.ui-corner-left{
+    background-color: #fff
 }

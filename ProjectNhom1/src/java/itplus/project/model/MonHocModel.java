@@ -5,6 +5,7 @@
  */
 package itplus.project.model;
 
+import itplus.project.entity.KhoaHocEntity;
 import itplus.project.entity.LopHocEntity;
 import itplus.project.entity.MonHocEntity;
 import itplus.project.pool.DBPool;
@@ -186,6 +187,36 @@ public class MonHocModel {
             }
         }
         return TenMonHoc;
+    }
+    
+    public ArrayList<MonHocEntity> getAllMonHocFormMaLop(String MaLop) throws Exception {
+        ArrayList<MonHocEntity> arr = new ArrayList<MonHocEntity>();
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT * FROM VIEW_DANHSACHMONHOC_LOPHOC WHERE MaLop = ?";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, MaLop);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                MonHocEntity monHoc = new MonHocEntity();
+                monHoc.setMaMonHoc(rs.getString(4));
+                monHoc.setTenMonHoc(rs.getString(5));
+                
+                arr.add(monHoc);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return arr;
     }
     
 }

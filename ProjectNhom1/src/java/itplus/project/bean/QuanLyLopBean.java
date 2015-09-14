@@ -30,17 +30,21 @@ import org.primefaces.event.SelectEvent;
 public class QuanLyLopBean extends MessageUtil {
 
     private Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
+    
     private NganhEntity nganhEntity;
     private String focus = "txtTenLop";
+    
     private NganhModel nganhModel;
     private ArrayList<NganhEntity> arrNganh;
     private String nganh;
     private Map<String, String> nganhList = new HashMap<String, String>();
+    
     private KhoaHocEntity khoaHocEntity;
     private KhoaHocModel khoaHocModel;
     private ArrayList<KhoaHocEntity> arrKhoaHoc;
     private String khoaHoc;
     private Map<String, String> khoaHocList = new HashMap<String, String>();
+    
     private LopHocEntity lopHocEntity, rowSelected;
     private LopHocModel lopHocModel, rowLopHoc;
     private ArrayList<LopHocEntity> arrLopHoc, listLopHocSelected;
@@ -323,6 +327,18 @@ public class QuanLyLopBean extends MessageUtil {
         }
 
     }
+    
+    public Map<String, Map<String, String>> getDataKhoaHoc() {
+        return data;
+    }
+
+    public void onKhoaHocChange() {
+        if (nganh != null && !nganh.equals("")) {
+            khoaHocList = data.get(nganh);
+        } else {
+            khoaHocList = new HashMap<String, String>();
+        }
+    }
 
     public void clearText() {
         lopHocEntity = new LopHocEntity();
@@ -347,17 +363,7 @@ public class QuanLyLopBean extends MessageUtil {
     
     
 
-    public Map<String, Map<String, String>> getDataKhoaHoc() {
-        return data;
-    }
-
-    public void onKhoaHocChange() {
-        if (nganh != null && !nganh.equals("")) {
-            khoaHocList = data.get(nganh);
-        } else {
-            khoaHocList = new HashMap<String, String>();
-        }
-    }
+    
 
     public NganhEntity getNganhEntity() {
         return nganhEntity;

@@ -13,17 +13,19 @@
             <ui:define name="content">
                 <h:form>
                     <h:panelGrid class="panel1">
-                        <center class="title" style="font-size: 20px">Chọn Lớp,Môn Học</center>
+                        <center class="title" style="font-size: 20px">QUẢN LÝ ĐIỂM</center>
                         <h:panelGrid columns="4" style="margin: auto;margin-top: 10px;margin-bottom: 10px" cellpadding="5px">
-                            <p:outputLabel value="Lớp học:"/>
-                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
-                                <f:selectItem itemLabel="Chọn khóa học" />
-                                <f:selectItems />
+                            <p:outputLabel value="Lớp học (*):"/>
+                            <p:selectOneMenu value="#{quanLyDiemBean.lopHoc}" style="width: 181px" effect="fold" editable="false">
+                                <p:ajax listener="#{quanLyDiemBean.onKhoaHocChange()}" update="sMonHoc" />
+                                <f:selectItem itemLabel="Chọn lớp học" />
+                                <f:selectItems value="#{quanLyDiemBean.lopHocList}" />
                             </p:selectOneMenu>
-                            <p:outputLabel value="Môn học:"/>
-                            <p:selectOneMenu style="width: 181px" effect="fold" editable="true">
-                                <f:selectItem itemLabel="Chọn khóa học" />
-                                <f:selectItems />
+                            <p:outputLabel value="Môn học (*):"/>
+                            <p:selectOneMenu id="sMonHoc" value="#{quanLyDiemBean.monHoc}" style="width: 181px" effect="fold" editable="false">
+                                
+                                <f:selectItem itemLabel="Chọn môn học" />
+                                <f:selectItems value="#{quanLyDiemBean.monHocList}" />
                            </p:selectOneMenu>
                         </h:panelGrid>
                         <h:panelGrid columns="1" style="margin: auto">

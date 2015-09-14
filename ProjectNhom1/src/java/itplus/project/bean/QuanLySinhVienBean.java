@@ -140,10 +140,15 @@ public class QuanLySinhVienBean extends MessageUtil {
                 String TenLopHoc = lopHocModel.getTenLopOld(lopHoc);
 
                 SinhVienEntity.setTenLop(TenLopHoc);
-
                 
-                for(int i = 0; i< arrSinhVien.size(); i++){
-                    if(arrSinhVien.get(i).getMaSinhVien().equals(SinhVienEntity.getMaSinhVien())){
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                String ngaysinh = format.format(SinhVienEntity.getNgaySinh());
+                System.out.println("Ngay sinh default: " + SinhVienEntity.getNgaySinh());
+                System.out.println("Ngày Sinh format: " + ngaysinh);
+                SinhVienEntity.setNgaySinhView(ngaysinh);
+
+                for (int i = 0; i < arrSinhVien.size(); i++) {
+                    if (arrSinhVien.get(i).getMaSinhVien().equals(SinhVienEntity.getMaSinhVien())) {
                         arrSinhVien.set(i, SinhVienEntity);
                     }
                     System.out.println("arr: " + arrSinhVien.get(i).getMaSinhVien());
@@ -154,7 +159,6 @@ public class QuanLySinhVienBean extends MessageUtil {
 //                        arrSinhVien.set(arrSinhVien.indexOf(sinhvien), SinhVienEntity);
 //                    }
 //                }
-                
                 addSuccessMessage("Sửa thành công");
             } catch (SQLException ex) {
                 System.out.println(ex.toString());
@@ -300,11 +304,11 @@ public class QuanLySinhVienBean extends MessageUtil {
         }
         System.out.println("Malop " + SinhVienEntity.getMaLop() + " TenLop: " + SinhVienEntity.getTenLop());
     }
-    
-    public String checkSelectedTable(){
-        if(eventSelected){
+
+    public String checkSelectedTable() {
+        if (eventSelected) {
             return "true";
-        }else {
+        } else {
             return "false";
         }
     }

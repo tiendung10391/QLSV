@@ -18,20 +18,20 @@
                         <center class="title">NHẬP THÔNG TIN LỚP HỌC</center>
                         <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
                             
-                            <p:outputLabel value="Tên lớp:"/>
+                            <p:outputLabel value="Tên lớp (*):"/>
                             <p:inputText id="txtTenLop" value="#{quanLyLopBean.lopHocEntity.tenLop}" maxlength="15"/>
-                            <p:outputLabel value="Ngành:"/>
-                            <p:selectOneMenu value="#{quanLyLopBean.nganh}" style="width: 181px" effect="fold" editable="false">
+                            <p:outputLabel value="Ngành (*):"/>
+                            <p:selectOneMenu value="#{quanLyLopBean.nganh}" style="width: 200px" effect="fold" editable="false">
                                 <p:ajax listener="#{quanLyLopBean.onKhoaHocChange()}" update="sKhoaHoc" />
                                 <f:selectItem itemLabel="Chọn ngành học" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{quanLyLopBean.nganhList}" />
                             </p:selectOneMenu>
 
-                            <p:outputLabel value="Năm nhập học:"/>
+                            <p:outputLabel value="Năm nhập học (*):"/>
                             <p:inputMask mask="2099" id="txtNamNhapHoc" value="#{quanLyLopBean.lopHocEntity.namNhapHoc}"/>
-                            <p:outputLabel value="Khóa học:"/>
-                            <p:selectOneMenu id="sKhoaHoc" value="#{quanLyLopBean.khoaHoc}" style="width: 181px" effect="fold" editable="false"
-                                             filter="true" filterMatchMode="startsWith">
+                            <p:outputLabel value="Khóa học (*):"/>
+                            <p:selectOneMenu id="sKhoaHoc" value="#{quanLyLopBean.khoaHoc}" style="width: 200px" effect="fade" editable="false"
+                                             filter="true" filterMatchMode="startsWith" panelStyle="width:200px">
 
                                 <f:selectItem itemLabel="Chọn khóa học" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{quanLyLopBean.khoaHocList}" />
@@ -58,6 +58,7 @@
                         paginator="true"
                         selection="#{quanLyLopBean.listLopHocSelected}"
                         rowsPerPageTemplate="5,10,15"
+                        paginatorPosition="top"
                         >
                         <p:ajax listener="#{quanLyLopBean.selectedRowtable}" event="rowSelect" update=":frm_lop"/>
                         <f:facet name="header" >  
@@ -68,24 +69,24 @@
                             <h:outputText value="#{rowIndex+1}" />
                         </p:column>
                         
-                        <p:column styleClass="header" headerText="Tên lớp" style="width: 100px" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}">
+                        <p:column styleClass="header" headerText="Tên lớp" style="width: 150px" filterStyle="width:90%"  sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}">
 
                             <h:outputText value="#{reg.tenLop}" />
                         </p:column>
 
-                        <p:column styleClass="header" headerText="Năm nhập học" style="width: 70px; text-align: center" sortBy="#{reg.namNhapHoc}" filterBy="#{reg.namNhapHoc}">
+                        <p:column styleClass="header" headerText="Năm nhập học" filterStyle="width:90%" style="width: 125px; text-align: center" sortBy="#{reg.namNhapHoc}" filterBy="#{reg.namNhapHoc}">
 
                             <h:outputText value="#{reg.namNhapHoc}"/>
                         </p:column>
-                        <p:column styleClass="header" headerText="Khóa học" sortBy="#{reg.tenKhoaHoc}" filterBy="#{reg.tenKhoaHoc}">
+                        <p:column styleClass="header" headerText="Khóa học" filterStyle="width:90%" sortBy="#{reg.tenKhoaHoc}" filterBy="#{reg.tenKhoaHoc}">
 
                             <h:outputText value="#{reg.tenKhoaHoc}" />
                         </p:column >
-                        <p:column styleClass="header" headerText="Ngành học" style="width: 140px" sortBy="#{reg.tenNganh}" filterBy="#{reg.tenNganh}">
+                        <p:column styleClass="header" headerText="Ngành học" filterStyle="width:90%" style="width: 170px" sortBy="#{reg.tenNganh}" filterBy="#{reg.tenNganh}">
 
                             <h:outputText value="#{reg.tenNganh}" />
                         </p:column >
-                        <p:column styleClass="header" headerText="Hệ đào tạo" style="width: 70px" sortBy="#{reg.heDaoTao}" filterBy="#{reg.heDaoTao}">
+                        <p:column styleClass="header" headerText="Hệ đào tạo" filterStyle="width:90%" style="width: 97px" sortBy="#{reg.heDaoTao}" filterBy="#{reg.heDaoTao}">
 
                             <h:outputText value="#{reg.heDaoTao}" />
                         </p:column >

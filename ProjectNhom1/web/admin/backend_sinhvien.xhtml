@@ -15,29 +15,30 @@
                     <p:growl id="growl" autoUpdate="true"/>
                     <p:focus for="#{sinhVienBean.focus}" id="focus"/>
                     <h:panelGrid class="panel1">
-                        <center class="title">QUẢN LÝ SINH VIÊN</center>
+                        <center class="title">QUẢN LÝ HỌC VIÊN</center>
                         <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
-                            <p:outputLabel value="Mã sinh viên:"/>
-                            <p:inputText value="#{sinhVienBean.sinhVienEntity.maSinhVien}" id="txtMaSinhVien" maxlength="10" disabled="#{sinhVienBean.checkSelectedTable()}"/>
-                            <p:outputLabel value="Số điện thoại:"/>
+                            <p:outputLabel value="Mã học viên (*):"/>
+                            <p:inputText value="#{sinhVienBean.sinhVienEntity.maSinhVien}" id="txtMaSinhVien" maxlength="10"/>
+                            <p:outputLabel value="Số điện thoại (*):"/>
                             <p:inputText value="#{sinhVienBean.sinhVienEntity.SDT}" id="txtSDT" maxlength="20"/>
-                            <p:outputLabel value="Tên sinh viên:"/>
+                            <p:outputLabel value="Tên học viên (*):"/>
                             <p:inputText value="#{sinhVienBean.sinhVienEntity.tenSinhVien}" id="txtTenSinhVien" maxlength="25"/>
-                            <p:outputLabel value="Địa chỉ:"/>
+                            <p:outputLabel value="Địa chỉ (*):"/>
                             <p:inputText value="#{sinhVienBean.sinhVienEntity.diaChi}" id="txtDiaChi"/>
-                            <p:outputLabel value="Ngày sinh:"/>
-                            <p:calendar value="#{sinhVienBean.sinhVienEntity.ngaySinh}" id="txtNgaySinh" locale="de" navigator="true" mindate="1/1/90" maxdate="31/12/99"  pattern="dd/MM/yyyy" />
-                            <p:outputLabel value="Quê quán:"/>
+                            <p:outputLabel value="Ngày sinh (*):"/>
+                            <p:calendar value="#{sinhVienBean.sinhVienEntity.ngaySinh}" id="txtNgaySinh" locale="de" navigator="true" mindate="1/1/70" maxdate="31/12/99"  pattern="dd/MM/yyyy" />
+                            <p:outputLabel value="Quê quán (*):"/>
                             <p:inputText value="#{sinhVienBean.sinhVienEntity.queQuan}" id="txtQueQuan"/>
-                            <p:outputLabel value="Chọn lớp học:"/>
-                            <p:selectOneMenu value="#{sinhVienBean.lopHoc}" id="txtLopHoc" style="width: 181px" effect="fold" editable="false" filter="true" filterMatchMode="startsWith">
+                            <p:outputLabel value="Chọn lớp học (*):"/>
+                            <p:selectOneMenu value="#{sinhVienBean.lopHoc}" id="txtLopHoc" style="width: 200px" 
+                                             effect="fold" editable="false" filter="true" filterMatchMode="startsWith" panelStyle="width: 195px">
 
                                 <f:selectItem itemLabel="Chọn lớp học" itemValue="" noSelectionOption="true" />
                                 <f:selectItems value="#{sinhVienBean.lopHocList}" />
                             </p:selectOneMenu>
-                            <p:outputLabel value="Email:"/>
+                            <p:outputLabel value="Email (*):"/>
                             <p:inputText id="txtEmail" value="#{sinhVienBean.sinhVienEntity.email}"/>
-                            <p:outputLabel value="Giới tính:"/>
+                            <p:outputLabel value="Giới tính (*):"/>
                             <p:selectOneRadio id="txtGioiTinh" value="#{sinhVienBean.sinhVienEntity.gioiTinh}">
                                 <f:selectItem itemLabel="Nam" itemValue="Nam" />
                                 <f:selectItem itemLabel="Nữ" itemValue="Nữ" />
@@ -65,42 +66,45 @@
                         paginator="true"
                         selection="#{sinhVienBean.listSinhVienSelected}"
                         rowsPerPageTemplate="5,10,15"
+                        paginatorPosition="top"
                         >
                         <p:ajax listener="#{sinhVienBean.selectedRowtable}" event="rowSelect" update=":frm_sinhvien"/>
                         <f:facet name="header" >  
-                            <div style="padding: 5px">DANH SÁCH SINH VIÊN</div>
+                            <div style="padding: 5px">DANH SÁCH HỌC VIÊN</div>
                         </f:facet>
-                        <p:column styleClass="header" headerText="STT" style="width: 25px; text-align: center">
+                        <p:column styleClass="header" headerText="STT" style="width: 10px; text-align: center; font-size: 11px;">
                             <h:outputText value="#{rowIndex+1}" />
                         </p:column>
-                        <p:column styleClass="header" headerText="Mã sinh viên" sortBy="#{reg.maSinhVien}" filterBy="#{reg.maSinhVien}" >
+                        <p:column styleClass="header" style="width: 15px; font-size: 11px;" headerText="Mã HV" filterStyle="width:90%" sortBy="#{reg.maSinhVien}" filterBy="#{reg.maSinhVien}" >
                             <h:outputText value="#{reg.maSinhVien}" />
                         </p:column>
-                        <p:column styleClass="header" headerText="Tên sinh viên" sortBy="#{reg.tenSinhVien}" filterBy="#{reg.tenSinhVien}" >
+                        <p:column styleClass="header" style="width: 38px; font-size: 11px;" headerText="Tên học viên" filterStyle="width:90%" sortBy="#{reg.tenSinhVien}" filterBy="#{reg.tenSinhVien}" >
                             <h:outputText value="#{reg.tenSinhVien}" />
                         </p:column>  
-                        <p:column styleClass="header" headerText="Giới tính" sortBy="#{reg.gioiTinh}" filterBy="#{reg.gioiTinh}" >
+                        <p:column styleClass="header" style="width: 23px; font-size: 11px;" headerText="Giới tính" filterStyle="width:90%" sortBy="#{reg.gioiTinh}" filterBy="#{reg.gioiTinh}" >
                             <h:outputText value="#{reg.gioiTinh}"  />
                         </p:column> 
-                        <p:column styleClass="header" headerText="Ngày sinh" sortBy="#{reg.ngaySinh}" filterBy="#{reg.ngaySinh}" >
+                        <p:column styleClass="header" style="width: 36px; font-size: 11px;" headerText="Ngày sinh" filterStyle="width:90%" sortBy="#{reg.ngaySinh}" filterBy="#{reg.ngaySinh}" >
                             <h:outputText value="#{reg.ngaySinhView}" />
                         </p:column>
-                        <p:column styleClass="header" headerText="Tên lớp" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                        <p:column styleClass="header" style="width: 35px; font-size: 11px;" headerText="Tên lớp" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
                             <h:outputText value="#{reg.tenLop}" />
                         </p:column>
-                        <p:column styleClass="header" headerText="Địa chỉ" sortBy="#{reg.diaChi}" filterBy="#{reg.diaChi}" >
+                        <p:column styleClass="header" style="width: 25px; font-size: 11px;" headerText="Địa chỉ" filterStyle="width:90%" sortBy="#{reg.diaChi}" filterBy="#{reg.diaChi}" >
                             <h:outputText value="#{reg.diaChi}" />
                         </p:column >
-                        <p:column styleClass="header" headerText="Quê quán" sortBy="#{reg.queQuan}" filterBy="#{reg.queQuan}">
+                        
+                        <p:column styleClass="header" style="width: 32px; font-size: 11px;" headerText="Quê quán" filterStyle="width:90%" sortBy="#{reg.queQuan}" filterBy="#{reg.queQuan}">
                             <h:outputText value="#{reg.queQuan}" />
                         </p:column>
-                        <p:column styleClass="header" headerText="Số ĐT" sortBy="#{reg.SDT}" filterBy="#{reg.SDT}">
+                        
+                        <p:column styleClass="header" style="width: 28px; font-size: 11px;" headerText="Số ĐT" filterStyle="width:90%" sortBy="#{reg.SDT}" filterBy="#{reg.SDT}">
                             <h:outputText value="#{reg.SDT}" />
                         </p:column>
-                        <p:column styleClass="header" headerText="Email" sortBy="#{reg.email}" filterBy="#{reg.email}">
+                        <p:column styleClass="header" style="width: 65px; font-size: 11px;" headerText="Email" filterStyle="width:90%" sortBy="#{reg.email}" filterBy="#{reg.email}">
                             <h:outputText value="#{reg.email}" />
                         </p:column>
-                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                        <p:column selectionMode="multiple" style="width:5px;text-align:center"/>
                     </p:dataTable>
                     <p:confirmDialog id="confirm_delete" message="Bạn chắc chắn muốn xóa không ?"  
                                      header="Thông báo!" widgetVar="confirm_delete" style="width: 100px" closable="false"> 

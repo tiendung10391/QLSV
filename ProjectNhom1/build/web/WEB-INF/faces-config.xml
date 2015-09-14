@@ -37,4 +37,10 @@
         <managed-bean-class>itplus.project.bean.QuanLyKhoaHocMonHocBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <description>quan ly diem hoc vien</description>
+        <managed-bean-name>quanLyDiemBean</managed-bean-name>
+        <managed-bean-class>itplus.project.bean.QuanLyDiemBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

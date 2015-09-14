@@ -1,5 +1,5 @@
 #wrapper {
-    width: 1150px;
+    width: 1125px;
     margin: auto;
     box-shadow: 0 0 3px 3px #bebebe;
 /*    -moz-box-shadow: 0 0 3px 3px #bebebe;
@@ -31,7 +31,7 @@
 
 .panel1{
     border: 1px #f38112 solid;
-    width: 924px;
+    width: 1084px;
     border-radius: 10px;
     margin: 38px 18px 5px 18px;
     padding: 20px
@@ -61,7 +61,7 @@
 /*-------*bang danh sach---------------*/
 
 .table{
-    width: 924px; margin: 38px 18px;
+    width: 1084px; margin: 38px 18px;
 }
 
 .ui-state-default.header.header{
@@ -81,6 +81,7 @@
   font-weight : bold;
   text-decoration : underline;
 }
+
 
 
 

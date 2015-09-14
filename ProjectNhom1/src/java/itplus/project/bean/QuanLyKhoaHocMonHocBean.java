@@ -279,6 +279,7 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
             System.out.println(ex);
             Logger.getLogger(QuanLyKhoaHocMonHocBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         KhoaHocList = new HashMap<String, String>();
         for (int i = 0; i < arrKhoaHoc.size(); i++) {
             KhoaHocList.put(arrKhoaHoc.get(i).getTenKhoaHoc(), arrKhoaHoc.get(i).getMaKhoaHoc());
