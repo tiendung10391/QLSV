@@ -25,7 +25,7 @@ public class DiemModel {
         DBPool db = new DBPool();
     }
 
-    public ArrayList<DiemEntity> getDiem() throws Exception {
+    public ArrayList<DiemEntity> getDiem(String masv) throws Exception {
         ArrayList<DiemEntity> arr = new ArrayList<>();
         Statement stmt = null;
         ResultSet rs = null;
@@ -35,7 +35,7 @@ public class DiemModel {
             cn = DBPool.getConnection();
 //            cn = DBUtil.connectSQL();
             stmt = cn.createStatement();
-            String SQL = "SELECT * from Diem";
+            String SQL = "SELECT * from Diem where MaSV = '"+masv+"'";
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {

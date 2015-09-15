@@ -91,7 +91,7 @@ public class MainActivity extends Activity {
 		// Make RESTful webservice call using AsyncHttpClient object
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(
-				"http://192.168.0.101:8080/WebServiesQLSV/rest/SwSinhVien/checkLogin",
+				"http://192.168.0.100:8080/WebServiesQLSV/rest/SwSinhVien/checkLogin",
 				params, new AsyncHttpResponseHandler() {
 					// When the response returned by REST has Http response code
 					// '200'

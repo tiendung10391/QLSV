@@ -20,7 +20,7 @@ ActionBar.TabListener{
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
-	String masv;
+	public static String masv;
 	// Tab titles
 	private String[] tabs = { "Trang chủ","Chương trình", "Lịch học", "Xem Điểm" };
 	@Override

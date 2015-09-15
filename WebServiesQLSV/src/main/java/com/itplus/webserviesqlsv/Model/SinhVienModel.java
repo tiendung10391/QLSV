@@ -96,7 +96,7 @@ public class SinhVienModel {
         try {
             cn = DBPool.getConnection();
             stmt = cn.createStatement();
-            String SQL = "SELECT * from SINHVIEN where MaSV = 'sv001'";
+            String SQL = "SELECT * from SINHVIEN ";
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
