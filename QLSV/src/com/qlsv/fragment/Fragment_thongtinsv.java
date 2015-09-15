@@ -25,7 +25,7 @@ public class Fragment_thongtinsv extends Activity {
 	private ActionBar actionBar;
 	// Progress Dialog Object
 	ProgressDialog prgDialog;
-	String masvien;
+	public static String masvien;
 	TextView masv, gioitinh, lop, diachi, quequan, sdt, email,name,date;
 
 	@Override
@@ -76,7 +76,7 @@ public class Fragment_thongtinsv extends Activity {
 		// Make RESTful webservice call using AsyncHttpClient object
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(
-				"http://192.168.0.101:8080/WebServiesQLSV/rest/SwSinhVien/checkSinhvien",
+				"http://192.168.0.100:8080/WebServiesQLSV/rest/SwSinhVien/checkSinhvien",
 				params, new AsyncHttpResponseHandler() {
 					// When the response returned by REST has Http response code
 					// '200'
@@ -143,5 +143,12 @@ public class Fragment_thongtinsv extends Activity {
 						}
 					}
 				});
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		finish();
 	}
 }

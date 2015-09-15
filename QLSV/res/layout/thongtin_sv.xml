@@ -12,7 +12,7 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="320dp"
+            android:layout_width="match_parent"
             android:layout_height="214dp"
             android:src="@drawable/ic_bg_user" />
 
@@ -183,7 +183,7 @@
                     android:background="@drawable/my_edittext"
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="11sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/Quequan"
@@ -194,7 +194,7 @@
                     android:background="@drawable/my_edittext"
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textSize="11sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/Sdt"

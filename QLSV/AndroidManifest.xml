@@ -26,7 +26,7 @@
         <activity android:name="Fragment_Activity"
             android:theme="@style/AppTheme"></activity>
         <activity android:name="com.qlsv.fragment.Fragment_thongtinsv" 
-            android:parentActivityName="com.example.qlsv.Fragment_Activity"></activity>
+            ></activity>
     </application>
 
 </manifest>

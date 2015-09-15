@@ -52,8 +52,12 @@
             android:textStyle="bold" />
 
     </FrameLayout>
-
-	<TableLayout
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+		<TableLayout
+		android:id="@+id/tableDiem"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="1dp"
@@ -66,15 +70,6 @@
             android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-
-            <TextView
-                android:id="@+id/d_tv1"
-                android:layout_weight="10"
-                android:background="@drawable/my_table"
-                android:gravity="center"
-                android:text="STT"
-                android:textColor="#fff"
-                android:textSize="15sp" />
 	            
 			<TextView
 			    android:id="@+id/d_tv2"
@@ -120,4 +115,9 @@
 
 	    </TableRow>
     </TableLayout>
+       
+
+    </ScrollView>
+
+	
 </LinearLayout>

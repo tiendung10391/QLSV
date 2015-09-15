@@ -23,6 +23,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -51,11 +52,11 @@ public class SwDiemResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("getAllDiem")
-    public ArrayList<DiemEntity> getAllDiem() {
+    public ArrayList<DiemEntity> getAllDiem(@QueryParam("MaSV") String masv) {
         ArrayList<DiemEntity> arrDiem = null;
         try {
-            arrDiem = new ArrayList<DiemEntity>();
-            arrDiem = diemModel.getDiem();
+            arrDiem = new ArrayList<>();
+            arrDiem = diemModel.getDiem(masv);
         } catch (Exception ex) {
             Logger.getLogger(SwKhoaHocResource.class.getName()).log(Level.SEVERE, null, ex);
         }
