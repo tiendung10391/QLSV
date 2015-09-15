@@ -11,16 +11,44 @@ import java.io.Serializable;
  *
  * @author Dung NT
  */
-public class DiemEntity  implements Serializable, Cloneable {
+public class DiemEntity implements Serializable, Cloneable {
+
+    private int idDiemSinhVien;
     private String maSinhVien;
     private String TenSinhVien;
     private int DiemLan1;
     private int DiemLan2;
     private int DiemLan3;
-    
+    private String MaLop;
+    private String MaMon;
+
     @Override
     public DiemEntity clone() throws CloneNotSupportedException {
         return (DiemEntity) super.clone();
+    }
+
+    public int getIdDiemSinhVien() {
+        return idDiemSinhVien;
+    }
+
+    public void setIdDiemSinhVien(int idDiemSinhVien) {
+        this.idDiemSinhVien = idDiemSinhVien;
+    }
+
+    public String getMaLop() {
+        return MaLop;
+    }
+
+    public void setMaLop(String MaLop) {
+        this.MaLop = MaLop;
+    }
+
+    public String getMaMon() {
+        return MaMon;
+    }
+
+    public void setMaMon(String MaMon) {
+        this.MaMon = MaMon;
     }
 
     public String getMaSinhVien() {
@@ -62,6 +90,5 @@ public class DiemEntity  implements Serializable, Cloneable {
     public void setDiemLan3(int DiemLan3) {
         this.DiemLan3 = DiemLan3;
     }
-    
-    
+
 }

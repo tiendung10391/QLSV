@@ -11,7 +11,7 @@
     <h:body>
         <ui:composition template="backend.xhtml">
             <ui:define name="content">
-                <h:form>
+                <h:form id="frm_diem">
                     <h:panelGrid class="panel1">
                         <center class="title" style="font-size: 20px">QUẢN LÝ ĐIỂM</center>
                         <h:panelGrid columns="4" style="margin: auto;margin-top: 10px;margin-bottom: 10px" cellpadding="5px">
@@ -23,67 +23,79 @@
                             </p:selectOneMenu>
                             <p:outputLabel value="Môn học (*):"/>
                             <p:selectOneMenu id="sMonHoc" value="#{quanLyDiemBean.monHoc}" style="width: 181px" effect="fold" editable="false">
-                                
+
                                 <f:selectItem itemLabel="Chọn môn học" />
                                 <f:selectItems value="#{quanLyDiemBean.monHocList}" />
-                           </p:selectOneMenu>
+                            </p:selectOneMenu>
                         </h:panelGrid>
                         <h:panelGrid columns="1" style="margin: auto">
-                            <p:button value="Tìm Kiếm"/>
+                            <p:commandButton value="Tìm Kiếm" actionListener="#{quanLyDiemBean.pushDiemSinhVien()}" update="frm_diem"/>
                         </h:panelGrid>
                     </h:panelGrid>
-                    
-                 <p:growl id="msgs" showDetail="true"/>
-                <p:dataTable emptyMessage="Chưa có bản ghi nào" styleClass="table" >
+
+                    <p:growl id="msgs" showDetail="true"/>
+                    <p:dataTable 
+                        emptyMessage="Chưa có học sinh nào" 
+                        styleClass="table"
+                        id="tbl_diem"
+                        editable="true"
+                        var="reg"
+                        rowIndexVar="rowIndex" 
+                        rowKey="#{reg.idDiemSinhVien}"
+                        value="#{quanLyDiemBean.arrDiem}">
+
                         <f:facet name="header" >  
-                            <div style="padding: 5px">Danh sách nhập điểm </div>
+                            <div style="padding: 5px">NHẬP ĐIỂM HỌC VIÊN</div>
                         </f:facet>
-                    <p:column styleClass="header" style="width: 50px" >
-                            <f:facet name="header">
-                                Mã SV
-                            </f:facet>
+
+                        <p:ajax event="rowEdit" listener="#{quanLyDiemBean.onRowEdit}" update=":frm_diem:msgs"  />
+                        <p:ajax event="rowEditCancel" listener="#{quanLyDiemBean.onRowCancel}" update=":frm_diem:msgs"  />
+
+                        <p:column styleClass="header" style="width: 50px" headerText="STT" >
+                            <h:outputText value="#{rowIndex+1}" />
                         </p:column>
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Tên SV
-                            </f:facet>
+                        <p:column styleClass="header" headerText="Mã học viên">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{reg.maSinhVien}"/></f:facet>
+                                <f:facet name="input"><p:inputText id="modelInput" value="#{reg.maSinhVien}" style="width:100%" label="Mã học viên" disabled="true"/></f:facet>
+                            </p:cellEditor>
                         </p:column>  
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Địa Chỉ
-                            </f:facet>
+                        <p:column styleClass="header" headerText="Tên học viên">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{reg.tenSinhVien}" /></f:facet>
+                                <f:facet name="input"><p:inputText  value="#{reg.tenSinhVien}" style="width:100%" label="Tên học viên" disabled="true"/></f:facet>
+                            </p:cellEditor>
                         </p:column> 
-                        <p:column styleClass="header" style="width: 55px">
-                            <f:facet name="header">
-                                Điểm Lần 1
-                            </f:facet>
+                        <p:column styleClass="header" headerText="Mã môn">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{reg.maMon}"/></f:facet>
+                                <f:facet name="input"><p:inputText value="#{reg.maMon}" style="width:100%" label="Mã môn" disabled="true"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>  
+                        <p:column styleClass="header" headerText="Điểm lần 1">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{reg.diemLan1}" style="text-align: center" /></f:facet>
+                                <f:facet name="input"><p:inputText  value="#{reg.diemLan1}" label="Điểm lần 1" style="width:100%; text-align: center"/></f:facet>
+                            </p:cellEditor>
                         </p:column >
-                        <p:column styleClass="header" style="width: 55px">
-                            <f:facet name="header">
-                                Điểm Lần 2
-                            </f:facet>
+                        <p:column styleClass="header" headerText="Điểm lần 2">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{reg.diemLan2}" style="text-align: center" /></f:facet>
+                                <f:facet name="input"><p:inputText  value="#{reg.diemLan2}" label="Điểm lần 2" style="width:100%; text-align: center"/></f:facet>
+                            </p:cellEditor>
                         </p:column>
-                        <p:column styleClass="header" style="width: 55px">
-                            <f:facet name="header">
-                                Điểm Lần 3
-                            </f:facet>
-                        </p:column>
-                        <p:column styleClass="header" style="width: 78px">
-                            <f:facet name="header">
-                                Trạng Thái
-                            </f:facet>
-                        </p:column>
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Môn Học
-                            </f:facet>
+                        <p:column styleClass="header" headerText="Điểm lần 3">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{reg.diemLan3}" style="text-align: center" /></f:facet>
+                                <f:facet name="input"><p:inputText  value="#{reg.diemLan3}" label="Điểm lần 3" style="width:100%; text-align: center"/></f:facet>
+                            </p:cellEditor>
                         </p:column>
                         <p:column styleClass="header" style="width:32px">
                             <p:rowEditor />
                         </p:column>
                     </p:dataTable>
-                 </h:form>
+                </h:form>
             </ui:define>
-       </ui:composition>
+        </ui:composition>
     </h:body>
 </html>
