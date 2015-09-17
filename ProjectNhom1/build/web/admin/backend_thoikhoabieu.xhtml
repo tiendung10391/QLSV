@@ -11,106 +11,137 @@
     <h:body>
         <ui:composition template="backend.xhtml">
             <ui:define name="content">
-                <h:form>
+                <h:form id="frm_tkb">
+                    <p:growl id="growl" autoUpdate="true"/>
+                    <p:focus for="#{quanLyLopMonHocBean.focus}" id="focus"/>
                     <h:panelGrid class="panel1">
-                        <center class="title">Thời Khóa Biểu</center>
+                        <center class="title">THỜI KHÓA BIỂU</center>
                         <h:panelGrid style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
                             <h:panelGrid columns="4" cellpadding="5px">
                                 <p:outputLabel value="Lớp học (*):&nbsp;&nbsp;&nbsp;"/>
-                                <p:selectOneMenu style="width: 200px" effect="fold" editable="true">
+                                <p:selectOneMenu disabled="#{quanLyLopMonHocBean.checkSelectedTable()}" id="txtLopHoc" 
+                                                 value="#{quanLyLopMonHocBean.lopHoc}" style="width: 200px" widgetVar="editLopHoc"
+                                                 effect="fold" editable="false">
+                                    <p:ajax listener="#{quanLyLopMonHocBean.onKhoaHocChange()}" update="sMonHoc" />
                                     <f:selectItem itemLabel="Chọn lớp học" />
-                                    <f:selectItems />
-                               </p:selectOneMenu>
+                                    <f:selectItems value="#{quanLyLopMonHocBean.lopHocList}" />
+                                </p:selectOneMenu>
                                 <p:outputLabel value="Môn học (*):"/>
-                                <p:selectOneMenu style="width: 200px" effect="fold" editable="true">
+                                <p:selectOneMenu disabled="#{quanLyLopMonHocBean.checkSelectedTable()}" id="sMonHoc" value="#{quanLyLopMonHocBean.monHoc}" style="width: 200px" effect="fold" editable="false">
                                     <f:selectItem itemLabel="Chọn môn học" />
-                                    <f:selectItems />
-                               </p:selectOneMenu>
-                                <p:outputLabel value="Giờ học (*):"/>
-                                <p:selectOneMenu style="width: 200px" effect="fold" editable="true">
+                                    <f:selectItems value="#{quanLyLopMonHocBean.monHocList}" />
+                                </p:selectOneMenu>
+                                <p:outputLabel  value="Giờ học (*):"/>
+                                <p:selectOneMenu id="txtGioHoc" value="#{quanLyLopMonHocBean.gioHoc}" style="width: 200px" effect="fold" editable="false">
                                     <f:selectItem itemLabel="Chọn giờ học" />
-                                    <f:selectItems />
-                               </p:selectOneMenu>
+                                    <f:selectItems value="#{quanLyLopMonHocBean.gioHocList}" />
+                                </p:selectOneMenu>
                                 <p:outputLabel value="Phòng học (*):"/>
-                                <p:selectOneMenu style="width: 200px" effect="fold" editable="true">
+                                <p:selectOneMenu id="txtPhongHoc" value="#{quanLyLopMonHocBean.phongHoc}" style="width: 200px" effect="fold" editable="false">
                                     <f:selectItem itemLabel="Chọn phòng học" />
-                                    <f:selectItems />
-                               </p:selectOneMenu>
+                                    <f:selectItems value="#{quanLyLopMonHocBean.phongHocList}" />
+                                </p:selectOneMenu>
                             </h:panelGrid>
                             <h:panelGrid columns="2" cellpadding="5px">
                                 <p:outputLabel value="Ngày học (*):"/>
-                                <p:selectManyCheckbox id="ckbox" >
-                                    <f:selectItem itemLabel="Thứ 2&nbsp;" itemValue=""/>
-                                    <f:selectItem itemLabel="Thứ 3&nbsp;" itemValue=""/>
-                                    <f:selectItem itemLabel="Thứ 4&nbsp;" itemValue=""/>
-                                    <f:selectItem itemLabel="Thứ 5&nbsp;" itemValue=""/>
-                                    <f:selectItem itemLabel="Thứ 6&nbsp;" itemValue=""/>
-                                    <f:selectItem itemLabel="Thứ 7&nbsp;&nbsp;" itemValue=""/>
-                                    <f:selectItem itemLabel="Chủ Nhật" itemValue=""/>
+                                <p:selectManyCheckbox value="#{quanLyLopMonHocBean.arrNgayHoc}" id="ckbox" >
+                                    <f:selectItem itemLabel="Thứ 2&nbsp;" itemValue="Thứ 2"/>
+                                    <f:selectItem itemLabel="Thứ 3&nbsp;" itemValue="Thứ 3"/>
+                                    <f:selectItem itemLabel="Thứ 4&nbsp;" itemValue="Thứ 4"/>
+                                    <f:selectItem itemLabel="Thứ 5&nbsp;" itemValue="Thứ 5"/>
+                                    <f:selectItem itemLabel="Thứ 6&nbsp;" itemValue="Thứ 6"/>
+                                    <f:selectItem itemLabel="Thứ 7&nbsp;&nbsp;" itemValue="Thứ 7"/>
+                                    <f:selectItem itemLabel="Chủ Nhật" itemValue="Chủ nhật"/>
                                 </p:selectManyCheckbox>
                             </h:panelGrid>
-                            <h:panelGrid columns="2" cellpadding="5px" style="margin: auto">
-                                <p:outputLabel value="Ngày bắt đầu học (*):"/>
-                                <p:calendar  id="txtngaybd" locale="de" navigator="true" pattern="dd/MM/yyyy" />
-                            </h:panelGrid>
                             
+                            <h:panelGrid columns="4" cellspacing="5px">
+                                <p:outputLabel value="Giảng viên (*):" />
+                                <p:inputText id="txtGiangVien" value="#{quanLyLopMonHocBean.lopMonHocEntity.giangVien}" />
+                                
+                                <p:outputLabel value="Ngày bắt đầu học (*):"/>
+                                <p:calendar id="txtNgayBauDauHoc" value="#{quanLyLopMonHocBean.lopMonHocEntity.ngayBatDauHoc}" locale="de" navigator="true" pattern="dd/MM/yyyy" />
+                            </h:panelGrid>
+
                             <h:panelGrid style="margin: auto;font-weight: bold;font-size: 17px;margin-top: 15px;margin-bottom: 10px">
                                 <p:outputLabel value="Ngày Nghỉ Dự Kiến"/>
                             </h:panelGrid>
-                            
+
                             <h:panelGrid columns="4" cellpadding="5px">
                                 <p:outputLabel value="Từ ngày:&nbsp;&nbsp;&nbsp;"/>
-                                <p:calendar  id="txttungay" locale="de" navigator="true" pattern="dd/MM/yyyy" />
+                                <p:calendar value="#{quanLyLopMonHocBean.lopMonHocEntity.ngayNghiDKBatDau}"  id="txttungay" locale="de" navigator="true" pattern="dd/MM/yyyy" />
                                 <p:outputLabel value="Đến ngày:&nbsp;&nbsp;"/>
-                                <p:calendar  id="txtdenngay" locale="de" navigator="true" pattern="dd/MM/yyyy" />
-                                
+                                <p:calendar value="#{quanLyLopMonHocBean.lopMonHocEntity.ngayNghiDKKetThuc}"  id="txtdenngay" locale="de" navigator="true" pattern="dd/MM/yyyy" />
+
                             </h:panelGrid>
                         </h:panelGrid>
                         <h:panelGrid columns="4" style="margin: auto">
-                            <p:button value="Thêm mới"/>
-                            <p:button value="Cập nhật"/>
-                            <p:button value="Xóa"/>
-                            <p:button value="Nhập lại"/>
+                            <p:commandButton value="Thêm mới" actionListener="#{quanLyLopMonHocBean.addLopMonHoc()}" update="frm_tkb"/>
+                            <p:commandButton value="Cập nhật" disabled="#{quanLyLopMonHocBean.checkStatusButton()}" actionListener="#{quanLyLopMonHocBean.editLopMonHoc()}" update="frm_tkb"/>
+                            <p:commandButton value="Xóa" disabled="#{quanLyLopMonHocBean.checkStatusButton()}" onclick="PF('confirm_delete').show()"/>
+                            <p:commandButton value="Nhập lại" actionListener="#{quanLyLopMonHocBean.clearText()}" update="frm_tkb"/>
                         </h:panelGrid>
                     </h:panelGrid>
-                </h:form>
-                <p:dataTable emptyMessage="Chưa có bản ghi nào" styleClass="table">
+                    <p:dataTable 
+                        emptyMessage="Chưa có bản ghi nào" 
+                        styleClass="table"
+                        rowIndexVar="rowIndex" 
+                        var="reg" 
+                        value="#{quanLyLopMonHocBean.arrLopMonHoc}"
+                        id="tbl_tkb"
+                        rowKey="#{reg.idLopMonHoc}"
+                        rows="10"
+                        paginator="true"
+                        selection="#{quanLyLopMonHocBean.listLopMonHocSelected}"
+                        rowsPerPageTemplate="5,10,15"
+                        paginatorPosition="top"
+                        
+                        >
+                        <p:ajax listener="#{quanLyLopMonHocBean.selectedRowtable}" event="rowSelect" update=":frm_tkb"/>
                         <f:facet name="header" >  
                             <div style="padding: 5px">Danh sách thời khóa biểu</div>
                         </f:facet>
-                    <p:column styleClass="header" style="width: 50px">
-                            <f:facet name="header">
-                                STT
-                            </f:facet>
+                        <p:column styleClass="header" headerText="STT">
+                            <h:outputText value="#{rowIndex+1}" />
                         </p:column>
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Lớp học
-                            </f:facet>
-                        </p:column>  
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Môn học
-                            </f:facet>
-                        </p:column> 
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Giờ học
-                            </f:facet>
-                        </p:column >
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Phòng học
-                            </f:facet>
+                        <p:column styleClass="header" headerText="Lớp học" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                            <h:outputText value="#{reg.tenLop}" />
                         </p:column>
-                        <p:column styleClass="header" style="width: 150px">
-                            <f:facet name="header">
-                                Học kỳ
-                            </f:facet>
+                        <p:column styleClass="header" headerText="Môn học" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                            <h:outputText value="#{reg.tenMonHoc}" />
                         </p:column>
+                        <p:column styleClass="header" headerText="Giảng viên" filterStyle="width:90%" sortBy="#{reg.giangVien}" filterBy="#{reg.giangVien}" >
+                            <h:outputText value="#{reg.giangVien}" />
+                        </p:column>
+                        <p:column styleClass="header" headerText="Giờ học" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                            <h:outputText value="#{reg.thoiGian}" />
+                        </p:column>
+                        <p:column styleClass="header" headerText="Phòng học" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                            <h:outputText value="#{reg.tenPhongHoc}" />
+                        </p:column>
+                        <p:column styleClass="header" headerText="Ngày học" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                            <h:outputText value="#{reg.ngayHoc}" />
+                        </p:column>
+                        <p:column styleClass="header" headerText="Ngày bắt đầu học" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                            <h:outputText value="#{reg.ngayBatDauHocView}" />
+                        </p:column>
+                        <p:column styleClass="header" headerText="Ngày nghỉ dự kiến bắt đầu" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                            <h:outputText value="#{reg.ngayNghiDKBatDauView}" />
+                        </p:column>
+                        <p:column styleClass="header" headerText="Ngày nghỉ dự kiến kết thúc" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                            <h:outputText value="#{reg.ngayNghiDKKetThucView}" />
+                        </p:column>
+                        <p:column selectionMode="multiple" style="width:5px;text-align:center"/>
                     </p:dataTable>
+                    <p:confirmDialog id="confirm_delete" message="Bạn chắc chắn muốn xóa không ?"  
+                                     header="Thông báo!" widgetVar="confirm_delete" style="width: 100px" closable="false"> 
+                        <center><p:commandButton id="confirm_dl" value="Đồng ý" oncomplete="PF('confirm_delete').hide()"  
+                                                 actionListener="#{quanLyLopMonHocBean.deleteLopMonHoc()}"  update="tbl_tkb :frm_tkb" />
+                            <p:commandButton id="cancel_dl"  value="Bỏ qua" onclick="PF('confirm_delete').hide()" type="button" />   </center>
+                    </p:confirmDialog>
+                </h:form>
             </ui:define>
-       </ui:composition>
+        </ui:composition>
     </h:body>
 </html>
 
