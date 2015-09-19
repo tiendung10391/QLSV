@@ -37,7 +37,6 @@ public class QuanLySinhVienBean extends MessageUtil {
     private ArrayList<SinhVienEntity> arrSinhVien, listSinhVienSelected;
 
     private ArrayList<LopHocEntity> arrLopHoc;
-    private String lopHoc;
     private Map<String, String> lopHocList = new HashMap<String, String>();
     private LopHocModel lopHocModel;
     private LopHocEntity lopHocEntity;
@@ -85,23 +84,25 @@ public class QuanLySinhVienBean extends MessageUtil {
     }
 
     public void addSinhVien() {
+
         checkUpdate = false;
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        String ngaysinh = format.format(SinhVienEntity.getNgaySinh());
-        System.out.println("Ngay sinh default: " + SinhVienEntity.getNgaySinh());
-        System.out.println("Ngày Sinh format: " + ngaysinh);
 
         if (isValidate()) {
             try {
                 int id;
-                SinhVienEntity.setMaLop(lopHoc);
-                System.out.println("Ma Lop: " + lopHoc);
+//                SinhVienEntity.setMaLop(lopHoc);
+//                System.out.println("Ma Lop: " + lopHoc);
 
                 id = SinhVienModel.addSinhVien(SinhVienEntity);
 
                 // lay ve thong tin ten khoa hoc va he dao tao tu ma khoa hoc
                 ArrayList<LopHocEntity> arrInfoLopHoc = new ArrayList<LopHocEntity>();
-                String TenLopHoc = lopHocModel.getTenLopOld(lopHoc);
+                String TenLopHoc = lopHocModel.getTenLopOld(SinhVienEntity.getMaLop());
+
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                String ngaysinh = format.format(SinhVienEntity.getNgaySinh());
+                System.out.println("Ngay sinh default: " + SinhVienEntity.getNgaySinh());
+                System.out.println("Ngày Sinh format: " + ngaysinh);
 
                 SinhVienEntity.setTenLop(TenLopHoc);
                 SinhVienEntity.setNgaySinhView(ngaysinh);
@@ -111,7 +112,7 @@ public class QuanLySinhVienBean extends MessageUtil {
                 String MaSV = SinhVienEntity.getMaSinhVien();
                 System.out.println("Mã Sinh vien: " + MaSV);
                 ArrayList<String> arrMaMon = new ArrayList<String>();
-                arrMaMon = SinhVienModel.getMaMonFormMaLop(lopHoc);
+                arrMaMon = SinhVienModel.getMaMonFormMaLop(SinhVienEntity.getMaLop());
                 for (int i = 0; i < arrMaMon.size(); i++) {
                     SinhVienModel.addDiemSinhVien(arrMaMon.get(i), MaSV);
                 }
@@ -142,10 +143,10 @@ public class QuanLySinhVienBean extends MessageUtil {
                 // lay ve maLop cu
                 String MaLopCu = SinhVienModel.getOldMaLop(SinhVienEntity.getMaSinhVien());
 
-                if (!MaLopCu.equals(lopHoc)) {
+                if (!MaLopCu.equals(SinhVienEntity.getMaLop())) {
                     // neu ma lop thay doi
                     String MaKhoaHocCu = SinhVienModel.getMaKhoaHocFromMaLop(MaLopCu);
-                    String MaKhoaHocMoi = SinhVienModel.getMaKhoaHocFromMaLop(lopHoc);
+                    String MaKhoaHocMoi = SinhVienModel.getMaKhoaHocFromMaLop(SinhVienEntity.getMaLop());
                     if (!MaKhoaHocCu.equals(MaKhoaHocMoi)) {
                         // neu khac ma Khoa hoc thi xoa masv tu bang diem cua ma lop cu
                         SinhVienModel.deleteDiemFromMaSV(SinhVienEntity.getMaSinhVien());
@@ -153,21 +154,21 @@ public class QuanLySinhVienBean extends MessageUtil {
                         String MaSV = SinhVienEntity.getMaSinhVien();
                         System.out.println("Mã Sinh vien: " + MaSV);
                         ArrayList<String> arrMaMon = new ArrayList<String>();
-                        arrMaMon = SinhVienModel.getMaMonFormMaLop(lopHoc);
+                        arrMaMon = SinhVienModel.getMaMonFormMaLop(SinhVienEntity.getMaLop());
                         for (int i = 0; i < arrMaMon.size(); i++) {
                             SinhVienModel.addDiemSinhVien(arrMaMon.get(i), MaSV);
                         }
                     }
                 }
 
-                SinhVienEntity.setMaLop(lopHoc);
-                System.out.println("MaLop: " + lopHoc);
+                SinhVienEntity.setMaLop(SinhVienEntity.getMaLop());
+                System.out.println("MaLop: " + SinhVienEntity.getMaLop());
                 SinhVienModel.editSinhVien(SinhVienEntity);
 
                 //cap nhat tren giao dien
                 // lay ve thong tin ten khoa hoc va he dao tao tu ma khoa hoc
                 ArrayList<LopHocEntity> arrInfoLopHoc = new ArrayList<LopHocEntity>();
-                String TenLopHoc = lopHocModel.getTenLopOld(lopHoc);
+                String TenLopHoc = lopHocModel.getTenLopOld(SinhVienEntity.getMaLop());
 
                 SinhVienEntity.setTenLop(TenLopHoc);
 
@@ -274,7 +275,7 @@ public class QuanLySinhVienBean extends MessageUtil {
             addErrorMessage("Bạn chưa nhập quê quán");
             focus = "txtQueQuan";
             return false;
-        } else if (ValidatorUtil.isSelector(lopHoc)) {
+        } else if (ValidatorUtil.isSelector(SinhVienEntity.getMaLop())) {
             addErrorMessage("Bạn chưa chọn lớp học");
             focus = "txtLopHoc";
             return false;
@@ -385,14 +386,6 @@ public class QuanLySinhVienBean extends MessageUtil {
 
     public void setArrLopHoc(ArrayList<LopHocEntity> arrLopHoc) {
         this.arrLopHoc = arrLopHoc;
-    }
-
-    public String getLopHoc() {
-        return lopHoc;
-    }
-
-    public void setLopHoc(String lopHoc) {
-        this.lopHoc = lopHoc;
     }
 
     public Map<String, String> getLopHocList() {

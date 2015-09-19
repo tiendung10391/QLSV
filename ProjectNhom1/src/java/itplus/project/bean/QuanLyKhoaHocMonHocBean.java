@@ -36,21 +36,18 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
     private KhoaHocEntity khoaHocEntity;
     private KhoaHocModel khoaHocModel;
     private ArrayList<KhoaHocEntity> arrKhoaHoc;
-    private String khoaHoc;
     private Map<String, String> KhoaHocList = new HashMap<String, String>();
 
     // tao list hoc ky
     private HocKyEntity hocKyEntity;
     private HocKyModel hocKyModel;
     private ArrayList<HocKyEntity> arrHocKy;
-    private String hocKy;
     private Map<String, String> hocKyList = new HashMap<String, String>();
 
     // tao list mon hoc
     private MonHocEntity monHocEntity;
     private MonHocModel monHocModel;
     private ArrayList<MonHocEntity> arrMonHoc;
-    private String monHoc;
     private Map<String, String> MonHocList = new HashMap<String, String>();
 
     //quan ly khoa hoc mon hoc bean
@@ -99,16 +96,13 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
         if (isValidate()) {
             try {
                 int id;
-                khoaHocMonHocEntity.setMaHocKy(hocKy);
-                khoaHocMonHocEntity.setMaKhoaHoc(khoaHoc);
-                khoaHocMonHocEntity.setMaMonHoc(monHoc);
 
                 id = khoaHocMonHocModel.addKhoaHocMonHoc(khoaHocMonHocEntity);
 
                 arrKhoaHocMonHoc.add(khoaHocMonHocEntity);
-                String tenKhoaHoc = khoaHocModel.getTenKhoaHoc(khoaHoc);
-                String tenHocKy = hocKyModel.getTenHocKy(hocKy);
-                String tenMonHoc = monHocModel.getTenMonHoc(monHoc);
+                String tenKhoaHoc = khoaHocModel.getTenKhoaHoc(khoaHocMonHocEntity.getMaKhoaHoc());
+                String tenHocKy = hocKyModel.getTenHocKy(khoaHocMonHocEntity.getMaHocKy());
+                String tenMonHoc = monHocModel.getTenMonHoc(khoaHocMonHocEntity.getMaMonHoc());
 
                 khoaHocMonHocEntity.setTenKhoaHoc(tenKhoaHoc);
                 khoaHocMonHocEntity.setTenHocKy(tenHocKy);
@@ -131,17 +125,17 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
         if (isValidate()) {
             try {
                 System.out.println(khoaHocMonHocEntity.getIdKhoaHocMonHoc() + ": id khoahoc");
-                khoaHocMonHocEntity.setMaHocKy(hocKy);
-                khoaHocMonHocEntity.setMaKhoaHoc(khoaHoc);
-                khoaHocMonHocEntity.setMaMonHoc(monHoc);
+                khoaHocMonHocEntity.setMaHocKy(khoaHocMonHocEntity.getMaHocKy());
+                khoaHocMonHocEntity.setMaKhoaHoc(khoaHocMonHocEntity.getMaKhoaHoc());
+                khoaHocMonHocEntity.setMaMonHoc(khoaHocMonHocEntity.getMaMonHoc());
 
                 khoaHocMonHocModel.editKhoaHocMonHoc(khoaHocMonHocEntity);
                 //cap nhat tren giao dien
 
                 // lay ve thong tin ten khoa hoc va he dao tao tu ma khoa hoc
-                String tenKhoaHoc = khoaHocModel.getTenKhoaHoc(khoaHoc);
-                String tenHocKy = hocKyModel.getTenHocKy(hocKy);
-                String tenMonHoc = monHocModel.getTenMonHoc(monHoc);
+                String tenKhoaHoc = khoaHocModel.getTenKhoaHoc(khoaHocMonHocEntity.getMaKhoaHoc());
+                String tenHocKy = hocKyModel.getTenHocKy(khoaHocMonHocEntity.getMaHocKy());
+                String tenMonHoc = monHocModel.getTenMonHoc(khoaHocMonHocEntity.getMaMonHoc());
 
                 khoaHocMonHocEntity.setTenKhoaHoc(tenKhoaHoc);
                 khoaHocMonHocEntity.setTenHocKy(tenHocKy);
@@ -186,15 +180,15 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
     }
 
     public boolean isValidate() {
-        if (ValidatorUtil.isSelector(khoaHoc)) {
+        if (ValidatorUtil.isSelector(khoaHocMonHocEntity.getMaKhoaHoc())) {
             addErrorMessage("Bạn chưa chọn khóa học");
             focus = "txtKhoaHoc";
             return false;
-        } else if (ValidatorUtil.isSelector(hocKy)) {
+        } else if (ValidatorUtil.isSelector(khoaHocMonHocEntity.getMaHocKy())) {
             addErrorMessage("Bạn chưa chọn học kỳ");
             focus = "txtHocKy";
             return false;
-        } else if (ValidatorUtil.isSelector(monHoc)) {
+        } else if (ValidatorUtil.isSelector(khoaHocMonHocEntity.getMaMonHoc())) {
             addErrorMessage("Bạn chưa chọn môn học");
             focus = "txtMonHoc";
             return false;
@@ -312,13 +306,6 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
         this.arrKhoaHoc = arrKhoaHoc;
     }
 
-    public String getKhoaHoc() {
-        return khoaHoc;
-    }
-
-    public void setKhoaHoc(String khoaHoc) {
-        this.khoaHoc = khoaHoc;
-    }
 
     public Map<String, String> getKhoaHocList() {
         return KhoaHocList;
@@ -350,14 +337,6 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
 
     public void setArrHocKy(ArrayList<HocKyEntity> arrHocKy) {
         this.arrHocKy = arrHocKy;
-    }
-
-    public String getHocKy() {
-        return hocKy;
-    }
-
-    public void setHocKy(String hocKy) {
-        this.hocKy = hocKy;
     }
 
     public Map<String, String> getHocKyList() {
@@ -392,13 +371,6 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
         this.arrMonHoc = arrMonHoc;
     }
 
-    public String getMonHoc() {
-        return monHoc;
-    }
-
-    public void setMonHoc(String monHoc) {
-        this.monHoc = monHoc;
-    }
 
     public Map<String, String> getMonHocList() {
         return MonHocList;

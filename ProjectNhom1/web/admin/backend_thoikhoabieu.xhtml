@@ -20,24 +20,24 @@
                             <h:panelGrid columns="4" cellpadding="5px">
                                 <p:outputLabel value="Lớp học (*):&nbsp;&nbsp;&nbsp;"/>
                                 <p:selectOneMenu disabled="#{quanLyLopMonHocBean.checkSelectedTable()}" id="txtLopHoc" 
-                                                 value="#{quanLyLopMonHocBean.lopHoc}" style="width: 200px" widgetVar="editLopHoc"
+                                                 value="#{quanLyLopMonHocBean.lopMonHocEntity.maLop}" style="width: 200px" widgetVar="editLopHoc"
                                                  effect="fold" editable="false">
                                     <p:ajax listener="#{quanLyLopMonHocBean.onKhoaHocChange()}" update="sMonHoc" />
                                     <f:selectItem itemLabel="Chọn lớp học" />
                                     <f:selectItems value="#{quanLyLopMonHocBean.lopHocList}" />
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Môn học (*):"/>
-                                <p:selectOneMenu disabled="#{quanLyLopMonHocBean.checkSelectedTable()}" id="sMonHoc" value="#{quanLyLopMonHocBean.monHoc}" style="width: 200px" effect="fold" editable="false">
+                                <p:selectOneMenu disabled="#{quanLyLopMonHocBean.checkSelectedTable()}" id="sMonHoc" value="#{quanLyLopMonHocBean.lopMonHocEntity.maMonHoc}" style="width: 200px" effect="fold" editable="false">
                                     <f:selectItem itemLabel="Chọn môn học" />
                                     <f:selectItems value="#{quanLyLopMonHocBean.monHocList}" />
                                 </p:selectOneMenu>
                                 <p:outputLabel  value="Giờ học (*):"/>
-                                <p:selectOneMenu id="txtGioHoc" value="#{quanLyLopMonHocBean.gioHoc}" style="width: 200px" effect="fold" editable="false">
+                                <p:selectOneMenu id="txtGioHoc" value="#{quanLyLopMonHocBean.lopMonHocEntity.maGioHoc}" style="width: 200px" effect="fold" editable="false">
                                     <f:selectItem itemLabel="Chọn giờ học" />
                                     <f:selectItems value="#{quanLyLopMonHocBean.gioHocList}" />
                                 </p:selectOneMenu>
                                 <p:outputLabel value="Phòng học (*):"/>
-                                <p:selectOneMenu id="txtPhongHoc" value="#{quanLyLopMonHocBean.phongHoc}" style="width: 200px" effect="fold" editable="false">
+                                <p:selectOneMenu id="txtPhongHoc" value="#{quanLyLopMonHocBean.lopMonHocEntity.maPhong}" style="width: 200px" effect="fold" editable="false">
                                     <f:selectItem itemLabel="Chọn phòng học" />
                                     <f:selectItems value="#{quanLyLopMonHocBean.phongHocList}" />
                                 </p:selectOneMenu>

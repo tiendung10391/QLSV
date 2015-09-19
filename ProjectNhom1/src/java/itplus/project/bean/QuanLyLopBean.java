@@ -36,13 +36,11 @@ public class QuanLyLopBean extends MessageUtil {
     
     private NganhModel nganhModel;
     private ArrayList<NganhEntity> arrNganh;
-    private String nganh;
     private Map<String, String> nganhList = new HashMap<String, String>();
     
     private KhoaHocEntity khoaHocEntity;
     private KhoaHocModel khoaHocModel;
     private ArrayList<KhoaHocEntity> arrKhoaHoc;
-    private String khoaHoc;
     private Map<String, String> khoaHocList = new HashMap<String, String>();
     
     private LopHocEntity lopHocEntity, rowSelected;
@@ -84,18 +82,18 @@ public class QuanLyLopBean extends MessageUtil {
         if (isValidate()) {
             try {
                 int id;
-                lopHocEntity.setMaKhoaHoc(khoaHoc);
+                lopHocEntity.setMaKhoaHoc(lopHocEntity.getMaKhoaHoc());
                 System.out.println("Lop hoc entity: " + lopHocEntity.getMaLop() + " " + lopHocEntity.getMaKhoaHoc());
                 id = lopHocModel.addLophoc(lopHocEntity);
 
                 // lay ve thong tin ten khoa hoc va he dao tao tu ma khoa hoc
                 ArrayList<KhoaHocEntity> arrInfoKhoaHoc = new ArrayList<KhoaHocEntity>();
-                arrInfoKhoaHoc = khoaHocModel.getInfoKhoaHocFormMaKhoaHoc(khoaHoc);
+                arrInfoKhoaHoc = khoaHocModel.getInfoKhoaHocFormMaKhoaHoc(lopHocEntity.getMaKhoaHoc());
                 String tenKhoaHoc = arrInfoKhoaHoc.get(0).getTenKhoaHoc();
                 String heDaoTao = arrInfoKhoaHoc.get(0).getHeDaoTao();
 
                 // lay ve ten nganh tu ma nganh
-                String tenNganh = nganhModel.getInfoNganhFormMaNganh(nganh);
+                String tenNganh = nganhModel.getInfoNganhFormMaNganh(lopHocEntity.getMaNganh());
 
                 lopHocEntity.setTenKhoaHoc(tenKhoaHoc);
                 lopHocEntity.setHeDaoTao(heDaoTao);
@@ -127,19 +125,19 @@ public class QuanLyLopBean extends MessageUtil {
         //goi ham edit ben model
         if (isValidate()) {
             try {
-                lopHocEntity.setMaKhoaHoc(khoaHoc);
-                System.out.println("MaKhoaHoc: " + khoaHoc);
+                lopHocEntity.setMaKhoaHoc(lopHocEntity.getMaKhoaHoc());
+                System.out.println("MaKhoaHoc: " + lopHocEntity.getMaKhoaHoc());
                 lopHocModel.editLophoc(lopHocEntity);
                 //cap nhat tren giao dien
 
                 // lay ve thong tin ten khoa hoc va he dao tao tu ma khoa hoc
                 ArrayList<KhoaHocEntity> arrInfoKhoaHoc = new ArrayList<KhoaHocEntity>();
-                arrInfoKhoaHoc = khoaHocModel.getInfoKhoaHocFormMaKhoaHoc(khoaHoc);
+                arrInfoKhoaHoc = khoaHocModel.getInfoKhoaHocFormMaKhoaHoc(lopHocEntity.getMaKhoaHoc());
                 String tenKhoaHoc = arrInfoKhoaHoc.get(0).getTenKhoaHoc();
                 String heDaoTao = arrInfoKhoaHoc.get(0).getHeDaoTao();
 
                 // lay ve ten nganh tu ma nganh
-                String tenNganh = nganhModel.getInfoNganhFormMaNganh(nganh);
+                String tenNganh = nganhModel.getInfoNganhFormMaNganh(lopHocEntity.getMaNganh());
 
                 lopHocEntity.setTenKhoaHoc(tenKhoaHoc);
                 lopHocEntity.setHeDaoTao(heDaoTao);
@@ -196,11 +194,11 @@ public class QuanLyLopBean extends MessageUtil {
             addErrorMessage("Chưa nhập năm nhập học");
             focus = "txtNamNhapHoc";
             return false;
-        } else if (ValidatorUtil.isSelector(nganh)) {
-            System.out.println("Ngành:" + nganh);
+        } else if (ValidatorUtil.isSelector(lopHocEntity.getMaNganh())) {
+            System.out.println("Ngành:" + lopHocEntity.getMaNganh());
             addErrorMessage("chưa chọn ngành học");
             return false;
-        } else if (ValidatorUtil.isSelector(khoaHoc)) {
+        } else if (ValidatorUtil.isSelector(lopHocEntity.getMaKhoaHoc())) {
             addErrorMessage("chưa chọn khóa học");
             return false;
         } else {
@@ -275,7 +273,7 @@ public class QuanLyLopBean extends MessageUtil {
         try {
             arrKhoaHoc = khoaHocModel.getAllKhoaHoc();
 
-            System.out.println("Ma nganh: " + nganh);
+            System.out.println("Ma nganh: " + lopHocEntity.getMaNganh());
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
@@ -289,7 +287,7 @@ public class QuanLyLopBean extends MessageUtil {
 
     public ArrayList<KhoaHocEntity> getKhoaHocFormMaNganh() {
         try {
-            arrKhoaHoc = khoaHocModel.getKhoaHocFormMaNganh(nganh);
+            arrKhoaHoc = khoaHocModel.getKhoaHocFormMaNganh(lopHocEntity.getMaNganh());
         } catch (Exception ex) {
             System.out.println(ex.toString());
         }
@@ -333,8 +331,8 @@ public class QuanLyLopBean extends MessageUtil {
     }
 
     public void onKhoaHocChange() {
-        if (nganh != null && !nganh.equals("")) {
-            khoaHocList = data.get(nganh);
+        if (lopHocEntity.getMaNganh() != null && !lopHocEntity.getMaNganh().equals("")) {
+            khoaHocList = data.get(lopHocEntity.getMaNganh());
         } else {
             khoaHocList = new HashMap<String, String>();
         }
@@ -397,13 +395,6 @@ public class QuanLyLopBean extends MessageUtil {
         this.arrNganh = arrNganh;
     }
 
-    public String getNganh() {
-        return nganh;
-    }
-
-    public void setNganh(String nganh) {
-        this.nganh = nganh;
-    }
 
     public Map<String, String> getNganhList() {
         return nganhList;
@@ -437,13 +428,6 @@ public class QuanLyLopBean extends MessageUtil {
         this.arrKhoaHoc = arrKhoaHoc;
     }
 
-    public String getKhoaHoc() {
-        return khoaHoc;
-    }
-
-    public void setKhoaHoc(String khoaHoc) {
-        this.khoaHoc = khoaHoc;
-    }
 
     public Map<String, String> getKhoaHocList() {
         return khoaHocList;

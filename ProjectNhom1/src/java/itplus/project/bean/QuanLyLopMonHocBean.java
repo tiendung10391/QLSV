@@ -35,13 +35,11 @@ public class QuanLyLopMonHocBean extends MessageUtil {
     private LopHocModel lopHocModel;
     private LopHocEntity lopHocEntity;
     private ArrayList<LopHocEntity> arrLopHoc;
-    private String lopHoc;
     private Map<String, String> lopHocList = new HashMap<String, String>();
 
     private MonHocEntity monHocEntity;
     private MonHocModel monHocModel;
     private ArrayList<MonHocEntity> arrMonHoc;
-    private String monHoc;
     private Map<String, String> monHocList = new HashMap<String, String>();
 
     private Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
@@ -49,12 +47,10 @@ public class QuanLyLopMonHocBean extends MessageUtil {
     private GioHocEntity gioHocEntity;
     private ArrayList<GioHocEntity> arrGioHoc;
     private Map<String, String> gioHocList = new HashMap<String, String>();
-    private String gioHoc;
 
     private PhongHocEntity phongHocEntity;
     private ArrayList<PhongHocEntity> arrPhongHoc;
     private Map<String, String> phongHocList = new HashMap<String, String>();
-    private String phongHoc;
 
     private LopMonHocEntity lopMonHocEntity, rowSelected;
     private LopMonHocModel lopMonHocModel;
@@ -97,10 +93,6 @@ public class QuanLyLopMonHocBean extends MessageUtil {
         if (isValidate()) {
             try {
                 int id = 0;
-                lopMonHocEntity.setMaLop(lopHoc);
-                lopMonHocEntity.setMaMonHoc(monHoc);
-                lopMonHocEntity.setMaGioHoc(gioHoc);
-                lopMonHocEntity.setMaPhong(phongHoc);
                 String NgayHoc = "";
                 for (int i = 0; i < arrNgayHoc.length; i++) {
                     NgayHoc += arrNgayHoc[i] + " ";
@@ -123,13 +115,13 @@ public class QuanLyLopMonHocBean extends MessageUtil {
 
                 // update len giao dien
                 // lay ve ten lop
-                String TenLop = lopMonHocModel.getTenLop(lopHoc);
+                String TenLop = lopMonHocModel.getTenLop(lopMonHocEntity.getMaLop());
                 lopMonHocEntity.setTenLop(TenLop);
-                String TenMon = lopMonHocModel.getTenMon(monHoc);
+                String TenMon = lopMonHocModel.getTenMon(lopMonHocEntity.getMaMonHoc());
                 lopMonHocEntity.setTenMonHoc(TenMon);
-                String GioHoc = lopMonHocModel.getGioHoc(gioHoc);
+                String GioHoc = lopMonHocModel.getGioHoc(lopMonHocEntity.getMaGioHoc());
                 lopMonHocEntity.setThoiGian(GioHoc);
-                String PhongHoc = lopMonHocModel.getTenPhongHoc(phongHoc);
+                String PhongHoc = lopMonHocModel.getTenPhongHoc(lopMonHocEntity.getMaPhong());
                 lopMonHocEntity.setTenPhongHoc(PhongHoc);
 
                 lopMonHocEntity.setNgayBatDauHocView(format.format(lopMonHocEntity.getNgayBatDauHoc()));
@@ -166,8 +158,8 @@ public class QuanLyLopMonHocBean extends MessageUtil {
             try {
 //                lopMonHocEntity.setMaLop(lopHoc);
 //                lopMonHocEntity.setMaMonHoc(monHoc);
-                lopMonHocEntity.setMaGioHoc(gioHoc);
-                lopMonHocEntity.setMaPhong(phongHoc);
+                lopMonHocEntity.setMaGioHoc(lopMonHocEntity.getMaGioHoc());
+                lopMonHocEntity.setMaPhong(lopMonHocEntity.getMaPhong());
                 String NgayHoc = "";
                 for (int i = 0; i < arrNgayHoc.length; i++) {
                     NgayHoc += arrNgayHoc[i] + " ";
@@ -191,13 +183,13 @@ public class QuanLyLopMonHocBean extends MessageUtil {
                 }
 
                 // cap nhat tren giao dien
-                String TenLop = lopMonHocModel.getTenLop(lopHoc);
+                String TenLop = lopMonHocModel.getTenLop(lopMonHocEntity.getMaLop());
                 lopMonHocEntity.setTenLop(TenLop);
-                String TenMon = lopMonHocModel.getTenMon(monHoc);
+                String TenMon = lopMonHocModel.getTenMon(lopMonHocEntity.getMaMonHoc());
                 lopMonHocEntity.setTenMonHoc(TenMon);
-                String GioHoc = lopMonHocModel.getGioHoc(gioHoc);
+                String GioHoc = lopMonHocModel.getGioHoc(lopMonHocEntity.getMaGioHoc());
                 lopMonHocEntity.setThoiGian(GioHoc);
-                String PhongHoc = lopMonHocModel.getTenPhongHoc(phongHoc);
+                String PhongHoc = lopMonHocModel.getTenPhongHoc(lopMonHocEntity.getMaPhong());
                 lopMonHocEntity.setTenPhongHoc(PhongHoc);
 
                 lopMonHocEntity.setNgayBatDauHocView(format.format(lopMonHocEntity.getNgayBatDauHoc()));
@@ -235,26 +227,26 @@ public class QuanLyLopMonHocBean extends MessageUtil {
         if (checkUpdate) {
 
             try {
-                checkDuplicateThoiKhoaBieu = lopMonHocModel.checkDuplicateThoiKhoaBieu(lopHoc, monHoc);
+                checkDuplicateThoiKhoaBieu = lopMonHocModel.checkDuplicateThoiKhoaBieu(lopMonHocEntity.getMaLop(), lopMonHocEntity.getMaMonHoc());
             } catch (Exception ex) {
                 Logger.getLogger(QuanLyLopMonHocBean.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (ValidatorUtil.isSelector(lopHoc)) {
+            if (ValidatorUtil.isSelector(lopMonHocEntity.getMaLop())) {
                 addErrorMessage("Bạn chưa chọn lớp học");
                 focus = "txtLopHoc";
                 return false;
-            } else if (ValidatorUtil.isSelector(monHoc)) {
+            } else if (ValidatorUtil.isSelector(lopMonHocEntity.getMaMonHoc())) {
                 addErrorMessage("Bạn chưa chọn môn học");
                 focus = "sMonHoc";
                 return false;
             }
         }
 
-        if (ValidatorUtil.isSelector(gioHoc)) {
+        if (ValidatorUtil.isSelector(lopMonHocEntity.getMaGioHoc())) {
             addErrorMessage("Bạn chưa chọn giờ học");
             focus = "txtGioHoc";
             return false;
-        } else if (ValidatorUtil.isSelector(phongHoc)) {
+        } else if (ValidatorUtil.isSelector(lopMonHocEntity.getMaPhong())) {
             addErrorMessage("Bạn chưa chọn phòng học");
             focus = "txtPhongHoc";
             return false;
@@ -375,19 +367,19 @@ public class QuanLyLopMonHocBean extends MessageUtil {
     public void onKhoaHocChange() {
         ArrayList<MonHocEntity> monHocSelected = new ArrayList<MonHocEntity>();
         try {
-            monHocSelected = monHocModel.getAllMonHocFormMaLop(lopHoc);
+            monHocSelected = monHocModel.getAllMonHocFormMaLop(lopMonHocEntity.getMaLop());
             Map<String, String> map = new HashMap<String, String>();
             for (int i = 0; i < monHocSelected.size(); i++) {
                 map.put(monHocSelected.get(i).getTenMonHoc(), monHocSelected.get(i).getMaMonHoc());
             }
-            data.put(lopHoc, map);
+            data.put(lopMonHocEntity.getMaLop(), map);
         } catch (Exception ex) {
             System.out.println(ex.toString());
             Logger.getLogger(QuanLyLopBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        if (lopHoc != null && !lopHoc.equals("")) {
-            monHocList = data.get(lopHoc);
+        if (lopMonHocEntity.getMaLop() != null && !lopMonHocEntity.getMaLop().equals("")) {
+            monHocList = data.get(lopMonHocEntity.getMaLop());
         } else {
             monHocList = new HashMap<String, String>();
         }
@@ -426,13 +418,6 @@ public class QuanLyLopMonHocBean extends MessageUtil {
         this.arrLopHoc = arrLopHoc;
     }
 
-    public String getLopHoc() {
-        return lopHoc;
-    }
-
-    public void setLopHoc(String lopHoc) {
-        this.lopHoc = lopHoc;
-    }
 
     public Map<String, String> getLopHocList() {
         return lopHocList;
@@ -466,13 +451,6 @@ public class QuanLyLopMonHocBean extends MessageUtil {
         this.arrMonHoc = arrMonHoc;
     }
 
-    public String getMonHoc() {
-        return monHoc;
-    }
-
-    public void setMonHoc(String monHoc) {
-        this.monHoc = monHoc;
-    }
 
     public Map<String, String> getMonHocList() {
         return monHocList;
@@ -554,21 +532,7 @@ public class QuanLyLopMonHocBean extends MessageUtil {
         this.lopMonHocModel = lopMonHocModel;
     }
 
-    public String getGioHoc() {
-        return gioHoc;
-    }
 
-    public void setGioHoc(String gioHoc) {
-        this.gioHoc = gioHoc;
-    }
-
-    public String getPhongHoc() {
-        return phongHoc;
-    }
-
-    public void setPhongHoc(String phongHoc) {
-        this.phongHoc = phongHoc;
-    }
 
     public String[] getArrNgayHoc() {
         return arrNgayHoc;

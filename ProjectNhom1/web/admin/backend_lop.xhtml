@@ -30,7 +30,7 @@
                             <p:outputLabel value="Năm nhập học (*):"/>
                             <p:inputMask mask="2099" id="txtNamNhapHoc" value="#{quanLyLopBean.lopHocEntity.namNhapHoc}"/>
                             <p:outputLabel value="Khóa học (*):"/>
-                            <p:selectOneMenu id="sKhoaHoc" value="#{quanLyLopBean.khoaHoc}" style="width: 200px" effect="fade" editable="false"
+                            <p:selectOneMenu id="sKhoaHoc" value="#{quanLyLopBean.lopHocEntity.maKhoaHoc}" style="width: 200px" effect="fade" editable="false"
                                              filter="true" filterMatchMode="startsWith" panelStyle="width:200px">
 
                                 <f:selectItem itemLabel="Chọn khóa học" itemValue="" noSelectionOption="true" />
