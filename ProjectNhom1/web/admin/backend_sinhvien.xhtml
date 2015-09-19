@@ -18,7 +18,7 @@
                         <center class="title">QUẢN LÝ HỌC VIÊN</center>
                         <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
                             <p:outputLabel value="Mã học viên (*):"/>
-                            <p:inputText value="#{sinhVienBean.sinhVienEntity.maSinhVien}" id="txtMaSinhVien" maxlength="10"/>
+                            <p:inputText value="#{sinhVienBean.sinhVienEntity.maSinhVien}" id="txtMaSinhVien" maxlength="10" disabled="#{sinhVienBean.checkSelectedTable()}"/>
                             <p:outputLabel value="Số điện thoại (*):"/>
                             <p:inputText value="#{sinhVienBean.sinhVienEntity.SDT}" id="txtSDT" maxlength="20"/>
                             <p:outputLabel value="Tên học viên (*):"/>
@@ -30,7 +30,7 @@
                             <p:outputLabel value="Quê quán (*):"/>
                             <p:inputText value="#{sinhVienBean.sinhVienEntity.queQuan}" id="txtQueQuan"/>
                             <p:outputLabel value="Chọn lớp học (*):"/>
-                            <p:selectOneMenu value="#{sinhVienBean.lopHoc}" id="txtLopHoc" style="width: 200px" 
+                            <p:selectOneMenu value="#{sinhVienBean.sinhVienEntity.maLop}" id="txtLopHoc" style="width: 200px" 
                                              effect="fold" editable="false" filter="true" filterMatchMode="startsWith" panelStyle="width: 195px">
 
                                 <f:selectItem itemLabel="Chọn lớp học" itemValue="" noSelectionOption="true" />
@@ -40,7 +40,7 @@
                             <p:inputText id="txtEmail" value="#{sinhVienBean.sinhVienEntity.email}"/>
                             <p:outputLabel value="Giới tính (*):"/>
                             <p:selectOneRadio id="txtGioiTinh" value="#{sinhVienBean.sinhVienEntity.gioiTinh}">
-                                <f:selectItem itemLabel="Nam" itemValue="Nam" />
+                                <f:selectItem itemLabel="Nam&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="Nam" />
                                 <f:selectItem itemLabel="Nữ" itemValue="Nữ" />
                             </p:selectOneRadio>
 

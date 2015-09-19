@@ -33,7 +33,7 @@
                         </h:panelGrid>
                     </h:panelGrid>
 
-                    <p:growl id="msgs" showDetail="true"/>
+                    <p:growl id="msgs"/>
                     <p:dataTable 
                         emptyMessage="Chưa có học sinh nào" 
                         styleClass="table"
@@ -75,7 +75,13 @@
                         <p:column styleClass="header" headerText="Điểm lần 1">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{reg.diemLan1}" style="text-align: center" /></f:facet>
-                                <f:facet name="input"><p:inputText  value="#{reg.diemLan1}" label="Điểm lần 1" style="width:100%; text-align: center"/></f:facet>
+                                <f:facet name="input">
+                                    <p:inputText  value="#{reg.diemLan1}" label="Điểm lần 1" style="width:100%; text-align: center">
+                                        <f:validateLongRange minimum="0" maximum="100" />
+                                        <f:attribute name="Thông báo" value="Nhập điểm từ 0 đến 100" />
+                                    </p:inputText>
+                                </f:facet>
+
                             </p:cellEditor>
                         </p:column >
                         <p:column styleClass="header" headerText="Điểm lần 2">

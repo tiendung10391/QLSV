@@ -75,16 +75,16 @@ and open the template in the editor.
                         <p:column styleClass="header" headerText="STT" style="width: 25px; text-align: center">
                             <h:outputText value="#{rowIndex+1}" />
                         </p:column>
-                        <p:column styleClass="header" headerText="Khóa học" sortBy="#{reg.tenKhoaHoc}" filterBy="#{reg.tenKhoaHoc}" >
+                        <p:column styleClass="header" filterStyle="width: 90%" headerText="Khóa học" sortBy="#{reg.tenKhoaHoc}" filterBy="#{reg.tenKhoaHoc}" >
                             <h:outputText value="#{reg.tenKhoaHoc}" />
                         </p:column>
-                        <p:column styleClass="header" headerText="Học kỳ" sortBy="#{reg.tenHocKy}" filterBy="#{reg.tenHocKy}">
+                        <p:column style="width: 70px;" filterStyle="width: 90%" styleClass="header" headerText="Học kỳ" sortBy="#{reg.tenHocKy}" filterBy="#{reg.tenHocKy}">
                             <h:outputText value="#{reg.tenHocKy}" />
                         </p:column>  
-                        <p:column styleClass="header" headerText="Môn học" sortBy="#{reg.tenMonHoc}" filterBy="#{reg.tenMonHoc}">
+                        <p:column styleClass="header" filterStyle="width: 90%" headerText="Môn học" sortBy="#{reg.tenMonHoc}" filterBy="#{reg.tenMonHoc}">
                             <h:outputText value="#{reg.tenMonHoc}" />
                         </p:column> 
-                        <p:column styleClass="header" headerText="Thứ tự" sortBy="#{reg.thuTu}" filterBy="#{reg.thuTu}">
+                        <p:column style="width: 70px;text-align: center" filterStyle="width: 90%" styleClass="header" headerText="Thứ tự" sortBy="#{reg.thuTu}" filterBy="#{reg.thuTu}">
                             <h:outputText value="#{reg.thuTu}" />
                         </p:column >
                         <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
