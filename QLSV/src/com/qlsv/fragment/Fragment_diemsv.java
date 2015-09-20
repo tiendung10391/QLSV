@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qlsv.Fragment_Activity;
+import com.example.qlsv.MainActivity;
 import com.example.qlsv.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -28,13 +29,15 @@ import com.loopj.android.http.RequestParams;
 public class Fragment_diemsv extends Fragment {
 	TableLayout table_diem;
 	
-	String masvien;
+	String masvien,ip;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.diem_sinhvien, container, false);
 		masvien = Fragment_Activity.masv.toString();
+		//ip
+		ip = MainActivity.ip.toString();
 		table_diem = (TableLayout) view.findViewById(R.id.tableDiem);
 //		BuildTable(4, 6);
 		diemSinhvien();
@@ -62,7 +65,7 @@ public class Fragment_diemsv extends Fragment {
 		// Make RESTful webservice call using AsyncHttpClient object
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(
-				"http://192.168.0.100:8080/WebServiesQLSV/rest/SwDiem/getAllDiem",
+				ip+"/WebServiesQLSV/rest/SwDiem/getAllDiem",
 				params, new AsyncHttpResponseHandler() {
 					// When the response returned by REST has Http response code
 					// '200'

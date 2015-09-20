@@ -159,24 +159,18 @@ public class SinhVienModel {
         return id;
     }
 
-    public void editSinhVien(SinhVienEntity sv) throws SQLException {
-        PreparedStatement stmt = null;
+    public boolean editSinhVien(String matkhau ,String masv) throws SQLException {
+         boolean updateStatus = false;
+       PreparedStatement stmt = null;
         Connection conn = null;
         try {
-            String SQL = "update SINHVIEN set TenSV = ?, NgaySinh = ?, GioiTinh = ?, SDT = ?, DiaChi = ?, QueQuan = ?, Email = ?, MaLop = ? WHERE MaSV = ?";
+            String SQL = "UPDATE SINHVIEN SET MatKhau = ? WHERE MaSV = ?";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL);
-            stmt.setString(1, sv.getTenSV());
-            stmt.setString(2, sv.getNgaySinh());
-            stmt.setBoolean(3, sv.getGioiTinh());
-            stmt.setString(4, sv.getSdt());
-            stmt.setString(5, sv.getDiaChi());
-            stmt.setString(6, sv.getQueQuan());
-            stmt.setString(7, sv.getEmail());
-            stmt.setString(8, sv.getMaLop());
-            stmt.setString(9, sv.getMaSV());
-            stmt.setString(10, sv.getMatKhau());
+            stmt.setString(1, matkhau);
+            stmt.setString(2, masv);
             stmt.executeUpdate();
+            updateStatus = true;
         } finally {
             try {
                 stmt.close();
@@ -185,6 +179,7 @@ public class SinhVienModel {
                 throw ex;
             }
         }
+        return updateStatus;
     }
     
     public void deleteSinhVien(String MaSV) throws SQLException {

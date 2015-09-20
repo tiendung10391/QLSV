@@ -116,29 +116,17 @@ public class SwSinhVienResource {
         return "add success";
     }
     
-    // sua sinh vien
+    // sua sinh vien @PathParam("MatKhau") String matkhau,@PathParam("MaSV") String masv
     @PUT
     @Path("/editSinhVien")
-    public String editLopHoc(@FormParam("MaSV") String MaSV, @FormParam("TenSV") String TenSV,
-            @FormParam("NgaySinh") String NgaySinh, @FormParam("GioiTinh") boolean GioiTinh,
-            @FormParam("SDT") String SDT, @FormParam("DiaChi") String DiaChi, @FormParam("QueQuan") String QueQuan, 
-            @FormParam("Email") String Email, @FormParam("Malop") String MaLop) throws Exception{
-        try{
-            SinhVienEntity sv = new SinhVienEntity();
-            sv.setMaSV(MaSV);
-            sv.setTenSV(TenSV);
-            sv.setNgaySinh(NgaySinh);
-            sv.setGioiTinh(GioiTinh);
-            sv.setSdt(SDT);
-            sv.setDiaChi(DiaChi);
-            sv.setQueQuan(QueQuan);
-            sv.setEmail(Email);
-            sv.setMaLop(MaLop);
-            sinhVienModel.editSinhVien(sv);
-        }catch(Exception ex){
-            throw new Exception(ex.getMessage());
+    public String editLopHoc(@FormParam("MatKhau")String matkhau,@FormParam("MaSV")String masv) throws Exception{
+         String response = "";
+        if(sinhVienModel.editSinhVien("tiendung", "sv001")){
+            response = Utility.constructJSON("update",true);
+        }else{
+            response = Utility.constructJSON("update", false, "Đổi mật khẩu không thành công!");
         }
-        return "edit success";
+    return response;
     }
     
     // xoa lop hoc

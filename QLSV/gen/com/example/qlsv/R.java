@@ -1998,7 +1998,6 @@ containing a value of this type.
         public static final int dropdown=0x7f09001f;
         public static final int ed_ct=0x7f090056;
         public static final int ed_d=0x7f090060;
-        public static final int ed_lh=0x7f090071;
         public static final int edit_query=0x7f090042;
         public static final int end=0x7f090021;
         public static final int end_padder=0x7f090085;
@@ -2059,6 +2058,7 @@ containing a value of this type.
         public static final int showCustom=0x7f090010;
         public static final int showHome=0x7f090011;
         public static final int showTitle=0x7f090012;
+        public static final int spinLophoc=0x7f090071;
         public static final int split_action_bar=0x7f090004;
         public static final int src_atop=0x7f090016;
         public static final int src_in=0x7f090017;

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qlsv.Fragment_Activity;
+import com.example.qlsv.MainActivity;
 import com.example.qlsv.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -23,12 +24,14 @@ import com.loopj.android.http.RequestParams;
 
 public class Fragment_chuongtrinh extends Fragment {
 	TableLayout table_chuongtrinh;
-	String mankhoahoc,malop;
+	String mankhoahoc,malop,ip;
 	String prefname="my_data";
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.chuong_trinh, container, false);
 		malop = Fragment_Activity.malop.toString();
+		//ip
+		ip = MainActivity.ip.toString();
 		table_chuongtrinh = (TableLayout) view.findViewById(R.id.tableChuongtrinh);
 //		BuildTable(4, 6);
 		cacMonHoc();
@@ -44,7 +47,7 @@ public class Fragment_chuongtrinh extends Fragment {
 		// Make RESTful webservice call using AsyncHttpClient object
 		AsyncHttpClient client1 = new AsyncHttpClient();
 		client1.get(
-				"http://192.168.0.100:8080/WebServiesQLSV/rest/SwAdChuongTrinh/getMaKhoaHoc",
+				ip+"/WebServiesQLSV/rest/SwAdChuongTrinh/getMaKhoaHoc",
 				params, new AsyncHttpResponseHandler() {
 					// When the response returned by REST has Http response code
 					// '200'
@@ -113,7 +116,7 @@ public class Fragment_chuongtrinh extends Fragment {
 		// Make RESTful webservice call using AsyncHttpClient object
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(
-				"http://192.168.0.100:8080/WebServiesQLSV/rest/SwAdChuongTrinh/getAllMonHoc_Ad",
+				ip+"/WebServiesQLSV/rest/SwAdChuongTrinh/getAllMonHoc_Ad",
 				params, new AsyncHttpResponseHandler() {
 					// When the response returned by REST has Http response code
 					// '200'

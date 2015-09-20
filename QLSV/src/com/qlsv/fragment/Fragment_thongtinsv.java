@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.qlsv.MainActivity;
 import com.example.qlsv.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -25,7 +26,7 @@ public class Fragment_thongtinsv extends Activity {
 	private ActionBar actionBar;
 	// Progress Dialog Object
 	ProgressDialog prgDialog;
-	public static String masvien;
+	String masvien,ip;
 	TextView masv, gioitinh, lop, diachi, quequan, sdt, email,name,date;
 
 	@Override
@@ -38,6 +39,8 @@ public class Fragment_thongtinsv extends Activity {
 				.parseColor("#2253a2")));
 		Intent in = getIntent();
 		masvien = in.getStringExtra("MaSV");
+		//ip
+		ip = MainActivity.ip.toString();
 		// id textview
 		masv = (TextView) findViewById(R.id.Masv);
 		masv.setText(masvien);
@@ -76,7 +79,7 @@ public class Fragment_thongtinsv extends Activity {
 		// Make RESTful webservice call using AsyncHttpClient object
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(
-				"http://192.168.0.100:8080/WebServiesQLSV/rest/SwSinhVien/checkSinhvien",
+				ip+"/WebServiesQLSV/rest/SwSinhVien/checkSinhvien",
 				params, new AsyncHttpResponseHandler() {
 					// When the response returned by REST has Http response code
 					// '200'

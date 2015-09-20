@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qlsv.Fragment_Activity;
+import com.example.qlsv.MainActivity;
 import com.example.qlsv.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -26,12 +27,14 @@ import com.loopj.android.http.RequestParams;
  */
 public class Fragment_lichhoc extends Fragment {
 	TableLayout table_lich;
-	String malop;
+	String malop,ip;
 	String prefname="my_data";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lich_hoc, container, false);
         malop = Fragment_Activity.malop.toString();
+      //ip
+      	ip = MainActivity.ip.toString();
         table_lich = (TableLayout) view.findViewById(R.id.tableLich);
 //		BuildTable(4, 6);
 		cacNgayHoc();
@@ -57,7 +60,7 @@ public class Fragment_lichhoc extends Fragment {
 		// Make RESTful webservice call using AsyncHttpClient object
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(
-				"http://192.168.0.100:8080/WebServiesQLSV/rest/SwAdLichHoc/getAllLichHoc_Ad",
+				ip+"/WebServiesQLSV/rest/SwAdLichHoc/getAllLichHoc_Ad",
 				params, new AsyncHttpResponseHandler() {
 					// When the response returned by REST has Http response code
 					// '200'
