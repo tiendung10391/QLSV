@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Dung NT
  */
-public class SessionBean implements Serializable{
+public class SessionBean implements Serializable {
 
     public static HttpSession newSession(boolean value) {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(value);

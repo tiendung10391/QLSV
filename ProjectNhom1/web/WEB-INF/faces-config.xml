@@ -60,4 +60,9 @@
         <managed-bean-class>itplus.project.bean.QuanLyAdminBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>cookieBean</managed-bean-name>
+        <managed-bean-class>itplus.project.bean.CookieBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>

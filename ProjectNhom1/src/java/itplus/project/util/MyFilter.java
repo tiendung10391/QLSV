@@ -30,36 +30,44 @@ public class MyFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, 
-    FilterChain chain) throws IOException, ServletException {
-        
-        //kiem tra seession co ton tai khong
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
-        String username;
-        username = (String) req.getSession().getAttribute("username");
-        
-        //cookie
-        Cookie[] cookies = req.getCookies();
-        System.out.println("cookies length: " + cookies.length);
-        for (int i = 0; i < cookies.length; i++) {
-            if (cookies[i].getName().equals("username")) {
-                username = cookies[i].getValue();
-                System.out.println("Cookie--MyFilter: " + cookies[i].getName() + "--" + username);
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain chain) throws IOException, ServletException {
+
+        try {
+            HttpServletRequest req = (HttpServletRequest) request;
+            HttpServletResponse res = (HttpServletResponse) response;
+            String username = (String) req.getSession().getAttribute("username");
+            if (username != null) {
+                chain.doFilter(req, res);
+            } else {
+                Cookie loginCookie = null;
+                Cookie[] cookies = req.getCookies();
+                if (cookies != null) {
+                    for (Cookie cookie : cookies) {
+                        if (cookie.getName().equals("username")) {
+                            loginCookie = cookie;
+                            HttpSession session = req.getSession(true);
+                            session.setAttribute("username", cookie.getValue());
+
+                            break;
+                        }
+                    }
+
+                }
+
+                if (loginCookie != null) {
+                    chain.doFilter(req, res);
+                } else {
+                    String contextPath = req.getContextPath();
+                    res.sendRedirect(contextPath + "/faces/pages/index.xhtml");
+                }
             }
-            
-        }
-        
-        if (username != null) {
-            HttpSession session = req.getSession(true);
-            session.setAttribute("username", username);
-            chain.doFilter(req, res);
-        } else {
-            //day ve trang login
-            String contextPath = req.getContextPath();
-            res.sendRedirect(contextPath + "/faces/pages/index.xhtml");
+
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
 
+        //kiem tra seession co ton tai khong
     }
 
     @Override

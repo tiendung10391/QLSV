@@ -57,6 +57,7 @@ public class SwSinhVienResource {
         }
     return response;        
     }
+     
      @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/checkSinhvien")
@@ -76,13 +77,13 @@ public class SwSinhVienResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/getAllSinhVien")
-    public ArrayList<SinhVienEntity> getAllSinhVien() {
+    @Path("/getInfoSinhVien")
+    public ArrayList<SinhVienEntity> getInfoSinhVien() {
         //TODO return proper representation object
         ArrayList<SinhVienEntity> arrSinhVien = null;
         try {
             arrSinhVien = new ArrayList<SinhVienEntity>();
-            arrSinhVien = sinhVienModel.getSinhVien();
+            arrSinhVien = sinhVienModel.getInfoSinhVien();
         } catch (Exception ex) {
             Logger.getLogger(SwLopHocResource.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -90,67 +91,20 @@ public class SwSinhVienResource {
         return arrSinhVien;
     }
     
-    // them lop hoc
-    @POST
-    @Path("/addSinhVien")
-    public String addSinhVien(@FormParam("MaSV") String MaSV, @FormParam("TenSV") String TenSV,
-            @FormParam("NgaySinh") String NgaySinh, @FormParam("GioiTinh") boolean GioiTinh,
-            @FormParam("SDT") String SDT, @FormParam("DiaChi") String DiaChi, @FormParam("QueQuan") String QueQuan, 
-            @FormParam("Email") String Email, @FormParam("Malop") String MaLop) throws Exception {
-
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getloginSinhVien")
+    public ArrayList<SinhVienEntity> getLoginSinhVien() {
+        //TODO return proper representation object
+        ArrayList<SinhVienEntity> arrSinhVien = null;
         try {
-            SinhVienEntity sv = new SinhVienEntity();
-            sv.setMaSV(MaSV);
-            sv.setTenSV(TenSV);
-            sv.setNgaySinh(NgaySinh);
-            sv.setGioiTinh(GioiTinh);
-            sv.setSdt(SDT);
-            sv.setDiaChi(DiaChi);
-            sv.setQueQuan(QueQuan);
-            sv.setEmail(Email);
-            sv.setMaLop(MaLop);
-            sinhVienModel.addSinhVien(sv);
+            arrSinhVien = new ArrayList<SinhVienEntity>();
+            arrSinhVien = sinhVienModel.getLoginSinhVien();
         } catch (Exception ex) {
-            throw new Exception(ex.getMessage());
+            Logger.getLogger(SwLopHocResource.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "add success";
-    }
-    
-    // sua sinh vien
-    @PUT
-    @Path("/editSinhVien")
-    public String editLopHoc(@FormParam("MaSV") String MaSV, @FormParam("TenSV") String TenSV,
-            @FormParam("NgaySinh") String NgaySinh, @FormParam("GioiTinh") boolean GioiTinh,
-            @FormParam("SDT") String SDT, @FormParam("DiaChi") String DiaChi, @FormParam("QueQuan") String QueQuan, 
-            @FormParam("Email") String Email, @FormParam("Malop") String MaLop) throws Exception{
-        try{
-            SinhVienEntity sv = new SinhVienEntity();
-            sv.setMaSV(MaSV);
-            sv.setTenSV(TenSV);
-            sv.setNgaySinh(NgaySinh);
-            sv.setGioiTinh(GioiTinh);
-            sv.setSdt(SDT);
-            sv.setDiaChi(DiaChi);
-            sv.setQueQuan(QueQuan);
-            sv.setEmail(Email);
-            sv.setMaLop(MaLop);
-            sinhVienModel.editSinhVien(sv);
-        }catch(Exception ex){
-            throw new Exception(ex.getMessage());
-        }
-        return "edit success";
-    }
-    
-    // xoa lop hoc
-    @DELETE
-    @Path("/removeSinhVien")
-    public String removeLopHoc(@FormParam("MaSV")String MaSV) throws Exception{
-        try{
-            sinhVienModel.deleteSinhVien(MaSV);
-        }catch(Exception ex){
-            throw new Exception(ex.getMessage());
-        }
-        return "remove success";
+
+        return arrSinhVien;
     }
 
     /**

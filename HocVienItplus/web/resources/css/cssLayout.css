@@ -1,23 +1,91 @@
 #wrapper {
-    width: 960px;
+    width: 1000px;
     margin: auto;
     box-shadow: 0 0 3px 3px #bebebe;
-/*    -moz-box-shadow: 0 0 3px 3px #bebebe;
-    -webkit-box-shadow: 0 0 3px 3px #bebebe;
-    -o-box-shadow: 0 0 3px 3px #bebebe;
-    -ms-box-shadow: 0 0 3px 3px #bebebe;*/
+    /*    -moz-box-shadow: 0 0 3px 3px #bebebe;
+        -webkit-box-shadow: 0 0 3px 3px #bebebe;
+        -o-box-shadow: 0 0 3px 3px #bebebe;
+        -ms-box-shadow: 0 0 3px 3px #bebebe;*/
 }
 
 #top {
     position: relative;
-    background: #f38112 -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.45)), to(rgba(255,255,255,0)));
     color: white;
-    height: 232px;
 }
-#bottom {
+
+#top #banner{
+    height: 130px;
+    background: url("../image/baner-bg.jpg") top left no-repeat;
+}
+
+#banner h1{
+    float: left;
+    margin: 0;
+    padding: 24px;
+    display: block;
+}
+
+#menu form{
+    border: none;
+}
+
+
+/*.menu .styleUl{
+    display: block;
+    list-style-type: disc;
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+.menu .styleUl .styleLI{
+    display: block;
+    float: left;
+    list-style: none;
+    border-left: #008ce9 1px solid;
+    border-right: #0060b5 1px solid;
     position: relative;
-    background-color: #0f84f0;
-    height: 76px
+    white-space: normal;
+}
+
+.menu .styleUl .styleLI a{
+    float: left;
+    padding: 12px 20px 13px 20px;
+    color: #FFF;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+}*/
+
+
+
+#bottom {
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: center;
+    color: #FFF;
+    position: relative;
+    background: url("../image/bgfooter.png") repeat-x top left;
+    height: 136px;
+    display: block;
+}
+
+#bottom .confot{
+    float: left;
+    height: 102px;
+    width: 100%;
+    display: block;
+
+}
+
+
+p.copy{
+    float: left;
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 11px;
+    display: block;
 }
 
 .center_content {
@@ -78,15 +146,15 @@
 /*---------bang danh sach----------*/
 
 #top a:link, #top a:visited {
-  color: white;
-  font-weight : bold;
-  text-decoration: none;
+    color: white;
+    font-weight : bold;
+    text-decoration: none;
 }
 
 #top a:link:hover, #top a:visited:hover  {
-  color: #0f84f0;
-  font-weight : bold;
-  text-decoration : underline;
+    color: #0f84f0;
+    font-weight : bold;
+    text-decoration : underline;
 }
 
 

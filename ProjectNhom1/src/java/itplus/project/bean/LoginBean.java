@@ -38,23 +38,29 @@ public class LoginBean extends MessageUtil {
     public LoginBean() {
         loginEntity = new LoginEntity();
         loginModel = new LoginModel();
+        
     }
 
     public String checkLogin() {
         if (isValidate()) {
+
+            if (loginEntity.isRemember()) {
+                CookieBean.addCookie("username", loginEntity.getUsername(), 60 * 60);
+
+//                HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+//                Cookie user = new Cookie("username", loginEntity.getUsername());
+//                System.out.println(">>>>>>>>addCookie");
+//                user.setMaxAge(60 * 60 * 48);
+//                user.setPath("/");
+//                user.setHttpOnly(true);
+//                response.addCookie(user);
+            } else {
+                CookieBean.addCookie("username", loginEntity.getUsername(), -1);
+            }
+
             HttpSession session = SessionBean.newSession(true); // khoi tao session new chua cho session tao session moi
             session.setAttribute("username", loginEntity.getUsername());
             session.setAttribute("password", loginEntity.getPassword());
-            
-            if(loginEntity.isRemember()){
-                HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-                Cookie user = new Cookie("username", loginEntity.getUsername());
-                System.out.println(">>>>>>>>addCookie");
-                user.setMaxAge(60 * 60 * 48);
-                user.setPath("/");
-                user.setHttpOnly(true);
-                response.addCookie(user);
-            }
             return "/admin/backend_nguoidung?faces-redirect=true";
         } else {
             return "";
@@ -79,11 +85,6 @@ public class LoginBean extends MessageUtil {
 
         return "/pages/index?faces-redirect=true";
     }
-    
-    
-    
-    
-    
 
     public boolean isValidate() {
         try {

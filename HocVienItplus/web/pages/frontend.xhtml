@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Quản Lý Sinh Viên</title>
+    </h:head>
+
+    <h:body>
+        <div id="wrapper">
+            <div id="top">
+                <div id="banner">
+                    <h1><p:graphicImage name="/image/logo.png"  style="width: 180px; height: 77px"/>
+                    </h1>
+                </div>
+
+                <div class="menu" id="topmenu">
+                    <h:form>
+                        <p:menubar >
+                            <p:menuitem value="TRANG CHỦ" url="/faces/pages/index.xhtml" />
+                            <p:menuitem value="GIỚI THIỆU" url="/faces/pages/index.xhtml" />
+                            <p:menuitem value="ĐÀO TẠO CHUYÊN ĐỀ" url="/faces/pages/index.xhtml" />
+                            <p:menuitem value="ĐÀO TẠO CHUYÊN SÂU" url="/faces/pages/index.xhtml" />
+                            <p:menuitem value="TIN TỨC" url="/faces/pages/index.xhtml" />
+                            <p:menuitem value="HỌC VIÊN" url="/faces/pages/index.xhtml" />
+                            <p:menuitem value="LIÊN HỆ" url="/faces/pages/index.xhtml" />
+                            <p:menuitem rendered="#{sessionBean.mUsername() == null}" value="ĐĂNG NHẬP" onclick="PF('dlg').show();" />
+                            <p:submenu rendered="#{sessionBean.mUsername() != null}" label="GÓC HỌC VIÊN">
+                                <p:menuitem style="z-index: 999" value="Thông tin học viên" url="/faces/pages/frontend_gochocvien.xhtml" />
+                                <p:menuitem style="z-index: 999" value="Chương trình học" url="/faces/pages/frontend_chuongtrinh.xhtml" />
+                                <p:menuitem style="z-index: 999" value="Lịch học" url="/faces/pages/frontend_lichhoc.xhtml" />
+                                <p:menuitem style="z-index: 999" value="Điểm thi" url="/faces/pages/frontend_xemdiem.xhtml" />
+                                <p:separator />
+                                <p:menuitem style="z-index: 999" value="Thoát" action="#{loginBean.logOut()}" />
+                            </p:submenu>
+                        </p:menubar>
+
+                        <p:growl id="growl" sticky="true" life="3000" />
+
+                        <p:dialog header="ĐĂNG NHẬP" widgetVar="dlg" resizable="false">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputLabel for="username" value="Mã sinh viên: " />
+                                <p:inputText id="username" value="#{loginBean.sinhVienEntity.maSinhVien}"  required="true" label="Mã sinh viên: " />
+
+                                <h:outputLabel for="password" value="Mật khẩu: " />
+                                <p:password id="password" value="#{loginBean.sinhVienEntity.matKhau}" required="true" label="Mật khẩu: " />
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Đăng nhập" update="growl" action="#{loginBean.checkLogin(event)}"
+                                                     oncomplete="handleLoginRequest(xhr, status, args)" />
+                                </f:facet>  
+                            </h:panelGrid>
+                        </p:dialog>
+                    </h:form>
+
+                    <script type="text/javascript">
+                        function handleLoginRequest(xhr, status, args) {
+                            if (args.validationFailed || !args.loggedIn) {
+                                PF('dlg').jq.effect("shake", {times: 5}, 100);
+                            }
+                            else {
+                                PF('dlg').hide();
+                                $('#loginLink').fadeOut();
+                            }
+                        }
+                    </script>
+
+                </div>
+
+
+            </div>
+
+
+            <div id="content" class="center_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+
+            <div id="bottom">
+                <div class="confot">
+                    <p>ITPLUS ACADEMY - VIỆN CÔNG NGHỆ THÔNG TIN - ĐHQG HÀ NỘI</p>
+                    <p>Địa chỉ : Tầng 5, Nhà E3, ĐHQG HN, 144 Xuân Thủy, Cầu Giấy, Hà Nội</p>
+                    <p>Điện thoại : 04 3754 6732 Hotline: 0963 72 65 65</p>
+                    <p>Email: info@itplus-academy.edu.vn</p>
+                </div>
+                <p class="copy">Copyright © 2011 All Rights Reserved. Phát triển bởi ITPlus Academy</p>
+            </div>
+        </div>
+    </h:body>
+
+</html>
