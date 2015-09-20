@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.qlsv.adapter.TabsPagerAdapter;
 import com.qlsv.fragment.Fragment_thongtinsv;
 
@@ -20,7 +22,8 @@ ActionBar.TabListener{
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
-	public static String masv;
+	public static String masv,malop;
+	String prefname="my_data";
 	// Tab titles
 	private String[] tabs = { "Trang chủ","Chương trình", "Lịch học", "Xem Điểm" };
 	@Override
@@ -29,7 +32,7 @@ ActionBar.TabListener{
 		setContentView(R.layout.fragment_main);
 		Intent intent = getIntent();
 		masv = intent.getStringExtra("MaSV");
-
+		malop = intent.getStringExtra("MaLop");
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		actionBar = getActionBar();
@@ -102,7 +105,30 @@ ActionBar.TabListener{
 				i1.putExtra("MaSV", masv);
 				startActivity(i1);
 				break;
+			case R.id.dangXuat:
+				Intent i2 = new Intent(Fragment_Activity.this, MainActivity.class);
+				cleanTK();
+				startActivity(i2);
+				finish();
+				break;
+			case R.id.doiMK:
+				Intent i3 = new Intent(Fragment_Activity.this, Doi_Matkhau.class);
+				startActivity(i3);
+				finish();
+				break;
+			default:
+				break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	public void cleanTK() {
+		//tạo đối tượng getSharedPreferences
+		  SharedPreferences pre=getSharedPreferences
+		  (prefname, MODE_PRIVATE);
+		  //tạo đối tượng Editor để lưu thay đổi
+		  SharedPreferences.Editor editor=pre.edit();
+		  editor.clear();
+		//chấp nhận lưu xuống file
+		  editor.commit();
 	}
 }

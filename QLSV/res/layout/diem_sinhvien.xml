@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#dccaa6"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -38,24 +39,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp" >
+        android:layout_marginTop="10dp" >
 
         <TextView
             android:id="@+id/textView1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:text="Danh sách điểm"
+            android:background="@drawable/my_button"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#2b7bff"
+            android:textColor="#fff"
             android:textSize="20sp"
             android:textStyle="bold" />
 
     </FrameLayout>
+
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:background="#dccaa6" >
+
 		<TableLayout
 		android:id="@+id/tableDiem"
 	    android:layout_width="match_parent"
@@ -73,43 +79,41 @@
 	            
 			<TextView
 			    android:id="@+id/d_tv2"
+			    android:layout_height="match_parent"
 			    android:layout_weight="1"
+			    android:background="@drawable/my_table"
 			    android:gravity="center"
 			    android:text="Môn học"
-			    android:background="@drawable/my_table"
 			    android:textColor="#fff"
 			    android:textSize="15sp" />
 			
 			<TextView
 			    android:id="@+id/d_tv3"
+			    android:layout_height="match_parent"
 			    android:layout_weight="1"
+			    android:background="@drawable/my_table"
 			    android:gravity="center"
 			    android:text="Điểm L1"
-			    android:background="@drawable/my_table"
 			    android:textColor="#fff"
 			    android:textSize="15sp" />
+
 			<TextView
 			    android:id="@+id/d_tv4"
+			    android:layout_height="match_parent"
 			    android:layout_weight="1"
+			    android:background="@drawable/my_table"
 			    android:gravity="center"
 			    android:text="Điểm L2"
-			    android:background="@drawable/my_table"
 			    android:textColor="#fff"
 			    android:textSize="15sp" />
+
 			<TextView
 			    android:id="@+id/d_tv5"
+			    android:layout_height="match_parent"
 			    android:layout_weight="1"
+			    android:background="@drawable/my_table"
 			    android:gravity="center"
 			    android:text="Điểm L3"
-			    android:background="@drawable/my_table"
-			    android:textColor="#fff"
-			    android:textSize="15sp" />
-			<TextView
-			    android:id="@+id/d_tv6"
-			    android:layout_weight="1"
-			    android:gravity="center"
-			    android:text="Trạng thái"
-			    android:background="@drawable/my_table"
 			    android:textColor="#fff"
 			    android:textSize="15sp" />
 

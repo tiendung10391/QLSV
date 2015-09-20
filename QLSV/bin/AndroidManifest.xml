@@ -27,6 +27,7 @@
             android:theme="@style/AppTheme"></activity>
         <activity android:name="com.qlsv.fragment.Fragment_thongtinsv" 
             ></activity>
+        <activity android:name="Doi_Matkhau"></activity>
     </application>
 
 </manifest>

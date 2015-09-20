@@ -55,9 +55,9 @@ public class Fragment_thongtinsv extends Activity {
 		prgDialog.setMessage("Đang tải dữ liệu...");
 		// Set Cancelable as False
 		prgDialog.setCancelable(false);
-		loginUser();
+		thongtinSV();
 	}
-	public void loginUser() {
+	public void thongtinSV() {
 		// lay du lieu nhap
 		
 		RequestParams params = new RequestParams();		
@@ -94,16 +94,15 @@ public class Fragment_thongtinsv extends Activity {
 							masv.setText(obj.getString("MaSV"));
 							Boolean gt = obj.getBoolean("GioiTinh");
 							if (gt) {
-								gioitinh.setText("Nam");
-							}else {
 								gioitinh.setText("Nữ");
+							}else {
+								gioitinh.setText("Nam");
 							}
 							lop.setText(obj.getString("MaLop"));
 							diachi.setText(obj.getString("DiaChi"));
 							quequan.setText(obj.getString("QueQuan"));
 							sdt.setText(obj.getString("Sdt"));
-							email.setText(obj.getString("Email"));
-							
+							email.setText(obj.getString("Email"));						
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							Toast.makeText(
@@ -138,7 +137,7 @@ public class Fragment_thongtinsv extends Activity {
 						else {
 							Toast.makeText(
 									getApplicationContext(),
-									"Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]",
+									"Vui lòng kiểm tra kết nối mạng.",
 									Toast.LENGTH_LONG).show();
 						}
 					}

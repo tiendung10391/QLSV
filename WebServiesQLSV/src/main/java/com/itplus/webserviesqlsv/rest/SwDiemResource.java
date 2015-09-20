@@ -56,7 +56,7 @@ public class SwDiemResource {
         ArrayList<DiemEntity> arrDiem = null;
         try {
             arrDiem = new ArrayList<>();
-            arrDiem = diemModel.getDiem(masv);
+            arrDiem = diemModel.getDiem("sv001");
         } catch (Exception ex) {
             Logger.getLogger(SwKhoaHocResource.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -77,7 +77,6 @@ public class SwDiemResource {
             diem.setDiemLan1(DiemLan1);
             diem.setDiemlan2(DiemLan2);
             diem.setDiemLan3(DiemLan3);
-            diem.setTrangThai(TrangThai);
             diemModel.addDiem(diem);
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
@@ -98,7 +97,6 @@ public class SwDiemResource {
             diem.setDiemLan1(DiemLan1);
             diem.setDiemlan2(DiemLan2);
             diem.setDiemLan3(DiemLan3);
-            diem.setTrangThai(TrangThai);
             diemModel.editDiem(diem);
         }catch(Exception ex){
             throw new Exception(ex.getMessage());

@@ -6,8 +6,8 @@
     <item
         android:id="@+id/nguoi_dung"
          android:title="Người Dùng" android:icon="@drawable/ic_user" android:showAsAction="always"/>
-    <item android:id="@+id/item1" android:title="Đổi mật khẩu" android:showAsAction="never"></item>
-    <item android:id="@+id/item2" android:title="Đăng xuất" android:showAsAction="never"></item>
+    <item android:id="@+id/doiMK" android:title="Đổi mật khẩu" android:showAsAction="never"></item>
+    <item android:id="@+id/dangXuat" android:title="Đăng xuất" android:showAsAction="never"></item>
    
 
 </menu>

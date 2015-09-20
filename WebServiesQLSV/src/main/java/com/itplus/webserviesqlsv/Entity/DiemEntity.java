@@ -15,7 +15,6 @@ public class DiemEntity {
     private int DiemLan1;
     private int Diemlan2;
     private int DiemLan3;
-    private boolean TrangThai;
 
     public String getMaMonHoc() {
         return MaMonHoc;
@@ -55,14 +54,6 @@ public class DiemEntity {
 
     public void setDiemLan3(int DiemLan3) {
         this.DiemLan3 = DiemLan3;
-    }
-
-    public boolean isTrangThai() {
-        return TrangThai;
-    }
-
-    public void setTrangThai(boolean TrangThai) {
-        this.TrangThai = TrangThai;
     }
     
     

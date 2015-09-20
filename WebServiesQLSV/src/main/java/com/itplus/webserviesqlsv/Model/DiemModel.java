@@ -40,12 +40,11 @@ public class DiemModel {
 
             while (rs.next()) {
                 DiemEntity diem = new DiemEntity();
-                diem.setMaMonHoc(rs.getString(1));
-                diem.setMaSV(rs.getString(2));
-                diem.setDiemLan1(rs.getInt(3));
-                diem.setDiemlan2(rs.getInt(4));
-                diem.setDiemLan3(rs.getInt(5));
-                diem.setTrangThai(rs.getBoolean(6));
+                diem.setMaMonHoc(rs.getString(2));
+                diem.setMaSV(rs.getString(3));
+                diem.setDiemLan1(rs.getInt(4));
+                diem.setDiemlan2(rs.getInt(5));
+                diem.setDiemLan3(rs.getInt(6));
                 arr.add(diem);
             }
         } catch (Exception ex) {
@@ -74,7 +73,6 @@ public class DiemModel {
             stmt.setInt(3, diem.getDiemLan1());
             stmt.setInt(4, diem.getDiemlan2());
             stmt.setInt(5, diem.getDiemLan3());
-            stmt.setBoolean(6, diem.isTrangThai());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -101,7 +99,6 @@ public class DiemModel {
             stmt.setInt(1, diem.getDiemLan1());
             stmt.setInt(2, diem.getDiemlan2());
             stmt.setInt(3, diem.getDiemLan3());
-            stmt.setBoolean(4, diem.isTrangThai());
             stmt.setString(5, diem.getMaSV());
             stmt.setString(6, diem.getMaMonHoc());
             stmt.executeUpdate();
@@ -184,7 +181,6 @@ public class DiemModel {
                 diem.setDiemLan1(rs.getInt(3));
                 diem.setDiemlan2(rs.getInt(4));
                 diem.setDiemLan3(rs.getInt(5));
-                diem.setTrangThai(rs.getBoolean(6));
                 arr.add(diem);
             }
         } catch (Exception ex) {

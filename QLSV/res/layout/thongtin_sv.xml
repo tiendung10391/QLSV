@@ -3,7 +3,7 @@
     android:id="@+id/thongtin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2581ff"
+    android:background="#dccaa6"
     android:orientation="vertical" >
 
     <FrameLayout
