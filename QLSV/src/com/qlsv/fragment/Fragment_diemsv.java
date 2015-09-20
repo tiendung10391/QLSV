@@ -1,13 +1,9 @@
 package com.qlsv.fragment;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -21,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.qlsv.Fragment_Activity;
+import com.example.qlsv.MainActivity;
 import com.example.qlsv.R;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -32,13 +29,15 @@ import com.loopj.android.http.RequestParams;
 public class Fragment_diemsv extends Fragment {
 	TableLayout table_diem;
 	
-	String masvien;
+	String masvien,ip;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.diem_sinhvien, container, false);
-		masvien = "sv001";
+		masvien = Fragment_Activity.masv.toString();
+		//ip
+		ip = MainActivity.ip.toString();
 		table_diem = (TableLayout) view.findViewById(R.id.tableDiem);
 //		BuildTable(4, 6);
 		diemSinhvien();
@@ -66,7 +65,7 @@ public class Fragment_diemsv extends Fragment {
 		// Make RESTful webservice call using AsyncHttpClient object
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(
-				"http://192.168.0.100:8080/WebServiesQLSV/rest/SwDiem/getAllDiem",
+				ip+"/WebServiesQLSV/rest/SwDiem/getAllDiem",
 				params, new AsyncHttpResponseHandler() {
 					// When the response returned by REST has Http response code
 					// '200'
@@ -86,7 +85,7 @@ public class Fragment_diemsv extends Fragment {
 								String diemlan1 = obj.getString("diemLan1");
 								String diemlan2 = obj.getString("diemlan2");
 								String diemlan3 = obj.getString("diemLan3");
-								Boolean trangthai = obj.getBoolean("trangThai");
+//								Boolean trangthai = obj.getBoolean("trangThai");
 								// do len table	
 								TextView tv = new TextView(getActivity());
 								TextView tv2 = new TextView(getActivity());
@@ -95,27 +94,27 @@ public class Fragment_diemsv extends Fragment {
 								TextView tv5 = new TextView(getActivity());
 //								1
 								tv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-										LayoutParams.WRAP_CONTENT));
+										LayoutParams.MATCH_PARENT));
 								tv.setBackgroundResource(R.drawable.cell_shape);
 								tv.setPadding(5, 5, 5, 5);
 								//2
 								tv2.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-										LayoutParams.WRAP_CONTENT));
+										LayoutParams.MATCH_PARENT));
 								tv2.setBackgroundResource(R.drawable.cell_shape);
 								tv2.setPadding(5, 5, 5, 5);
 								//3
 								tv3.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-										LayoutParams.WRAP_CONTENT));
+										LayoutParams.MATCH_PARENT));
 								tv3.setBackgroundResource(R.drawable.cell_shape);
 								tv3.setPadding(5, 5, 5, 5);
 								//4
 								tv4.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-										LayoutParams.WRAP_CONTENT));
+										LayoutParams.MATCH_PARENT));
 								tv4.setBackgroundResource(R.drawable.cell_shape);
 								tv4.setPadding(5, 5, 5, 5);
 								//5
 								tv5.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-										LayoutParams.WRAP_CONTENT));
+										LayoutParams.MATCH_PARENT));
 								tv5.setBackgroundResource(R.drawable.cell_shape);
 								tv5.setPadding(5, 5, 5, 5);
 								
@@ -123,17 +122,17 @@ public class Fragment_diemsv extends Fragment {
 								tv2.setText(diemlan1);
 								tv3.setText(diemlan2);
 								tv4.setText(diemlan3);
-								if (trangthai) {
-									tv5.setText("Đạt");
-								} else {
-									tv5.setText("Chưa đạt");
-								}
+//								if (trangthai) {
+//									tv5.setText("Đạt");
+//								} else {
+//									tv5.setText("Chưa đạt");
+//								}
 
 								row.addView(tv);
 								row.addView(tv2);
 								row.addView(tv3);
 								row.addView(tv4);
-								row.addView(tv5);
+//								row.addView(tv5);
 
 								
 								Log.i("monhoc", mamonhoc);
@@ -143,7 +142,7 @@ public class Fragment_diemsv extends Fragment {
 							}
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
-							Toast.makeText(getActivity(), "Lỗi tải dữ liệu!",
+							Toast.makeText(getActivity(), "Hoàn tất tải dữ liệu!",
 									Toast.LENGTH_LONG).show();
 							e.printStackTrace();
 
@@ -173,7 +172,7 @@ public class Fragment_diemsv extends Fragment {
 						else {
 							Toast.makeText(
 									getActivity(),
-									"Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]",
+									"Vui lòng kiểm tra kết nối mạng.",
 									Toast.LENGTH_LONG).show();
 						}
 					}

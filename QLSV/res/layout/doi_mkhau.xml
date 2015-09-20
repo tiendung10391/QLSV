@@ -1,15 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#296bd7"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:weightSum="1"
-    tools:context=".MainActivity" >
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +13,7 @@
         android:weightSum="1" >
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewmk"
             android:layout_width="match_parent"
             android:layout_height="115dp"
             android:gravity="center"
@@ -32,15 +26,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="78dp"
+        android:layout_height="58dp"
+        android:layout_margin="6dp"
         android:orientation="vertical"
         android:weightSum="1" >
 
         <EditText
-            android:id="@+id/taikhoan"
+            android:id="@+id/taikhoan1"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:background="@drawable/my_edittext"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:hint="Mã học viên"
             android:padding="5dp" />
 
@@ -48,23 +45,34 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="78dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
         android:orientation="vertical"
         android:weightSum="1" >
 
         <EditText
-            android:id="@+id/matkhau"
+            android:id="@+id/matkhau1"
             android:layout_width="match_parent"
             android:layout_height="38dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/my_edittext"
-            android:hint="Mật khẩu"
+            android:hint="Mật khẩu cũ"
             android:inputType="textPassword"
             android:padding="5dp" />
 
+		<EditText
+            android:id="@+id/matkhau2"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="@drawable/my_edittext"
+            android:hint="Mật khẩu mới"
+            android:inputType="textPassword"
+            android:padding="5dp" />
         <CheckBox
-            android:id="@+id/checkDN"
+            android:id="@+id/checkDN1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/my_edittext"
             android:text="Lưu thông tin " />
@@ -74,11 +82,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="31dp"
+        android:layout_margin="6dp"
         android:layout_weight="0.46"
         android:orientation="vertical" >
 
 		<TextView
-		    android:id="@+id/loidangnhap"
+		    android:id="@+id/loidangnhap1"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_marginBottom="12dp"
@@ -92,19 +101,19 @@
             android:layout_height="32dp" >
 
             <Button
-                android:id="@+id/dangnhap"
+                android:id="@+id/dangnhap1"
                 android:layout_width="158dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:background="@drawable/my_button"
                 android:height="40dp"
-                android:text="Đăng Nhập"
+                android:text="Đổi mật khẩu"
                 android:textColor="#fff"
                 android:textSize="17sp"
                 android:width="90dp" />
 
             <Button
-                android:id="@+id/nhaplai"
+                android:id="@+id/nhaplai1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"

@@ -130,6 +130,7 @@ public class SinhVienModel {
             rs = stmt.executeQuery(SQL);
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
+<<<<<<< HEAD
             while (rs.next()) {
                 SinhVienEntity sv = new SinhVienEntity();
                 sv.setMaSV(rs.getString(1));
@@ -149,6 +150,20 @@ public class SinhVienModel {
             }
         } catch (Exception ex) {
             throw ex;
+=======
+    public boolean editSinhVien(String matkhau ,String masv) throws SQLException {
+         boolean updateStatus = false;
+       PreparedStatement stmt = null;
+        Connection conn = null;
+        try {
+            String SQL = "UPDATE SINHVIEN SET MatKhau = ? WHERE MaSV = ?";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, matkhau);
+            stmt.setString(2, masv);
+            stmt.executeUpdate();
+            updateStatus = true;
+>>>>>>> b4ee991608f9b6bab05a5c355b06b9433db84f96
         } finally {
             try {
                 DBPool.releaseConnection(cn, stmt, rs);
@@ -156,7 +171,11 @@ public class SinhVienModel {
                 throw e;
             }
         }
+<<<<<<< HEAD
         return arr;
+=======
+        return updateStatus;
+>>>>>>> b4ee991608f9b6bab05a5c355b06b9433db84f96
     }
 
 

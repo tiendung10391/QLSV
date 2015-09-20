@@ -101,7 +101,36 @@ public class SwSinhVienResource {
             arrSinhVien = new ArrayList<SinhVienEntity>();
             arrSinhVien = sinhVienModel.getLoginSinhVien();
         } catch (Exception ex) {
+<<<<<<< HEAD
             Logger.getLogger(SwLopHocResource.class.getName()).log(Level.SEVERE, null, ex);
+=======
+            throw new Exception(ex.getMessage());
+        }
+        return "add success";
+    }
+    
+    // sua sinh vien @PathParam("MatKhau") String matkhau,@PathParam("MaSV") String masv
+    @PUT
+    @Path("/editSinhVien")
+    public String editLopHoc(@FormParam("MatKhau")String matkhau,@FormParam("MaSV")String masv) throws Exception{
+         String response = "";
+        if(sinhVienModel.editSinhVien("tiendung", "sv001")){
+            response = Utility.constructJSON("update",true);
+        }else{
+            response = Utility.constructJSON("update", false, "Đổi mật khẩu không thành công!");
+        }
+    return response;
+    }
+    
+    // xoa lop hoc
+    @DELETE
+    @Path("/removeSinhVien")
+    public String removeLopHoc(@FormParam("MaSV")String MaSV) throws Exception{
+        try{
+            sinhVienModel.deleteSinhVien(MaSV);
+        }catch(Exception ex){
+            throw new Exception(ex.getMessage());
+>>>>>>> b4ee991608f9b6bab05a5c355b06b9433db84f96
         }
 
         return arrSinhVien;
