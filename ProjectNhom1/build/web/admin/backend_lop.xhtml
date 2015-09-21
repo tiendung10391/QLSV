@@ -58,14 +58,13 @@
                         paginator="true"
                         selection="#{quanLyLopBean.listLopHocSelected}"
                         rowsPerPageTemplate="5,10,15"
-                        paginatorPosition="top"
+                        paginatorPosition="bottom"
                         >
                         <p:ajax listener="#{quanLyLopBean.selectedRowtable}" event="rowSelect" update=":frm_lop"/>
                         <f:facet name="header" >  
                             <div style="padding: 5px">DANH SÁCH LỚP HỌC</div>
                         </f:facet>
                         <p:column styleClass="header" headerText="STT" style="width: 25px; text-align: center">
-
                             <h:outputText value="#{rowIndex+1}" />
                         </p:column>
                         

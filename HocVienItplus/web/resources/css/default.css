@@ -26,7 +26,24 @@ ul{
 
 
 /*----------------------PRIMEFACE---------------------------------*/
+.ui-growl-item-container{
+    background: #BFCAE6;
+    border: 1px solid #0f84f0;
+}
 
+.ui-growl-icon-close {
+    cursor: pointer;
+    position: absolute;
+    left: 335px;
+    top: 15px;
+}
+
+.ui-growl-icon-close {
+    cursor: pointer;
+    position: absolute;
+    left: 335px;
+    top: 15px;
+}
 
 
 /*chinh sua menu*/

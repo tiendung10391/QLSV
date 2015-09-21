@@ -67,6 +67,7 @@ and open the template in the editor.
                         paginator="true"
                         selection="#{quanLyKhoaHocMonHocBean.listKhoaHocMonHocSelected}"
                         rowsPerPageTemplate="5,10,15"
+                        paginatorPosition="bottom"
                         >
                         <p:ajax listener="#{quanLyKhoaHocMonHocBean.selectedRowtable}" event="rowSelect" update=":frm_khoahoc"/>
                         <f:facet name="header" >  

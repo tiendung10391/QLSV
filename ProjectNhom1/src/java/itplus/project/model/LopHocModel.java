@@ -189,7 +189,7 @@ public class LopHocModel {
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
 //            stmt = conn.prepareStatement(SQL);
-            stmt.setString(1, lop.getTenLop());
+            stmt.setString(1, lop.getMaLop());
             stmt.setString(2, lop.getTenLop());
             stmt.setString(3, lop.getNamNhapHoc());
             stmt.setString(4, lop.getMaKhoaHoc());
@@ -197,7 +197,7 @@ public class LopHocModel {
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
-            id = rs.getInt(1);
+//            id = rs.getInt(1);
             System.out.println("ID: " + id);
         } finally {
             try {

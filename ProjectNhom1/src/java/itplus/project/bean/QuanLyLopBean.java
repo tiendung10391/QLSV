@@ -15,6 +15,7 @@ import itplus.project.model.NganhModel;
 import itplus.project.util.MessageUtil;
 import itplus.project.util.ValidatorUtil;
 import static java.awt.SystemColor.window;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +28,7 @@ import org.primefaces.event.SelectEvent;
  *
  * @author Dung NT
  */
-public class QuanLyLopBean extends MessageUtil {
+public class QuanLyLopBean extends MessageUtil implements Serializable{
 
     private Map<String, Map<String, String>> data = new HashMap<String, Map<String, String>>();
     
@@ -83,6 +84,7 @@ public class QuanLyLopBean extends MessageUtil {
             try {
                 int id;
                 lopHocEntity.setMaKhoaHoc(lopHocEntity.getMaKhoaHoc());
+                lopHocEntity.setMaLop(lopHocEntity.getTenLop());
                 System.out.println("Lop hoc entity: " + lopHocEntity.getMaLop() + " " + lopHocEntity.getMaKhoaHoc());
                 id = lopHocModel.addLophoc(lopHocEntity);
 

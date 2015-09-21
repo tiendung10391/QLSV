@@ -55,6 +55,7 @@
                         paginator="true"
                         selection="#{quanLyMonHocBean.listLopHocSelected}"
                         rowsPerPageTemplate="5,10,15"
+                        paginatorPosition="bottom"
                         >
                         <p:ajax listener="#{quanLyMonHocBean.selectedRowtable}" event="rowSelect" update=":frm_monhoc"/>
                         <f:facet name="header" >  

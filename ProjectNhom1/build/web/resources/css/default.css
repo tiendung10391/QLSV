@@ -18,7 +18,33 @@ h1 {
 
 
 /*----------------------PRIMEFACE---------------------------------*/
+.ui-datatable.borderless .ui-datatable-data tr,
+.ui-datatable.borderless .ui-datatable-data-empty tr,
+.ui-datatable.borderless .ui-datatable-data td,
+.ui-datatable.borderless .ui-datatable-data-empty td {
+    border-style: none;
+}
+/* custom growl
+*/
+.ui-growl-item-container{
+    background: #FFFFF0;
+    border: 1px solid #0f84f0;
+    color: #7388C1;
+}
 
+.ui-growl-icon-close {
+    cursor: pointer;
+    position: absolute;
+    left: 335px;
+    top: 15px;
+}
+
+.ui-growl-icon-close {
+    cursor: pointer;
+    position: absolute;
+    left: 335px;
+    top: 15px;
+}
 
 
 /*chinh sua menu*/
@@ -30,16 +56,16 @@ h1 {
 /*chinh sua mau nen cua menu khi di chuot den*/
 .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus{
     background-color: white;
- }
- 
- 
- /*-------------------------khung nhap du lieu-----------------------------*/
- 
- 
- .a a{
-     padding: 100px;
- }
- /*nen*/
+}
+
+
+/*-------------------------khung nhap du lieu-----------------------------*/
+
+
+.a a{
+    padding: 100px;
+}
+/*nen*/
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-state-default{
     border: 1px solid #FFB362;
     background: #FFFFFF -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.38)), to(rgba(255, 255, 255, 0)));
@@ -58,10 +84,10 @@ h1 {
 
 
 
- /*-------------------------khung nhap du lieu-----------------------------*/
+/*-------------------------khung nhap du lieu-----------------------------*/
 
- 
- 
+
+
 /*nutbam*/
 .ui-button{
     background-color: #f38112;
