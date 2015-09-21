@@ -8,8 +8,12 @@ package itplus.project.model;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.representation.Form;
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 import itplus.project.entity.SinhVienEntity;
+import java.io.Serializable;
 import java.util.ArrayList;
+import javax.ws.rs.core.MultivaluedMap;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONException;
 import org.primefaces.json.JSONObject;
@@ -18,25 +22,36 @@ import org.primefaces.json.JSONObject;
  *
  * @author Dung NT
  */
-public class InfoModel {
+public class InfoModel implements Serializable {
+
     ArrayList<SinhVienEntity> arrSinhVien = null;
-    
-    public ArrayList<SinhVienEntity> getLoginSinhVien() {
+
+    public ArrayList<SinhVienEntity> getInfoHocVien(String MaSV) {
 
         try {
             //test call restful webservices
             Client client = new Client();
-            WebResource ws = client.resource("http://localhost:8084/WebServiesQLSV/rest/SwSinhVien/getInfoSinhVien");
-            ClientResponse response = ws.accept("application/json").get(ClientResponse.class);
-            if (response.getStatus() != 200) {
-                throw new RuntimeException("Failed : HTTP error code : "
-                        + response.getStatus());
-            }
+            WebResource webResource = client.resource("http://localhost:8084/WebServiesQLSV/rest/SwSinhVien/getInfoSinhVien");
+            MultivaluedMap queryParams = new MultivaluedMapImpl();
+            queryParams.add("MaSV", MaSV);
+//            Form form = new Form();
+//            form.add("MaSV", MaSV);
+            
+            String s = webResource.queryParams(queryParams).get(String.class);
+            System.out.println("url:" + s);
+//            
+//            WebResource ws = client.resource("http://localhost:8084/WebServiesQLSV/rest/SwSinhVien/getInfoSinhVien");
+//            ClientResponse response = ws.accept("application/json").post(ClientResponse.class, queryParams);
+//
+//            if (response.getStatus() != 200) {
+//                throw new RuntimeException("Failed : HTTP error code : "
+//                        + response.getStatus());
+//            }
 
-            String output = response.getEntity(String.class);
+//            String output = response.getEntity(String.class);
 
             try {
-                JSONArray jsonArray = new JSONArray(output);
+                JSONArray jsonArray = new JSONArray(s);
 
                 JSONObject jsonObj = new JSONObject();  // these 4 files add jsonObject to jsonArrayF
                 arrSinhVien = new ArrayList<SinhVienEntity>();
@@ -44,7 +59,8 @@ public class InfoModel {
                 for (int i = 0; i < count; i++) {   // iterate through jsonArray 
                     SinhVienEntity sv = new SinhVienEntity();
                     JSONObject jsonObject = jsonArray.getJSONObject(i);  // get jsonObject @ i position 
-                    System.out.println("jsonArray " + i + " : " + jsonObject.getString("maSV"));
+                    System.out.println("jsonArray " + i + " : " + jsonObject.getString("maSV")); 
+                    System.out.println("jsonArray " + i + " : " + jsonObject.getString("tenSV"));
                     sv.setMaSinhVien(jsonObject.getString("maSV"));
                     sv.setTenSinhVien(jsonObject.getString("tenSV"));
                     sv.setEmail(jsonObject.getString("email"));
@@ -66,7 +82,7 @@ public class InfoModel {
             }
 
             System.out.println("Output from Server .... \n");
-            System.out.println(output);
+//            System.out.println(output);
             //phan tich chuoi Json day vao arraylist va day arraylist vao table
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -74,5 +90,5 @@ public class InfoModel {
 
         return arrSinhVien;
     }
-    
+
 }

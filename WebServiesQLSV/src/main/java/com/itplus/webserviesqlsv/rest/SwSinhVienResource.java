@@ -81,12 +81,12 @@ public class SwSinhVienResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getInfoSinhVien")
-    public ArrayList<SinhVienEntity> getInfoSinhVien() {
+    public ArrayList<SinhVienEntity> getInfoSinhVien(@QueryParam("MaSV") String MaSV) {
         //TODO return proper representation object
         ArrayList<SinhVienEntity> arrSinhVien = null;
         try {
             arrSinhVien = new ArrayList<SinhVienEntity>();
-            arrSinhVien = sinhVienModel.getInfoSinhVien();
+            arrSinhVien = sinhVienModel.getInfoSinhVien(MaSV);
         } catch (Exception ex) {
             Logger.getLogger(SwLopHocResource.class.getName()).log(Level.SEVERE, null, ex);
         }

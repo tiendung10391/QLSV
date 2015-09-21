@@ -186,6 +186,7 @@ public class SinhVienModel {
         Connection conn = null;
         ResultSet rs = null;
         try {
+            
             String SQL = "SELECT * FROM View_getMonHonFromMaLop WHERE MaLop = ?";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL);

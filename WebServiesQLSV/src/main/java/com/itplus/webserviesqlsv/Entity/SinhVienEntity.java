@@ -5,11 +5,13 @@
  */
 package com.itplus.webserviesqlsv.Entity;
 
+import java.io.Serializable;
+
 /**
  *
  * @author kunph_000
  */
-public class SinhVienEntity {
+public class SinhVienEntity implements Serializable{
 
     private String maSV = "";
     private String tenSV = "";

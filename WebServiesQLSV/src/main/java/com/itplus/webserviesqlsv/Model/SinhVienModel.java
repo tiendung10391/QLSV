@@ -117,16 +117,18 @@ public class SinhVienModel {
         return arr;
     }
 
-    public ArrayList<SinhVienEntity> getInfoSinhVien() throws Exception {
+    public ArrayList<SinhVienEntity> getInfoSinhVien(String MaSV) throws Exception {
         ArrayList<SinhVienEntity> arr = new ArrayList<SinhVienEntity>();
-        Statement stmt = null;
+        PreparedStatement stmt = null;
+        Connection conn = null;
         ResultSet rs = null;
-        Connection cn = null;
         try {
-            cn = DBPool.getConnection();
-            stmt = cn.createStatement();
-            String SQL = "SELECT * FROM VIEW_INFO_SINHVIEN";
-            rs = stmt.executeQuery(SQL);
+            
+            String SQL = "SELECT * FROM VIEW_INFO_SINHVIEN WHERE MaSV = ?";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, MaSV);
+            rs = stmt.executeQuery();
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
             while (rs.next()) {
@@ -150,7 +152,7 @@ public class SinhVienModel {
             throw ex;
         } finally {
             try {
-                DBPool.releaseConnection(cn, stmt, rs);
+                DBPool.releaseConnection(conn, stmt, rs);
             } catch (Exception e) {
                 throw e;
             }

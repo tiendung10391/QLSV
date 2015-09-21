@@ -15,8 +15,8 @@
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>infoSinhVien</managed-bean-name>
-        <managed-bean-class>itplus.project.bean.InfoSinhVien</managed-bean-class>
+        <managed-bean-name>infoHocVienBean</managed-bean-name>
+        <managed-bean-class>itplus.project.bean.InfoHocVienBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
 </faces-config>

@@ -152,7 +152,7 @@ p.copy{
 }
 
 #top a:link:hover, #top a:visited:hover  {
-    color: #0f84f0;
+    color: #fff;
     font-weight : bold;
     text-decoration : underline;
 }

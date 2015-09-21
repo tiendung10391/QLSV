@@ -48,6 +48,14 @@ public class SwLogin {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
     }
 
+    public String editLopHoc() throws ClientErrorException {
+        return webTarget.path("editSinhVien").request().put(null, String.class);
+    }
+
+    public String removeLopHoc() throws ClientErrorException {
+        return webTarget.path("removeSinhVien").request().delete(String.class);
+    }
+
     public String checkLogin(String MatKhau, String TaiKhoan) throws ClientErrorException {
         WebTarget resource = webTarget;
         if (MatKhau != null) {

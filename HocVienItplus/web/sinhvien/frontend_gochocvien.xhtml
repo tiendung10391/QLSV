@@ -13,37 +13,37 @@
             <ui:define name="content">
                 <h:form>
                     <h:panelGrid class="panelnguoidung">
-                        <center class="title">Góc Học Viên</center>
+                        <center class="title">THÔNG TIN HỌC VIÊN</center>
                         <h:panelGrid  columns="2" style="min-width: 200px;max-width: 400px;position: absolute;margin-left: 90px;margin-top: 45px;margin-bottom: 20px" cellpadding="20px">
                             <p:outputLabel style="font-weight: bold" value="Mã học viên:"/>
-                            <p:outputLabel value="xxxxxxxxxxx"  />
+                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.maSinhVien}"  />
                             
                             <p:outputLabel style="font-weight: bold" value="Tên học viên:"/>
-                            <p:outputLabel value="xxxxxxxxxxx"/>
+                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.tenSinhVien}"/>
                             
                             <p:outputLabel style="font-weight: bold" value="Ngày sinh:"/>
-                            <p:outputLabel value="xxxxxxxxxxx"/>
+                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.ngaySinhView}"/>
                             
                             <p:outputLabel style="font-weight: bold" value="Lớp học:"/>
-                            <p:outputLabel value="xxxxxxxxxxx"/>
+                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.tenLop}"/>
                             
                             <p:outputLabel style="font-weight: bold" value="Giới tính:"/>
-                            <p:outputLabel value="xxxxxxxxxxx"/>
+                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.gioiTinh}"/>
                             
                         </h:panelGrid>
                         <h:panelGrid  columns="2" style="min-width: 200px;max-width: 400px;margin-left: 470px;margin-top: 41px;margin-bottom: 20px" cellpadding="20px">
                             
                             <p:outputLabel style="font-weight: bold" value="Số điện thoại:"/>
-                            <p:outputLabel value="xxxxxxxxxxx"/>
+                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.SDT}"/>
                             
                             <p:outputLabel style="font-weight: bold" value="Địa chỉ:"/>
-                            <p:outputLabel value="xxxxxxxxxxx"/>
+                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.diaChi}"/>
                             
                             <p:outputLabel style="font-weight: bold" value="Quê quán:"/>
-                            <p:outputLabel value="xxxxxxxxxxx"/>
+                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.queQuan}"/>
                             
                             <p:outputLabel style="font-weight: bold" value="Email:"/>
-                            <p:outputLabel value="xxxxxxxxxxx"/>
+                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.email}"/>
                             
                             <p:outputLabel style="font-weight: bold" value="Mật khẩu:"/>
                             <h:outputLink>Đổi mật khẩu</h:outputLink>
