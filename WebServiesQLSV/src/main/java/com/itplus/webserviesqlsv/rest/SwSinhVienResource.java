@@ -40,39 +40,42 @@ public class SwSinhVienResource {
     /**
      * Creates a new instance of SwSinhVienResource
      */
-    
-    SinhVienModel sinhVienModel ;
+    SinhVienModel sinhVienModel;
+
     public SwSinhVienResource() {
         sinhVienModel = new SinhVienModel();
     }
-     @GET
+
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/checkLogin")
-     public String checkLogin(@QueryParam("TaiKhoan") String uname, @QueryParam("MatKhau") String pwd) throws Exception{
+    public String checkLogin(@QueryParam("TaiKhoan") String uname, @QueryParam("MatKhau") String pwd) throws Exception {
         String response = "";
-        if(sinhVienModel.checkLogin(uname, pwd)){
-            response = Utility.constructJSON("login",true);
-        }else{
+        if (sinhVienModel.checkLogin(uname, pwd)) {
+            response = Utility.constructJSON("login", true);
+        } else {
             response = Utility.constructJSON("login", false, "Tài khoản hoặc mật khẩu sai!");
         }
-    return response;        
+        return response;
     }
-     
-     @GET
+
+    @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/checkSinhvien")
-     public String checkSinhVien(@QueryParam("MaSV") String masv){
+    public String checkSinhVien(@QueryParam("MaSV") String masv) {
         String response = "";
-         try {
-             response = sinhVienModel.checkSinhVien(masv);
-         } catch (Exception e) {
-             e.printStackTrace();
-         }
-    return response;        
+        try {
+            response = sinhVienModel.checkSinhVien(masv);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
     }
 
     /**
-     * Retrieves representation of an instance of com.itplus.webserviesqlsv.rest.SwSinhVienResource
+     * Retrieves representation of an instance of
+     * com.itplus.webserviesqlsv.rest.SwSinhVienResource
+     *
      * @return an instance of java.lang.String
      */
     @GET
@@ -90,7 +93,7 @@ public class SwSinhVienResource {
 
         return arrSinhVien;
     }
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getloginSinhVien")
@@ -101,43 +104,40 @@ public class SwSinhVienResource {
             arrSinhVien = new ArrayList<SinhVienEntity>();
             arrSinhVien = sinhVienModel.getLoginSinhVien();
         } catch (Exception ex) {
-<<<<<<< HEAD
             Logger.getLogger(SwLopHocResource.class.getName()).log(Level.SEVERE, null, ex);
-=======
-            throw new Exception(ex.getMessage());
-        }
-        return "add success";
-    }
-    
-    // sua sinh vien @PathParam("MatKhau") String matkhau,@PathParam("MaSV") String masv
-    @PUT
-    @Path("/editSinhVien")
-    public String editLopHoc(@FormParam("MatKhau")String matkhau,@FormParam("MaSV")String masv) throws Exception{
-         String response = "";
-        if(sinhVienModel.editSinhVien("tiendung", "sv001")){
-            response = Utility.constructJSON("update",true);
-        }else{
-            response = Utility.constructJSON("update", false, "Đổi mật khẩu không thành công!");
-        }
-    return response;
-    }
-    
-    // xoa lop hoc
-    @DELETE
-    @Path("/removeSinhVien")
-    public String removeLopHoc(@FormParam("MaSV")String MaSV) throws Exception{
-        try{
-            sinhVienModel.deleteSinhVien(MaSV);
-        }catch(Exception ex){
-            throw new Exception(ex.getMessage());
->>>>>>> b4ee991608f9b6bab05a5c355b06b9433db84f96
         }
 
         return arrSinhVien;
     }
 
+    // sua sinh vien @PathParam("MatKhau") String matkhau,@PathParam("MaSV") String masv
+    @PUT
+    @Path("/editSinhVien")
+    public String editLopHoc(@FormParam("MatKhau") String matkhau, @FormParam("MaSV") String masv) throws Exception {
+        String response = "";
+        if (sinhVienModel.editSinhVien("tiendung", "sv001")) {
+            response = Utility.constructJSON("update", true);
+        } else {
+            response = Utility.constructJSON("update", false, "Đổi mật khẩu không thành công!");
+        }
+        return response;
+    }
+
+    // xoa lop hoc
+    @DELETE
+    @Path("/removeSinhVien")
+    public String removeLopHoc(@FormParam("MaSV") String MaSV) throws Exception {
+        try {
+            sinhVienModel.deleteSinhVien(MaSV);
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+        return "succses";
+    }
+
     /**
      * PUT method for updating or creating an instance of SwSinhVienResource
+     *
      * @param content representation for the resource
      * @return an HTTP response with content of the updated or created resource.
      */

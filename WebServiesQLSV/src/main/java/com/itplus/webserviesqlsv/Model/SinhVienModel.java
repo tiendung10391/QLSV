@@ -88,7 +88,6 @@ public class SinhVienModel {
         return obj.toString();
     }
 
-
     public ArrayList<SinhVienEntity> getLoginSinhVien() throws Exception {
         ArrayList<SinhVienEntity> arr = new ArrayList<SinhVienEntity>();
         Statement stmt = null;
@@ -130,7 +129,6 @@ public class SinhVienModel {
             rs = stmt.executeQuery(SQL);
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 
-<<<<<<< HEAD
             while (rs.next()) {
                 SinhVienEntity sv = new SinhVienEntity();
                 sv.setMaSV(rs.getString(1));
@@ -150,10 +148,19 @@ public class SinhVienModel {
             }
         } catch (Exception ex) {
             throw ex;
-=======
-    public boolean editSinhVien(String matkhau ,String masv) throws SQLException {
-         boolean updateStatus = false;
-       PreparedStatement stmt = null;
+        } finally {
+            try {
+                DBPool.releaseConnection(cn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return arr;
+    }
+
+    public boolean editSinhVien(String matkhau, String masv) throws SQLException {
+        boolean updateStatus = false;
+        PreparedStatement stmt = null;
         Connection conn = null;
         try {
             String SQL = "UPDATE SINHVIEN SET MatKhau = ? WHERE MaSV = ?";
@@ -163,22 +170,15 @@ public class SinhVienModel {
             stmt.setString(2, masv);
             stmt.executeUpdate();
             updateStatus = true;
->>>>>>> b4ee991608f9b6bab05a5c355b06b9433db84f96
         } finally {
             try {
-                DBPool.releaseConnection(cn, stmt, rs);
+                DBPool.releaseConnection(conn, stmt);
             } catch (Exception e) {
                 throw e;
             }
         }
-<<<<<<< HEAD
-        return arr;
-=======
         return updateStatus;
->>>>>>> b4ee991608f9b6bab05a5c355b06b9433db84f96
     }
-
-
 
     public void deleteSinhVien(String MaSV) throws SQLException {
         PreparedStatement stmt = null;
