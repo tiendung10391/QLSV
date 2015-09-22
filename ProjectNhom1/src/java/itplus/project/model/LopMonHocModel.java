@@ -35,7 +35,7 @@ public class LopMonHocModel {
         Connection conn = null;
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         try {
-            String SQL = "insert into LOPMONHOC values(?,?,?,?,?,?,?,?,?)";
+            String SQL = "insert into LOPMONHOC values(?,?,?,?,?,?,?,?,?,?)";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, lopMonHoc.getMaMonHoc());
@@ -47,6 +47,7 @@ public class LopMonHocModel {
             stmt.setString(7, format.format(lopMonHoc.getNgayNghiDKKetThuc()));
             stmt.setString(8, lopMonHoc.getNgayHoc());
             stmt.setString(9, lopMonHoc.getGiangVien());
+            stmt.setString(10, format.format(lopMonHoc.getNgayThiDuKien()));
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -69,7 +70,7 @@ public class LopMonHocModel {
         Connection conn = null;
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         try {
-            String SQL = "INSERT INTO LOPMONHOC VALUES(?,?,?,?,?,?,?,?,?)";
+            String SQL = "INSERT INTO LOPMONHOC VALUES(?,?,?,?,?,?,?,?,?,?)";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, lopMonHoc.getMaMonHoc());
@@ -81,6 +82,7 @@ public class LopMonHocModel {
             stmt.setString(7, "");
             stmt.setString(8, lopMonHoc.getNgayHoc());
             stmt.setString(9, lopMonHoc.getGiangVien());
+            stmt.setString(10, format.format(lopMonHoc.getNgayThiDuKien()));
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -102,7 +104,7 @@ public class LopMonHocModel {
         Connection conn = null;
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         try {
-            String SQL = "update LOPMONHOC set MaGioHoc = ?, MaPhong = ?, NgayBatDauHoc = ?, NgayNghiDKBatDau = ?, NgayNghiDKKetThuc = ?, NgayHoc = ?, GiangVien = ? WHERE IdLopMonHoc = ?";
+            String SQL = "update LOPMONHOC set MaGioHoc = ?, MaPhong = ?, NgayBatDauHoc = ?, NgayNghiDKBatDau = ?, NgayNghiDKKetThuc = ?, NgayHoc = ?, GiangVien = ?, NgayThiDuKien = ? WHERE IdLopMonHoc = ?";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL);
             stmt.setString(1, lop.getMaGioHoc());
@@ -113,7 +115,8 @@ public class LopMonHocModel {
             stmt.setString(5, format.format(lop.getNgayNghiDKKetThuc()));
             stmt.setString(6, lop.getNgayHoc());
             stmt.setString(7, lop.getGiangVien());
-            stmt.setInt(8, lop.getIdLopMonHoc());
+            stmt.setString(8, format.format(lop.getNgayThiDuKien()));
+            stmt.setInt(9, lop.getIdLopMonHoc());
             stmt.executeUpdate();
         } finally {
             try {
@@ -130,7 +133,7 @@ public class LopMonHocModel {
         Connection conn = null;
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         try {
-            String SQL = "update LOPMONHOC set MaGioHoc = ?, MaPhong = ?, NgayBatDauHoc = ?, NgayHoc = ?, GiangVien = ? WHERE IdLopMonHoc = ?";
+            String SQL = "update LOPMONHOC set MaGioHoc = ?, MaPhong = ?, NgayBatDauHoc = ?, NgayHoc = ?, GiangVien = ?, NgayThiDuKien = ? WHERE IdLopMonHoc = ?";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL);
             stmt.setString(1, lop.getMaGioHoc());
@@ -139,7 +142,8 @@ public class LopMonHocModel {
             stmt.setString(3, format.format(lop.getNgayBatDauHoc()));
             stmt.setString(6, lop.getNgayHoc());
             stmt.setString(7, lop.getGiangVien());
-            stmt.setInt(8, lop.getIdLopMonHoc());
+            stmt.setString(8, format.format(lop.getNgayThiDuKien()));
+            stmt.setInt(9, lop.getIdLopMonHoc());
             stmt.executeUpdate();
         } finally {
             try {
@@ -367,11 +371,12 @@ public class LopMonHocModel {
                 lopMonHoc.setNgayNghiDKKetThucView(format.format(rs.getDate(8)));
                 lopMonHoc.setNgayHoc(rs.getString(9));
                 lopMonHoc.setGiangVien(rs.getString(10));
-                lopMonHoc.setTenMonHoc(rs.getString(11));
-                lopMonHoc.setSoGio(Integer.parseInt(rs.getString(12)));
-                lopMonHoc.setTenLop(rs.getString(13));
-                lopMonHoc.setThoiGian(rs.getString(14));
-                lopMonHoc.setTenPhongHoc(rs.getString(15));
+                lopMonHoc.setNgayThiDuKienView(format.format(rs.getDate(11)));
+                lopMonHoc.setTenMonHoc(rs.getString(12));
+                lopMonHoc.setSoGio(Integer.parseInt(rs.getString(13)));
+                lopMonHoc.setTenLop(rs.getString(14));
+                lopMonHoc.setThoiGian(rs.getString(15));
+                lopMonHoc.setTenPhongHoc(rs.getString(16));
                 arrLopMonHoc.add(lopMonHoc);
             }
         } catch (Exception ex) {

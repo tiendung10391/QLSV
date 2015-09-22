@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/bean/QuanLyLopBean.java</file>
             <file>file:/D:/github/QLSV/ProjectNhom1/web/resources/css/default.css</file>
-            <file>file:/D:/github/QLSV/ProjectNhom1/web/admin/backend_monhoc.xhtml</file>
-            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/util/MyFilter.java</file>
+            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/model/LopHocModel.java</file>
+            <file>file:/D:/github/QLSV/ProjectNhom1/src/java/itplus/project/bean/QuanLyLopMonHocBean.java</file>
         </group>
     </open-files>
 </project-private>

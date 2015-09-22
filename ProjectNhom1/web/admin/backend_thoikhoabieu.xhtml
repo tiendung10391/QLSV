@@ -42,6 +42,29 @@
                                     <f:selectItems value="#{quanLyLopMonHocBean.phongHocList}" />
                                 </p:selectOneMenu>
                             </h:panelGrid>
+                            
+                            <h:panelGrid columns="4" cellspacing="5px">
+                                <p:outputLabel value="Giảng viên (*):" />
+                                <p:inputText id="txtGiangVien" value="#{quanLyLopMonHocBean.lopMonHocEntity.giangVien}" />
+                                
+                                <p:outputLabel/>
+                                <p:outputLabel/>
+                            </h:panelGrid>
+                            
+                             <h:panelGrid style="margin: auto;font-weight: bold;font-size: 17px;margin-top: 15px;margin-bottom: 10px">
+                                <p:outputLabel value="Lịch học"/>
+                            </h:panelGrid>
+                            
+                            <h:panelGrid columns="4" cellpadding="5px">
+                                <p:outputLabel value="Ngày bắt đầu học (*):"/>
+                                <p:calendar id="txtNgayBauDauHoc" value="#{quanLyLopMonHocBean.lopMonHocEntity.ngayBatDauHoc}" locale="de" navigator="true" pattern="dd/MM/yyyy" />
+                                
+                                <p:outputLabel value="Ngày thi dự kiến:"/>
+                                <p:calendar value="#{quanLyLopMonHocBean.lopMonHocEntity.ngayThiDuKien}"  id="txtNgayThi" locale="de" navigator="true" pattern="dd/MM/yyyy" />
+
+                            </h:panelGrid>
+                            
+                            
                             <h:panelGrid columns="2" cellpadding="5px">
                                 <p:outputLabel value="Ngày học (*):"/>
                                 <p:selectManyCheckbox value="#{quanLyLopMonHocBean.arrNgayHoc}" id="ckbox" >
@@ -54,14 +77,6 @@
                                     <f:selectItem itemLabel="Chủ Nhật" itemValue="Chủ nhật"/>
                                 </p:selectManyCheckbox>
                             </h:panelGrid>
-                            
-                            <h:panelGrid columns="4" cellspacing="5px">
-                                <p:outputLabel value="Giảng viên (*):" />
-                                <p:inputText id="txtGiangVien" value="#{quanLyLopMonHocBean.lopMonHocEntity.giangVien}" />
-                                
-                                <p:outputLabel value="Ngày bắt đầu học (*):"/>
-                                <p:calendar id="txtNgayBauDauHoc" value="#{quanLyLopMonHocBean.lopMonHocEntity.ngayBatDauHoc}" locale="de" navigator="true" pattern="dd/MM/yyyy" />
-                            </h:panelGrid>
 
                             <h:panelGrid style="margin: auto;font-weight: bold;font-size: 17px;margin-top: 15px;margin-bottom: 10px">
                                 <p:outputLabel value="Ngày Nghỉ Dự Kiến"/>
@@ -69,9 +84,9 @@
 
                             <h:panelGrid columns="4" cellpadding="5px">
                                 <p:outputLabel value="Từ ngày:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
-                                <p:calendar value="#{quanLyLopMonHocBean.lopMonHocEntity.ngayNghiDKBatDau}"  id="txttungay" locale="de" navigator="true" pattern="dd/MM/yyyy" />
+                                <p:calendar value="#{quanLyLopMonHocBean.lopMonHocEntity.ngayNghiDKBatDau}"  id="txtNgayNghiBD" locale="de" navigator="true" pattern="dd/MM/yyyy" />
                                 <p:outputLabel value="Đến ngày:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"/>
-                                <p:calendar value="#{quanLyLopMonHocBean.lopMonHocEntity.ngayNghiDKKetThuc}"  id="txtdenngay" locale="de" navigator="true" pattern="dd/MM/yyyy" />
+                                <p:calendar value="#{quanLyLopMonHocBean.lopMonHocEntity.ngayNghiDKKetThuc}"  id="txtNgayNghiKT" locale="de" navigator="true" pattern="dd/MM/yyyy" />
 
                             </h:panelGrid>
                         </h:panelGrid>
@@ -109,28 +124,31 @@
                         </p:column>
                         <p:column style="font-size: 13px" styleClass="header" headerText="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         Môn học
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" filterStyle="width:90%" sortBy="#{reg.tenMonHoc}" filterBy="#{reg.tenMonHoc}" >
                             <h:outputText value="#{reg.tenMonHoc}" />
                         </p:column>
                         <p:column style="font-size: 13px;width: 80px" styleClass="header" headerText="Giảng viên" filterStyle="width:90%" sortBy="#{reg.giangVien}" filterBy="#{reg.giangVien}" >
                             <h:outputText value="#{reg.giangVien}" />
                         </p:column>
-                        <p:column style="font-size: 13px;width: 60px" styleClass="header" headerText="Giờ học" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                        <p:column style="font-size: 13px;width: 60px" styleClass="header" headerText="Giờ học" filterStyle="width:90%" sortBy="#{reg.thoiGian}" filterBy="#{reg.thoiGian}" >
                             <h:outputText value="#{reg.thoiGian}" />
                         </p:column>
-                        <p:column style="font-size: 13px;width: 80px" styleClass="header" headerText="Phòng học" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                        <p:column style="font-size: 13px;width: 80px" styleClass="header" headerText="Phòng học" filterStyle="width:90%" sortBy="#{reg.tenPhongHoc}" filterBy="#{reg.tenPhongHoc}" >
                             <h:outputText value="#{reg.tenPhongHoc}" />
                         </p:column>
-                        <p:column style="font-size: 13px;width: 60px" styleClass="header" headerText="Ngày học" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                        <p:column style="font-size: 13px;width: 60px" styleClass="header" headerText="Ngày học" filterStyle="width:90%" sortBy="#{reg.ngayHoc}" filterBy="#{reg.ngayHoc}" >
                             <h:outputText value="#{reg.ngayHoc}" />
                         </p:column>
-                        <p:column style="font-size: 13px;width: 100px" styleClass="header" headerText="Ngày bắt đầu học" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                        <p:column style="font-size: 13px;width: 100px" styleClass="header" headerText="Ngày bắt đầu học" filterStyle="width:90%" sortBy="#{reg.ngayBatDauHocView}" filterBy="#{reg.ngayBatDauHocView}" >
                             <h:outputText value="#{reg.ngayBatDauHocView}" />
                         </p:column>
-                        <p:column style="font-size: 13px;width: 100px" styleClass="header" headerText="Ngày nghỉ dự kiến bắt đầu" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                        <p:column style="font-size: 13px;width: 100px" styleClass="header" headerText="Ngày Thi dư kiến" filterStyle="width:90%" sortBy="#{reg.ngayThiDuKienView}" filterBy="#{reg.ngayThiDuKienView}" >
+                            <h:outputText value="#{reg.ngayThiDuKienView}" />
+                        </p:column>
+                        <p:column style="font-size: 13px;width: 100px" styleClass="header" headerText="Ngày nghỉ dự kiến bắt đầu" filterStyle="width:90%" sortBy="#{reg.ngayNghiDKBatDauView}" filterBy="#{reg.ngayNghiDKBatDauView}" >
                             <h:outputText value="#{reg.ngayNghiDKBatDauView}" />
                         </p:column>
-                        <p:column style="font-size: 13px;width: 100px" styleClass="header" headerText="Ngày nghỉ dự kiến kết thúc" filterStyle="width:90%" sortBy="#{reg.tenLop}" filterBy="#{reg.tenLop}" >
+                        <p:column style="font-size: 13px;width: 100px" styleClass="header" headerText="Ngày nghỉ dự kiến kết thúc" filterStyle="width:90%" sortBy="#{reg.ngayNghiDKKetThucView}" filterBy="#{reg.ngayNghiDKKetThucView}" >
                             <h:outputText value="#{reg.ngayNghiDKKetThucView}" />
                         </p:column >
                         <p:column selectionMode="multiple" style="width:30px;text-align:center"/>

@@ -100,15 +100,8 @@ public class QuanLyLopMonHocBean extends MessageUtil {
                 System.out.println("Ngày Hoc: " + NgayHoc);
                 lopMonHocEntity.setNgayHoc(NgayHoc);
 
-                if (lopMonHocEntity.getNgayNghiDKBatDau() != null || lopMonHocEntity.getNgayNghiDKKetThuc() != null) {
-                    if (lopMonHocEntity.getNgayNghiDKKetThuc() == null) {
-                        addErrorMessage("Bạn chưa nhập ngày nghỉ kết thúc");
-
-                    } else if (lopMonHocEntity.getNgayNghiDKBatDau() == null) {
-                        addErrorMessage("Bạn chưa nhập ngày nghỉ bắt đầu");
-                    } else {
-                        id = lopMonHocModel.addLopMonHocNgayNghi(lopMonHocEntity);
-                    }
+                if (lopMonHocEntity.getNgayNghiDKBatDau() != null && lopMonHocEntity.getNgayNghiDKKetThuc() != null) {
+                    id = lopMonHocModel.addLopMonHocNgayNghi(lopMonHocEntity);
                 } else {
                     id = lopMonHocModel.addLopMonHoc(lopMonHocEntity);
                 }
@@ -125,6 +118,7 @@ public class QuanLyLopMonHocBean extends MessageUtil {
                 lopMonHocEntity.setTenPhongHoc(PhongHoc);
 
                 lopMonHocEntity.setNgayBatDauHocView(format.format(lopMonHocEntity.getNgayBatDauHoc()));
+                lopMonHocEntity.setNgayThiDuKienView(format.format(lopMonHocEntity.getNgayThiDuKien()));
                 if (lopMonHocEntity.getNgayNghiDKBatDau() == null) {
                     lopMonHocEntity.setNgayNghiDKBatDauView("Không");
                 } else {
@@ -140,6 +134,7 @@ public class QuanLyLopMonHocBean extends MessageUtil {
                 arrLopMonHoc.add(lopMonHocEntity);
 
                 lopMonHocEntity = new LopMonHocEntity();
+                focus = "txtLopHoc";
                 addSuccessMessage("Thêm thành công");
             } catch (SQLException ex) {
                 System.out.println(ex);
@@ -193,6 +188,7 @@ public class QuanLyLopMonHocBean extends MessageUtil {
                 lopMonHocEntity.setTenPhongHoc(PhongHoc);
 
                 lopMonHocEntity.setNgayBatDauHocView(format.format(lopMonHocEntity.getNgayBatDauHoc()));
+                lopMonHocEntity.setNgayThiDuKienView(format.format(lopMonHocEntity.getNgayThiDuKien()));
                 if (lopMonHocEntity.getNgayNghiDKBatDau() == null) {
                     lopMonHocEntity.setNgayNghiDKBatDauView("Không");
                 } else {
@@ -217,6 +213,7 @@ public class QuanLyLopMonHocBean extends MessageUtil {
                 Logger.getLogger(QuanLyLopMonHocBean.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+            focus = "txtLopHoc";
             addSuccessMessage("Sửa thành công");
 
         }
@@ -250,21 +247,47 @@ public class QuanLyLopMonHocBean extends MessageUtil {
             addErrorMessage("Bạn chưa chọn phòng học");
             focus = "txtPhongHoc";
             return false;
-        } else if (arrNgayHoc.length == 0) {
-            addErrorMessage("Bạn chưa chọn ngày học");
-            return false;
         }else if(ValidatorUtil.isSpaceString(lopMonHocEntity.getGiangVien())){
             addErrorMessage("Chưa nhập tên giảng viên");
             focus = "txtGiangVien";
+            return false;
+        } else if (arrNgayHoc.length == 0) {
+            addErrorMessage("Bạn chưa chọn ngày học");
             return false;
         }else if (lopMonHocEntity.getNgayBatDauHoc() == null) {
             addErrorMessage("Bạn chưa nhập ngày bắt đầu học");
             focus = "txtNgayBauDauHoc";
             return false;
-        } else if (checkDuplicateThoiKhoaBieu) {
-            addErrorMessage("Môn này đã được tạo thời khóa biểu");
+        }else if(lopMonHocEntity.getNgayThiDuKien() == null){
+            addErrorMessage("Bạn chưa nhập ngày thi dự kiến");
+            focus = "txtNgayThi";
             return false;
-        } else {
+            
+        }else if(lopMonHocEntity.getNgayBatDauHoc().after(lopMonHocEntity.getNgayThiDuKien())){
+            addErrorMessage("Ngày thi phải sau ngày bắt đầu học");
+            focus = "txtNgayThi";
+            return false;
+        }else if (checkDuplicateThoiKhoaBieu) {
+            addErrorMessage("Môn này đã được tạo thời khóa biểu");
+            focus = "txtLopHoc";
+            return false;
+        }else if(lopMonHocEntity.getNgayNghiDKBatDau() != null && lopMonHocEntity.getNgayNghiDKKetThuc() == null){
+            addErrorMessage("Chưa nhập ngày nghỉ kết thúc");
+            focus = "txtNgayNghiKT";
+            return false;
+        }else if(lopMonHocEntity.getNgayNghiDKBatDau() == null && lopMonHocEntity.getNgayNghiDKKetThuc() != null){
+            addErrorMessage("Chưa nhập ngày nghỉ bắt đầu");
+            focus = "txtNgayNghiBD";
+            return false;
+        }else if(lopMonHocEntity.getNgayNghiDKBatDau().after(lopMonHocEntity.getNgayNghiDKKetThuc()) && lopMonHocEntity.getNgayNghiDKBatDau() != null && lopMonHocEntity.getNgayNghiDKKetThuc() != null){
+            addErrorMessage("Ngày nghỉ kết thuc phải sau ngày nghỉ bắt đầu");
+            focus = "txtNgayNghiKT";
+            return false;
+        }else if(lopMonHocEntity.getNgayBatDauHoc().after(lopMonHocEntity.getNgayNghiDKBatDau()) && lopMonHocEntity.getNgayNghiDKBatDau() != null && lopMonHocEntity.getNgayNghiDKKetThuc() != null){
+            addErrorMessage("Ngày nghỉ ko được trước hoặc trùng ngày bắt đầu học");
+            focus = "txtNgayNghiBD";
+            return false;
+        }else {
             return true;
         }
     }

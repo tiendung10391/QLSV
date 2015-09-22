@@ -32,10 +32,28 @@ public class LopMonHocEntity implements Serializable, Cloneable {
     private String NgayNghiDKBatDauView;
     private String NgayNghiDKKetThucView;
     private String GiangVien;
+    private Date NgayThiDuKien;
+    private String NgayThiDuKienView;
 
     @Override
     public LopMonHocEntity clone() throws CloneNotSupportedException {
         return (LopMonHocEntity) super.clone();
+    }
+
+    public Date getNgayThiDuKien() {
+        return NgayThiDuKien;
+    }
+
+    public void setNgayThiDuKien(Date NgayThiDuKien) {
+        this.NgayThiDuKien = NgayThiDuKien;
+    }
+
+    public String getNgayThiDuKienView() {
+        return NgayThiDuKienView;
+    }
+
+    public void setNgayThiDuKienView(String NgayThiDuKienView) {
+        this.NgayThiDuKienView = NgayThiDuKienView;
     }
 
     public String getGiangVien() {
