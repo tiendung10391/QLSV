@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 	TextView loiDN;
 	CheckBox chksave;
 	String prefname = "my_data";
-	public static String ip = "http://192.168.100.25:8080";
+	public static String ip = "http://192.168.1.129:8080";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -263,7 +263,6 @@ public class MainActivity extends Activity {
 
 	public void invokeWService(RequestParams params) {
 		// Show Progress Dialog
-		prgDialog.show();
 		// Make RESTful webservice call using AsyncHttpClient object
 		AsyncHttpClient client1 = new AsyncHttpClient();
 		client1.get(
