@@ -14,19 +14,17 @@
         android:paddingRight="5dp"
         android:paddingTop="7dp" >
 
-        <EditText
-            android:id="@+id/ed_d"
-            android:layout_width="235dp"
+       <Spinner
+            android:id="@+id/spinHocky"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
             android:background="@drawable/my_edittext"
-            android:ems="10"
-            android:hint="Học kỳ"
-            android:padding="5dp" />
+            android:layout_marginRight="10dp"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/bt_d"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:background="@drawable/my_button"
             android:text="Chọn"
