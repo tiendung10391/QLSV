@@ -13,7 +13,7 @@
             <ui:define name="content">
                 <h:form>
                     <h:panelGrid class="panelnguoidung">
-                        <center class="title">THÔNG TIN HỌC VIÊN</center>
+                        <center class="title">GÓC HỌC VIÊN</center>
                         <h:panelGrid  columns="2" style="min-width: 200px;max-width: 400px;position: absolute;margin-left: 90px;margin-top: 45px;margin-bottom: 20px" cellpadding="20px">
                             <p:outputLabel style="font-weight: bold" value="Mã học viên:"/>
                             <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.maSinhVien}"  />
@@ -24,33 +24,105 @@
                             <p:outputLabel style="font-weight: bold" value="Ngày sinh:"/>
                             <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.ngaySinhView}"/>
                             
-                            <p:outputLabel style="font-weight: bold" value="Lớp học:"/>
-                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.tenLop}"/>
-                            
-                            <p:outputLabel style="font-weight: bold" value="Giới tính:"/>
-                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.gioiTinh}"/>
                             
                         </h:panelGrid>
                         <h:panelGrid  columns="2" style="min-width: 200px;max-width: 400px;margin-left: 470px;margin-top: 41px;margin-bottom: 20px" cellpadding="20px">
                             
-                            <p:outputLabel style="font-weight: bold" value="Số điện thoại:"/>
-                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.SDT}"/>
+                            <p:outputLabel style="font-weight: bold" value="Lớp học:"/>
+                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.tenLop}"/>
                             
-                            <p:outputLabel style="font-weight: bold" value="Địa chỉ:"/>
-                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.diaChi}"/>
-                            
-                            <p:outputLabel style="font-weight: bold" value="Quê quán:"/>
-                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.queQuan}"/>
-                            
-                            <p:outputLabel style="font-weight: bold" value="Email:"/>
-                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.email}"/>
-                            
+                            <p:outputLabel style="font-weight: bold" value="Khóa học"/>
+                            <p:outputLabel value="#{infoHocVienBean.sinhVienEntity.tenKhoaHoc}"/>
                             <p:outputLabel style="font-weight: bold" value="Mật khẩu:"/>
-                            <h:outputLink>Đổi mật khẩu</h:outputLink>
+                            <p:commandLink onclick="PF('dlg2').show();">Đổi mật khẩu</p:commandLink>
                             
                         </h:panelGrid>
                     </h:panelGrid>
+                    <p:dataTable style="margin: 20px" id="a" value="" emptyMessage="Chưa có bản ghi nào" >
+                            <f:facet name="header" >  
+                                <div style="padding: 5px">Danh sách điểm</div>
+                            </f:facet>
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column styleClass="header" rowspan="2" headerText="STT" />
+                                    <p:column styleClass="header" rowspan="2" headerText="Môn Học" />
+                                    <p:column styleClass="header" colspan="3" headerText="Điểm thi" />
+                                    <p:column filterBy="ggg" styleClass="header" rowspan="2" headerText="Trạng thái" footerText="equals" filterMatchMode="equals">
+                                        <f:facet name="filter">
+                                            <p:selectOneButton onchange="PF('carsTable').filter()">
+                                                <f:converter converterId="javax.faces.Boolean" />
+                                                <f:selectItem itemLabel="Sold" itemValue="Dỗ " />
+                                                <f:selectItem itemLabel="Sale" itemValue="Trượt" />
+                                            </p:selectOneButton>
+                                        </f:facet>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column styleClass="header" headerText="Lần 1" />
+                                    <p:column styleClass="header" headerText="Lần 2" />
+                                    <p:column styleClass="header" headerText="Lần 3" />
+                                </p:row>
+                            </p:columnGroup>
+                        
+                                    <p:column>
+                                        <h:outputText value="hg" />
+                                        <h:outputText value="hg" />
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="h" />
+                                        <h:outputText value="hg" />
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="h" />
+                                        <h:outputText value="hg" />
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="h" />
+                                        <h:outputText value="hg" />
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="h" />
+                                        <h:outputText value="hg" />
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="h" />
+                                        <h:outputText value="hg" />
+                                    </p:column>
+                        
+                        
+                        
+                        </p:dataTable>
                     
+                    <p:growl id="grow2" sticky="true" life="3000" />
+
+                        <p:dialog header="ĐĂNG NHẬP" widgetVar="dlg2" resizable="false">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputLabel for="username" value="Mật khẩu cũ: " />
+                                <p:password styleClass="dialog" id="pasword" value=""  required="true" label="Mật khẩu cũ: " />
+
+                                <h:outputLabel for="password" value="Mật khẩu mới: " />
+                                <p:password styleClass="dialog" id="password2" value="" required="true" label="Mật khẩu mới: " />
+                                
+                                <h:outputLabel for="password" value="Xác nhận mật khẩu: " />
+                                <p:password styleClass="dialog" id="password3" value="" required="true" label="Xác nhận mật khẩu: " />
+
+                                <f:facet name="footer">
+                                    <p:commandButton styleClass="dialog" style="width: 355px" value="Cập nhật mật khẩu" update="grow2" action="f"
+                                                     oncomplete="" />
+                                </f:facet>  
+                            </h:panelGrid>
+                        </p:dialog>
+                <script type="text/javascript">
+                        function handleLoginRequest2(xhr, status, args) {
+                            if (args.validationFailed || !args.loggedIn) {
+                                PF('dlg2').jq.effect("shake", {times: 5}, 100);
+                            }
+                            else {
+                                PF('dlg2').hide();
+                                $('#loginLink').fadeOut();
+                            }
+                        }
+                    </script>
                 </h:form>
             </ui:define>
        </ui:composition>

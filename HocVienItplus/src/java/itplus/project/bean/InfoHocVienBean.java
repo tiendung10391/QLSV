@@ -45,6 +45,7 @@ public class InfoHocVienBean {
         sinhVienEntity.setQueQuan(arrSinhVien.get(0).getQueQuan());
         sinhVienEntity.setEmail(arrSinhVien.get(0).getEmail());
         sinhVienEntity.setGioiTinh(arrSinhVien.get(0).getGioiTinh());
+        sinhVienEntity.setTenKhoaHoc(arrSinhVien.get(0).getTenKhoaHoc());
         System.out.println("ten sinh vien: " + arrSinhVien.get(0).getTenSinhVien());
         System.out.println("ten sinh vien entity: " + sinhVienEntity.getTenSinhVien());
     }

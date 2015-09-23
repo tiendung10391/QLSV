@@ -32,7 +32,7 @@
                             <p:menuitem value="HỌC VIÊN" url="/faces/pages/index.xhtml" style="padding: 10px" />
                             <p:menuitem value="LIÊN HỆ" url="/faces/pages/index.xhtml" style="padding: 10px" />
                             <p:menuitem rendered="#{sessionBean.mUsername() == null}" value="ĐĂNG NHẬP" onclick="PF('dlg').show();" style="padding: 10px" />
-                            <p:submenu rendered="#{sessionBean.mUsername() != null}" label="GÓC HỌC VIÊN" style="padding: 5px">
+                            <p:submenu rendered="#{sessionBean.mUsername() != null}" label="GÓC HỌC VIÊN" style="padding: 0px">
                                 <p:menuitem style="z-index: 999" value="Thông tin học viên" url="/faces/sinhvien/frontend_gochocvien.xhtml" />
                                 <p:menuitem style="z-index: 999" value="Chương trình học" url="/faces/sinhvien/frontend_chuongtrinh.xhtml" />
                                 <p:menuitem style="z-index: 999" value="Lịch học" url="/faces/sinhvien/frontend_lichhoc.xhtml" />

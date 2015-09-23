@@ -6,6 +6,8 @@
 package com.itplus.webserviesqlsv.Model;
 
 import com.itplus.webserviesqlsv.Entity.DiemEntity;
+import com.itplus.webserviesqlsv.Entity.DiemThiEntity;
+import com.itplus.webserviesqlsv.Entity.SinhVienEntity;
 import com.itplus.webserviesqlsv.Pool.DBPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,6 +27,173 @@ public class DiemModel {
         DBPool db = new DBPool();
     }
 
+    public ArrayList<DiemThiEntity> getAllDiemKhoaHoc(String MaSV) throws Exception {
+        ArrayList<DiemThiEntity> arr = new ArrayList<DiemThiEntity>();
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT * FROM View_Diem_Lop"
+                    + " INNER JOIN View_MonHoc_KhoaHoc"
+                    + " ON View_Diem_Lop.MaLop = View_MonHoc_KhoaHoc.MaLop AND View_Diem_Lop.MaMonHoc = View_MonHoc_KhoaHoc.MaMonHoc"
+                    + " WHERE View_Diem_Lop.MaSV = ?"
+                    + " ORDER BY View_MonHoc_KhoaHoc.MaHocKy ASC";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, MaSV);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                DiemThiEntity diem = new DiemThiEntity();
+                diem.setId_diem(Integer.parseInt(rs.getString(1)));
+                diem.setMaMonHoc(rs.getString(2));
+                diem.setDiemLan1(Integer.parseInt(rs.getString(4)));
+                diem.setDiemLan2(Integer.parseInt(rs.getString(5)));
+                diem.setDiemLan3(Integer.parseInt(rs.getString(6)));
+                diem.setMaHocKy(rs.getString(15));
+                diem.setTenMon(rs.getString(18));
+                arr.add(diem);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return arr;
+    }
+    
+    // lay ve danh sach diem cua hoc ky
+     public ArrayList<DiemThiEntity> getAllDiemHocKy(String MaSV, String MaHocKy) throws Exception {
+        ArrayList<DiemThiEntity> arr = new ArrayList<DiemThiEntity>();
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT * FROM View_Diem_Lop"
+                    + " INNER JOIN View_MonHoc_KhoaHoc"
+                    + " ON View_Diem_Lop.MaLop = View_MonHoc_KhoaHoc.MaLop AND View_Diem_Lop.MaMonHoc = View_MonHoc_KhoaHoc.MaMonHoc"
+                    + " WHERE View_Diem_Lop.MaSV = ? AND MaHocKy = ?"
+                    + " ORDER BY View_MonHoc_KhoaHoc.MaHocKy ASC";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, MaSV);
+            stmt.setString(2, MaHocKy);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                DiemThiEntity diem = new DiemThiEntity();
+                diem.setId_diem(Integer.parseInt(rs.getString(1)));
+                diem.setMaMonHoc(rs.getString(2));
+                diem.setDiemLan1(Integer.parseInt(rs.getString(4)));
+                diem.setDiemLan2(Integer.parseInt(rs.getString(5)));
+                diem.setDiemLan3(Integer.parseInt(rs.getString(6)));
+                diem.setMaHocKy(rs.getString(15));
+                diem.setTenMon(rs.getString(18));
+                arr.add(diem);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return arr;
+    }
+
+    // lay ve MaMon dang hoc dua vao MaSV
+    public String getMaMonFormMaSV(String MaSV) throws Exception {
+        String MaMon = "";
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT * FROM View_MonDangHoc WHERE MaSV = ?";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, MaSV);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                MaMon = rs.getString(2);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return MaMon;
+    }
+
+    // lay ve MaLop 
+    public String getMaLopFormMaSV(String MaSV) throws Exception {
+        String MaLop = "";
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT MaLop FROM SINHVIEN WHERE MaSV = ?";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, MaSV);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                MaLop = rs.getString(1);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return MaLop;
+    }
+
+    // lay ve MaHocKy
+    public String getMaHocKyFormMaSV(String MaLop, String MaMon) throws Exception {
+        String MaHocKy = "";
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT KHOAHOC_MONHOC.MaHocKy FROM KHOAHOC INNER JOIN LOPHOC ON KHOAHOC.MaKhoaHoc = LOPHOC.MaKhoaHoc"
+                    + " INNER JOIN KHOAHOC_MONHOC ON KHOAHOC.MaKhoaHoc = KHOAHOC_MONHOC.MaKhoaHoc"
+                    + " WHERE LOPHOC.MaLop = ? AND KHOAHOC_MONHOC.MaMonHoc = ?";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, MaLop);
+            stmt.setString(2, MaMon);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                MaHocKy = rs.getString(1);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return MaHocKy;
+    }
+
     public ArrayList<DiemEntity> getDiem(String masv) throws Exception {
         ArrayList<DiemEntity> arr = new ArrayList<>();
         Statement stmt = null;
@@ -35,7 +204,7 @@ public class DiemModel {
             cn = DBPool.getConnection();
 //            cn = DBUtil.connectSQL();
             stmt = cn.createStatement();
-            String SQL = "SELECT * from Diem where MaSV = '"+masv+"'";
+            String SQL = "SELECT * from Diem where MaSV = '" + masv + "'";
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
@@ -159,7 +328,6 @@ public class DiemModel {
     }
 
     //tim kiem thong tin theo ten
-
     public ArrayList<DiemEntity> findByName(String MaSV) throws Exception {
         ArrayList<DiemEntity> arr = new ArrayList<DiemEntity>();
         PreparedStatement pstm = null;
