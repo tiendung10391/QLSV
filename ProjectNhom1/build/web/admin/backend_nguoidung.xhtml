@@ -11,71 +11,87 @@
     <h:body>
         <ui:composition template="backend.xhtml">
             <ui:define name="content">
-                <h:form>
+                <h:form id="frm_admin">
+                    <p:growl id="growl" autoUpdate="true"/>
+                    <p:focus for="#{quanLyAdminBean.focus}" id="focus"/>
                     <h:panelGrid class="panel1">
-                        <center class="title">Người Dùng</center>
+                        <center class="title">TẠO QUẢN TRỊ VIÊN</center>
                         <h:panelGrid columns="4" style="margin: auto;margin-top: 25px;margin-bottom: 20px" cellpadding="5px">
                             <p:outputLabel value="Họ Tên (*):"/>
-                            <p:inputText/>
+                            <p:inputText id="txtTenNguoiDung" value="#{quanLyAdminBean.adminEntity.tenNguoiDung}" maxlength="25"/>
                             <p:outputLabel value="Địa Chỉ (*):"/>
-                            <p:inputText/>
-                            <p:outputLabel value="Tên Đăng Nhập (*):"/>
-                            <p:inputText />
+                            <p:inputText id="txtDiaChi" value="#{quanLyAdminBean.adminEntity.diaChi}" maxlength="50"/>
                             <p:outputLabel value="Số Điện Thoại (*):"/>
-                            <p:inputText />
-                            <p:outputLabel value="Mật Khẩu (*):"/>
-                            <p:password  feedback="true" inline="true"
-                                promptLabel="Mời nhập mật khẩu" weakLabel="Mật khẩu yếu"
-                                goodLabel="Mật khẩu bình thường" strongLabel="Mật khẩu mạnh"/>
+                            <p:inputText id="txtSDT" value="#{quanLyAdminBean.adminEntity.SDT}" maxlength="15" />
                             <p:outputLabel value="Email (*):"/>
-                            <p:inputText/>
+                            <p:inputText id="txtEmail" value="#{quanLyAdminBean.adminEntity.email}" maxlength="25"/>
+                            <p:outputLabel value="Tên đăng nhập (*):"/>
+                            <p:inputText id="txtTenDangNhap" disabled="#{quanLyAdminBean.checkSelectedTable()}" value="#{quanLyAdminBean.adminEntity.tenDangNhap}" maxlength="16"/>
+                            <p:outputLabel value="Mật Khẩu (*):"/>
+                            <p:password id="txtMatKhau"  feedback="true" inline="true" value="#{quanLyAdminBean.adminEntity.matKhau}" maxlength="16"
+                                        promptLabel="Mời nhập mật khẩu" weakLabel="Mật khẩu yếu"
+                                        goodLabel="Mật khẩu bình thường" strongLabel="Mật khẩu mạnh"/>
                         </h:panelGrid>
                         <h:panelGrid columns="4" style="margin: auto">
-                            <p:button value="Thêm mới"/>
-                            <p:button value="Cập nhật"/>
-                            <p:button value="Xóa"/>
-                            <p:button value="Nhập lại"/>
+                            <p:commandButton value="Thêm mới" actionListener="#{quanLyAdminBean.addAdmin()}" update="frm_admin"/>
+                            <p:commandButton value="Cập nhật" disabled="#{quanLyAdminBean.checkStatusButton()}" actionListener="#{quanLyAdminBean.editAdmin()}" update="frm_admin"/>
+                            <p:commandButton value="Xóa" disabled="#{quanLyAdminBean.checkStatusButton()}" onclick="PF('confirm_delete').show()"/>
+                            <p:commandButton value="Nhập lại" actionListener="#{quanLyAdminBean.clearText()}" update="frm_admin"/>
                         </h:panelGrid>
                     </h:panelGrid>
-                </h:form>
-                
-                <p:dataTable emptyMessage="Chưa có bản ghi nào" styleClass="table">
+
+                    <p:dataTable 
+                        emptyMessage="Chưa có bản ghi nào" 
+                        styleClass="table"
+                        id="tbl_admin"
+                        rowIndexVar="rowIndex" 
+                        var="reg" 
+                        value="#{quanLyAdminBean.arrAdmin}"
+                        rowKey="#{reg.id}"
+                        rows="10"
+                        paginator="true"
+                        selection="#{quanLyAdminBean.listAdminSelected}"
+                        rowsPerPageTemplate="5,10,15"
+                        paginatorPosition="bottom"
+                        >
+                        <p:ajax listener="#{quanLyAdminBean.selectedRowtable}" event="rowSelect" update=":frm_admin"/>
                         <f:facet name="header" >  
-                            <div style="padding: 5px">Danh sách người dùng </div>
+                            <div style="padding: 5px">Danh sách quản trị viên </div>
                         </f:facet>
-                    <p:column styleClass="header" style="width: 50px">
-                            <f:facet name="header">
-                                STT
-                            </f:facet>
+                        <p:column styleClass="header" headerText="STT" style="width: 25px; text-align: center">
+                            <h:outputText value="#{rowIndex+1}" />
                         </p:column>
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Họ và tên
-                            </f:facet>
-                        </p:column>  
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Địa Chỉ
-                            </f:facet>
-                        </p:column> 
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Tên Đăng Nhập
-                            </f:facet>
-                        </p:column >
-                        <p:column styleClass="header">
-                            <f:facet name="header">
-                                Số Điện Thoại
-                            </f:facet>
+                        <p:column styleClass="header" headerText="Tên người dùng" style="width: 150px" filterStyle="width:90%"  sortBy="#{reg.tenNguoiDung}" filterBy="#{reg.tenNguoiDung}">
+
+                            <h:outputText value="#{reg.tenNguoiDung}" />
                         </p:column>
-                        <p:column styleClass="header" style="width: 150px">
-                            <f:facet name="header">
-                                Email
-                            </f:facet>
+                        <p:column styleClass="header" headerText="Địa chỉ" style="width: 150px" filterStyle="width:90%"  sortBy="#{reg.diaChi}" filterBy="#{reg.diaChi}">
+
+                            <h:outputText value="#{reg.diaChi}" />
                         </p:column>
+                        <p:column styleClass="header" headerText="Số điện thoại" style="width: 150px" filterStyle="width:90%"  sortBy="#{reg.SDT}" filterBy="#{reg.SDT}">
+
+                            <h:outputText value="#{reg.SDT}" />
+                        </p:column>
+                        <p:column styleClass="header" headerText="Email" style="width: 150px" filterStyle="width:90%"  sortBy="#{reg.email}" filterBy="#{reg.email}">
+
+                            <h:outputText value="#{reg.email}" />
+                        </p:column>
+                        <p:column styleClass="header" headerText="Tên đăng nhập" style="width: 150px" filterStyle="width:90%"  sortBy="#{reg.tenDangNhap}" filterBy="#{reg.tenDangNhap}">
+
+                            <h:outputText value="#{reg.tenDangNhap}" />
+                        </p:column>
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                     </p:dataTable>
+                    <p:confirmDialog id="confirm_delete" message="Bạn chắc chắn muốn xóa không ?"  
+                                     header="Thông báo!" widgetVar="confirm_delete" style="width: 100px" closable="false"> 
+                        <center><p:commandButton id="confirm_dl" value="Đồng ý" oncomplete="PF('confirm_delete').hide()lop"  
+                                                 actionListener="#{quanLyAdminBean.deleteMonHoc()}"  update="tbl_admin :frm_admin" />
+                            <p:commandButton id="cancel_dl"  value="Bỏ qua" onclick="PF('confirm_delete').hide()" type="button" />   </center>
+                    </p:confirmDialog>
+                </h:form>
             </ui:define>
-       </ui:composition>
+        </ui:composition>
     </h:body>
 </html>
 

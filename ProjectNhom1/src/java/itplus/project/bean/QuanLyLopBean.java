@@ -101,7 +101,7 @@ public class QuanLyLopBean extends MessageUtil implements Serializable{
                 lopHocEntity.setHeDaoTao(heDaoTao);
                 lopHocEntity.setTenNganh(tenNganh);
 
-                arrLopHoc.add(lopHocEntity);
+                arrLopHoc.add(0,lopHocEntity);
 
                 addSuccessMessage("Thêm mới thành công");
                 // khoi tao lai doi tuong xoa trang tren giao dien

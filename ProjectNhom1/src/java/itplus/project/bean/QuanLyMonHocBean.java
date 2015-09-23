@@ -47,7 +47,7 @@ public class QuanLyMonHocBean extends MessageUtil {
                 int id;
 
                 id = monHocModel.addMonHoc(monHocEntity);
-                arrMonHoc.add(monHocEntity);
+                arrMonHoc.add(0,monHocEntity);
 
                 addSuccessMessage("Thêm mới thành công");
                 // khoi tao lai doi tuong xoa trang tren giao dien
@@ -128,7 +128,7 @@ public class QuanLyMonHocBean extends MessageUtil {
             focus = "txtSoGio";
             return false;
 
-        } else {
+        }else {
             return true;
         }
     }

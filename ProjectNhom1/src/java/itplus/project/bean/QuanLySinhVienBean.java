@@ -106,7 +106,7 @@ public class QuanLySinhVienBean extends MessageUtil {
 
                 SinhVienEntity.setTenLop(TenLopHoc);
                 SinhVienEntity.setNgaySinhView(ngaysinh);
-                arrSinhVien.add(SinhVienEntity);
+                arrSinhVien.add(0,SinhVienEntity);
 
                 // lay ve danh sach cac mon hoc cua lop hoc
                 String MaSV = SinhVienEntity.getMaSinhVien();
