@@ -19,13 +19,25 @@ public class HocKyEntity implements Serializable {
     private String TenHocKy;
 
     List<DiemThiEntity> listDiem;
+    List<ChuongTrinhEntity> listChuongTrinh;
 
+    public List<ChuongTrinhEntity> getListChuongTrinh() {
+        return listChuongTrinh;
+    }
+
+    public void setListChuongTrinh(List<ChuongTrinhEntity> listChuongTrinh) {
+        this.listChuongTrinh = listChuongTrinh;
+    }
+
+    
+    
     public HocKyEntity() {
         listDiem = new ArrayList<DiemThiEntity>();
     }
 
     public HocKyEntity(String TenHocKy) {
         this.TenHocKy = TenHocKy;
+        listChuongTrinh = new ArrayList<ChuongTrinhEntity>();
         listDiem = new ArrayList<DiemThiEntity>();
     }
 

@@ -8,6 +8,7 @@ package com.itplus.webserviesqlsv.Model;
 import com.itplus.webserviesqlsv.Entity.KhoaHocEntity;
 import com.itplus.webserviesqlsv.Pool.DBPool;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -51,5 +52,11 @@ public class KhoaHocModel {
         }
         return arr;
     }
+     
+     
+     
+     
+     
+     
 
 }

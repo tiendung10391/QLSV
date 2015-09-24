@@ -15,6 +15,7 @@ public class AdChuongTrinhEntity {
     private String TenMonHoc;
     private int SoGio;
     private String GhiChu;
+   
 
     public String getMaMonHoc() {
         return MaMonHoc;

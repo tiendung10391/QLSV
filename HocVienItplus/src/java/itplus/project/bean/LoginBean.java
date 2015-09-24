@@ -9,6 +9,7 @@ import itplus.project.entity.SinhVienEntity;
 import itplus.project.model.LoginModel;
 import itplus.project.utils.MessageUtil;
 import java.awt.event.ActionEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
@@ -17,7 +18,7 @@ import org.primefaces.context.RequestContext;
  *
  * @author Dung NT
  */
-public class LoginBean extends MessageUtil {
+public class LoginBean extends MessageUtil implements Serializable{
 
     /**
      * Creates a new instance of LoginBean

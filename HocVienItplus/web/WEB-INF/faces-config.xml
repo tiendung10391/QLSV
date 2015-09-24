@@ -25,4 +25,10 @@
         <managed-bean-class>itplus.project.bean.DiemBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <description>chuong trinh</description>
+        <managed-bean-name>chuongTrinhBean</managed-bean-name>
+        <managed-bean-class>itplus.project.bean.ChuongTrinhBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

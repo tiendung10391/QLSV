@@ -7,7 +7,9 @@
 package com.itplus.webserviesqlsv.rest;
 
 import com.itplus.webserviesqlsv.Entity.AdChuongTrinhEntity;
+import com.itplus.webserviesqlsv.Entity.ChuongTrinhEntity;
 import com.itplus.webserviesqlsv.Entity.DiemEntity;
+import com.itplus.webserviesqlsv.Entity.HocKyEntity;
 import com.itplus.webserviesqlsv.Model.AdChuongTrinhModel;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -38,6 +40,7 @@ public class SwAdChuongTrinhResource {
      * Creates a new instance of SwAdChuongTrinhResource
      */
     AdChuongTrinhModel actm;
+    ChuongTrinhEntity chuongTrinh;
     public SwAdChuongTrinhResource() {
         actm = new AdChuongTrinhModel();
     }
@@ -71,6 +74,55 @@ public class SwAdChuongTrinhResource {
             Logger.getLogger(SwKhoaHocResource.class.getName()).log(Level.SEVERE, null, ex);
         }
         return arrNganh;
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getChuongTrinhFromMaSV")
+    public ArrayList<ChuongTrinhEntity> getAllChuongTrinhHocFromMaSV(@QueryParam("MaSV") String MaSV) {
+        ArrayList<ChuongTrinhEntity> arrChuongTrinh = null;
+        try {
+            
+            arrChuongTrinh = new ArrayList<ChuongTrinhEntity>();
+            
+            String MaKhoaHoc = actm.getMaKhoaHocFormMaSV(MaSV);
+            System.out.println("MaKhoaHoc: " + MaKhoaHoc);
+            arrChuongTrinh = actm.getAllChuongTrinhFromMaKhoaHoc(MaKhoaHoc);
+        } catch (Exception ex) {
+            Logger.getLogger(SwKhoaHocResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arrChuongTrinh;
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getChuongTrinhFromMaKhoaHoc")
+    public ArrayList<ChuongTrinhEntity> getAllChuongTrinhHocFromMaKhoaHoc(@QueryParam("MaKhoaHoc") String MaKH) {
+        ArrayList<ChuongTrinhEntity> arrChuongTrinh = null;
+        try {
+            
+            arrChuongTrinh = new ArrayList<ChuongTrinhEntity>();
+            
+            arrChuongTrinh = actm.getAllChuongTrinhFromMaKhoaHoc(MaKH);
+        } catch (Exception ex) {
+            Logger.getLogger(SwKhoaHocResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arrChuongTrinh;
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getHocKyFromMaKhoaHoc")
+    public ArrayList<HocKyEntity> getAllHocKyFromMaKhoaHoc(@QueryParam("MaKhoaHoc") String MaKH) {
+        ArrayList<HocKyEntity> arr = null;
+        try {
+            
+            arr = new ArrayList<HocKyEntity>();
+            arr = actm.getAllHocKyFromMaKhoaHoc(MaKH);
+        } catch (Exception ex) {
+            Logger.getLogger(SwKhoaHocResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arr;
     }
     
 

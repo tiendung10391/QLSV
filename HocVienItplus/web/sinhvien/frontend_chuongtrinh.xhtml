@@ -17,44 +17,52 @@
                         <h:panelGrid columns="2" style="margin-top: 25px;margin-bottom: 25px" cellpadding="5px">
                             <p:outputLabel value="Chọn chương trình học:"/>
                             <p:selectOneMenu style="width: 200px;" editable="true"  >
-                                    <f:selectItem itemLabel="Select One" itemValue="" />
+                                <f:selectItem itemLabel="Select One" itemValue="" />
                             </p:selectOneMenu>
                         </h:panelGrid>
-                        <p:dataTable emptyMessage="Chưa có bản ghi nào" >
+                        <p:dataTable 
+                            emptyMessage="Chưa có bản ghi nào"
+                            rowIndexVar="rowIndex" 
+                            var="hocKy" 
+                            styleClass="table"
+                            value="#{chuongTrinhBean.listHocKy}"
+                            >
                             <f:facet name="header" >  
-                                <div style="padding: 5px">Danh sách các môn học</div>
+                                <div style="padding: 5px">CHƯƠNG TRÌNH HỌC</div>
                             </f:facet>
-                            <p:column styleClass="header" style="width: 50px">
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column styleClass="header" headerText="Mã Môn" />
+                                    <p:column styleClass="header" headerText="Tên Môn" />
+                                    <p:column styleClass="header" headerText="Số giờ" />
+                                    <p:column styleClass="header" headerText="Ghi chú" />
+                                </p:row>
+
+                            </p:columnGroup>
+
+                            <p:subTable var="chuongTrinh" value="#{hocKy.listChuongTrinh}">
                                 <f:facet name="header">
-                                    STT
+                                    <h:outputText value="#{hocKy.tenHocKy}" />
                                 </f:facet>
-                            </p:column>
-                            <p:column styleClass="header" style="width: 60px">
-                                <f:facet name="header">
-                                    Mã môn
-                                </f:facet>
-                            </p:column>  
-                            <p:column styleClass="header">
-                                <f:facet name="header">
-                                    Tên môn
-                                </f:facet>
-                            </p:column> 
-                            <p:column styleClass="header" style="width: 60px">
-                                <f:facet name="header" >
-                                    Số Giờ
-                                </f:facet>
-                            </p:column >
-                            <p:column styleClass="header">
-                                <f:facet name="header">
-                                    Ghi chú
-                                </f:facet>
-                            </p:column>
+                                <p:column>
+                                    <h:outputText value="#{chuongTrinh.maMon}" />
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{chuongTrinh.tenMon}" />
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{chuongTrinh.soGio}" />
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{chuongTrinh.ghiChu}" />
+                                </p:column>
+                            </p:subTable>
                         </p:dataTable>
                     </h:panelGrid>
-                    
+
                 </h:form>
             </ui:define>
-       </ui:composition>
+        </ui:composition>
     </h:body>
 </html>
 

@@ -31,7 +31,6 @@ public class DiemBean implements Serializable {
     List<HocKyEntity> listHocKy;
 
     public DiemBean() {
-        System.out.println("chay den diem bean");
         diemThiEntity = new DiemThiEntity();
         diemThiModel = new DiemThiModel();
         getAllDiemThiHocKy();
