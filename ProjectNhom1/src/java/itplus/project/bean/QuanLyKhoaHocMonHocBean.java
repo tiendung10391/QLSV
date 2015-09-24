@@ -107,7 +107,7 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
                 khoaHocMonHocEntity.setTenKhoaHoc(tenKhoaHoc);
                 khoaHocMonHocEntity.setTenHocKy(tenHocKy);
                 khoaHocMonHocEntity.setTenMonHoc(tenMonHoc);
-
+                arrKhoaHoc.add(0, khoaHocEntity);
                 addSuccessMessage("Thêm mới thành công");
                 // khoi tao lai doi tuong xoa trang tren giao dien
                 khoaHocMonHocEntity = new KhoaHocMonHocEntity();
@@ -147,7 +147,6 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
 //                    }
 //                    System.out.println("arr: " + arrSinhVien.get(i).getMaSinhVien());
 //                }
-
                 for (KhoaHocMonHocEntity khoaHoc : arrKhoaHocMonHoc) {
                     if (khoaHoc.getIdKhoaHocMonHoc() == khoaHocMonHocEntity.getIdKhoaHocMonHoc()) {
                         arrKhoaHocMonHoc.set(arrKhoaHocMonHoc.indexOf(khoaHoc), khoaHocMonHocEntity);
@@ -162,9 +161,9 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
             }
         }
     }
-    
-    public void deleteKhoaHoc(){
-         try {
+
+    public void deleteKhoaHoc() {
+        try {
             //goi ham xoa ben model
             khoaHocMonHocModel.deleteKhoaHocMonHoc(listKhoaHocMonHocSelected);
             //xoa tren giao dien
@@ -273,7 +272,7 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
             System.out.println(ex);
             Logger.getLogger(QuanLyKhoaHocMonHocBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         KhoaHocList = new HashMap<String, String>();
         for (int i = 0; i < arrKhoaHoc.size(); i++) {
             KhoaHocList.put(arrKhoaHoc.get(i).getTenKhoaHoc(), arrKhoaHoc.get(i).getMaKhoaHoc());
@@ -305,7 +304,6 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
     public void setArrKhoaHoc(ArrayList<KhoaHocEntity> arrKhoaHoc) {
         this.arrKhoaHoc = arrKhoaHoc;
     }
-
 
     public Map<String, String> getKhoaHocList() {
         return KhoaHocList;
@@ -370,7 +368,6 @@ public class QuanLyKhoaHocMonHocBean extends MessageUtil {
     public void setArrMonHoc(ArrayList<MonHocEntity> arrMonHoc) {
         this.arrMonHoc = arrMonHoc;
     }
-
 
     public Map<String, String> getMonHocList() {
         return MonHocList;

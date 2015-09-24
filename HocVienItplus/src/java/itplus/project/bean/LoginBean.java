@@ -24,13 +24,14 @@ public class LoginBean extends MessageUtil {
      */
     private SinhVienEntity sinhVienEntity;
     ArrayList<SinhVienEntity> arrSinhVien;
-    boolean loggedIn = false;
+    
 
     public LoginBean() {
         sinhVienEntity = new SinhVienEntity();
     }
 
     public String checkLogin(ActionEvent event) {
+        boolean loggedIn = false;
         RequestContext context = RequestContext.getCurrentInstance();
         if (isValidate()) {
             System.out.println("login dung");
@@ -65,6 +66,7 @@ public class LoginBean extends MessageUtil {
             for (int i = 0; i < arrSinhVien.size(); i++) {
                 if (sinhVienEntity.getMaSinhVien().equals(arrSinhVien.get(i).getMaSinhVien()) && sinhVienEntity.getMatKhau().equals(arrSinhVien.get(i).getMatKhau())) {
                     checkLogin = true;
+                    System.out.println("checkLogin: " + arrSinhVien.get(i).getMaSinhVien());
                 }
             }
 

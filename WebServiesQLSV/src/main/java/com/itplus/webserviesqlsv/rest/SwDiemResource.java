@@ -6,6 +6,7 @@
 package com.itplus.webserviesqlsv.rest;
 
 import com.itplus.webserviesqlsv.Entity.DiemEntity;
+import com.itplus.webserviesqlsv.Entity.DiemThiEntity;
 import com.itplus.webserviesqlsv.Entity.KhoaHocEntity;
 import com.itplus.webserviesqlsv.Entity.LopHocEntity;
 import com.itplus.webserviesqlsv.Model.DiemModel;
@@ -41,12 +42,15 @@ public class SwDiemResource {
      * Creates a new instance of SwDiemResource
      */
     DiemModel diemModel;
+
     public SwDiemResource() {
         diemModel = new DiemModel();
     }
 
     /**
-     * Retrieves representation of an instance of com.itplus.webserviesqlsv.rest.SwDiemResource
+     * Retrieves representation of an instance of
+     * com.itplus.webserviesqlsv.rest.SwDiemResource
+     *
      * @return an instance of java.lang.String
      */
     @GET
@@ -62,7 +66,56 @@ public class SwDiemResource {
         }
         return arrDiem;
     }
+
+    // bang diem cua ca khoa hoc
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getAllDiemThiKhoaHoc")
+    public ArrayList<DiemThiEntity> getAllDiemThiKhoaHoc(@QueryParam("MaSV") String MaSV) {
+            ArrayList<DiemThiEntity> arrDiem = null;
+        try {
+            arrDiem = new ArrayList<DiemThiEntity>();
+            arrDiem = diemModel.getAllDiemKhoaHoc(MaSV);
+        } catch (Exception ex) {
+            Logger.getLogger(SwDiemResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arrDiem;
+    }
     
+    // bang diem cua ky dang hoc dua vao thoi khoa bieu
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getAllDiemThiTheoKy")
+    public ArrayList<DiemThiEntity> getAllDiemThiTheoKy(@QueryParam("MaSV") String MaSV) {
+            ArrayList<DiemThiEntity> arrDiem = null;
+        try {
+            // lay ve mon dang hoc
+            String MaMon = diemModel.getMaMonFormMaSV(MaSV);
+            // lay ve Ma Lop
+            
+            String MaLop = diemModel.getMaLopFormMaSV(MaSV);
+            
+            
+            // tim hoc ky dang hoc dua vao MaMon dang hoc
+            
+            System.out.println("MaLop: " + MaLop + "--- MaMon: " + MaMon);
+            String MaKyHoc = diemModel.getMaHocKyFormMaSV(MaLop, MaMon);
+            
+            
+            // lay ve danh sach diem cua sinh vien theo MaHocKy
+            
+            
+            
+            arrDiem = new ArrayList<DiemThiEntity>();
+            arrDiem = diemModel.getAllDiemHocKy(MaSV, MaKyHoc);
+        } catch (Exception ex) {
+            Logger.getLogger(SwDiemResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arrDiem;
+    }
+    
+    
+
     // them lop hoc
     @POST
     @Path("/addDiem")
@@ -83,14 +136,14 @@ public class SwDiemResource {
         }
         return "success";
     }
-    
+
     // sua lop hoc
     @PUT
     @Path("/editDiem")
     public String editDiem(@FormParam("MaMonHoc") String MaMonHoc, @FormParam("MaSV") String MaSV,
             @FormParam("DiemLan1") int DiemLan1, @FormParam("DiemLan2") int DiemLan2,
-            @FormParam("DiemLan3") int DiemLan3, @FormParam("TrangThai") boolean TrangThai) throws Exception{
-        try{
+            @FormParam("DiemLan3") int DiemLan3, @FormParam("TrangThai") boolean TrangThai) throws Exception {
+        try {
             DiemEntity diem = new DiemEntity();
             diem.setMaMonHoc(MaMonHoc);
             diem.setMaSV(MaSV);
@@ -98,19 +151,19 @@ public class SwDiemResource {
             diem.setDiemlan2(DiemLan2);
             diem.setDiemLan3(DiemLan3);
             diemModel.editDiem(diem);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         }
         return "edit success";
     }
-    
+
     // xoa lop hoc
     @DELETE
     @Path("/removeDiem")
-    public String removeDiem(@FormParam("MaMonHoc")String MaMonHoc, @FormParam("MaSV") String MaSV) throws Exception{
-        try{
+    public String removeDiem(@FormParam("MaMonHoc") String MaMonHoc, @FormParam("MaSV") String MaSV) throws Exception {
+        try {
             diemModel.deleteDiem(MaMonHoc, MaSV);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         }
         return "remove success";
@@ -118,6 +171,7 @@ public class SwDiemResource {
 
     /**
      * PUT method for updating or creating an instance of SwDiemResource
+     *
      * @param content representation for the resource
      * @return an HTTP response with content of the updated or created resource.
      */

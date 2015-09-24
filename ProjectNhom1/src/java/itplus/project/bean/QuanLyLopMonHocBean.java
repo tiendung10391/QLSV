@@ -131,7 +131,7 @@ public class QuanLyLopMonHocBean extends MessageUtil {
                     lopMonHocEntity.setNgayNghiDKKetThucView(format.format(lopMonHocEntity.getNgayNghiDKKetThuc()));
                 }
 
-                arrLopMonHoc.add(lopMonHocEntity);
+                arrLopMonHoc.add(0,lopMonHocEntity);
 
                 lopMonHocEntity = new LopMonHocEntity();
                 focus = "txtLopHoc";
@@ -247,49 +247,53 @@ public class QuanLyLopMonHocBean extends MessageUtil {
             addErrorMessage("Bạn chưa chọn phòng học");
             focus = "txtPhongHoc";
             return false;
-        }else if(ValidatorUtil.isSpaceString(lopMonHocEntity.getGiangVien())){
+        } else if (ValidatorUtil.isSpaceString(lopMonHocEntity.getGiangVien())) {
             addErrorMessage("Chưa nhập tên giảng viên");
             focus = "txtGiangVien";
             return false;
         } else if (arrNgayHoc.length == 0) {
             addErrorMessage("Bạn chưa chọn ngày học");
             return false;
-        }else if (lopMonHocEntity.getNgayBatDauHoc() == null) {
+        } else if (lopMonHocEntity.getNgayBatDauHoc() == null) {
             addErrorMessage("Bạn chưa nhập ngày bắt đầu học");
             focus = "txtNgayBauDauHoc";
             return false;
-        }else if(lopMonHocEntity.getNgayThiDuKien() == null){
+        } else if (lopMonHocEntity.getNgayThiDuKien() == null) {
             addErrorMessage("Bạn chưa nhập ngày thi dự kiến");
             focus = "txtNgayThi";
             return false;
-            
-        }else if(lopMonHocEntity.getNgayBatDauHoc().after(lopMonHocEntity.getNgayThiDuKien())){
+
+        } else if (lopMonHocEntity.getNgayBatDauHoc().after(lopMonHocEntity.getNgayThiDuKien())) {
             addErrorMessage("Ngày thi phải sau ngày bắt đầu học");
             focus = "txtNgayThi";
             return false;
-        }else if (checkDuplicateThoiKhoaBieu) {
+        } else if (checkDuplicateThoiKhoaBieu) {
             addErrorMessage("Môn này đã được tạo thời khóa biểu");
             focus = "txtLopHoc";
             return false;
-        }else if(lopMonHocEntity.getNgayNghiDKBatDau() != null && lopMonHocEntity.getNgayNghiDKKetThuc() == null){
+        } else if (lopMonHocEntity.getNgayNghiDKBatDau() != null && lopMonHocEntity.getNgayNghiDKKetThuc() == null) {
             addErrorMessage("Chưa nhập ngày nghỉ kết thúc");
             focus = "txtNgayNghiKT";
             return false;
-        }else if(lopMonHocEntity.getNgayNghiDKBatDau() == null && lopMonHocEntity.getNgayNghiDKKetThuc() != null){
+        } else if (lopMonHocEntity.getNgayNghiDKBatDau() == null && lopMonHocEntity.getNgayNghiDKKetThuc() != null) {
             addErrorMessage("Chưa nhập ngày nghỉ bắt đầu");
             focus = "txtNgayNghiBD";
             return false;
-        }else if(lopMonHocEntity.getNgayNghiDKBatDau().after(lopMonHocEntity.getNgayNghiDKKetThuc()) && lopMonHocEntity.getNgayNghiDKBatDau() != null && lopMonHocEntity.getNgayNghiDKKetThuc() != null){
-            addErrorMessage("Ngày nghỉ kết thuc phải sau ngày nghỉ bắt đầu");
-            focus = "txtNgayNghiKT";
-            return false;
-        }else if(lopMonHocEntity.getNgayBatDauHoc().after(lopMonHocEntity.getNgayNghiDKBatDau()) && lopMonHocEntity.getNgayNghiDKBatDau() != null && lopMonHocEntity.getNgayNghiDKKetThuc() != null){
-            addErrorMessage("Ngày nghỉ ko được trước hoặc trùng ngày bắt đầu học");
-            focus = "txtNgayNghiBD";
-            return false;
+        } else if (lopMonHocEntity.getNgayNghiDKBatDau() != null && lopMonHocEntity.getNgayNghiDKKetThuc() != null) {
+            if (lopMonHocEntity.getNgayNghiDKBatDau().after(lopMonHocEntity.getNgayNghiDKKetThuc())) {
+                addErrorMessage("Ngày nghỉ kết thúc phải sau ngày nghỉ bắt đầu");
+                focus = "txtNgayNghiKT";
+                return false;
+            } else if (lopMonHocEntity.getNgayBatDauHoc().after(lopMonHocEntity.getNgayNghiDKBatDau())) {
+                addErrorMessage("Ngày nghỉ ko được trước hoặc trùng ngày bắt đầu học");
+                focus = "txtNgayNghiBD";
+                return false;
+            }
         }else {
             return true;
         }
+        
+        return true;
     }
 
     public void deleteLopMonHoc() {
@@ -441,7 +445,6 @@ public class QuanLyLopMonHocBean extends MessageUtil {
         this.arrLopHoc = arrLopHoc;
     }
 
-
     public Map<String, String> getLopHocList() {
         return lopHocList;
     }
@@ -473,7 +476,6 @@ public class QuanLyLopMonHocBean extends MessageUtil {
     public void setArrMonHoc(ArrayList<MonHocEntity> arrMonHoc) {
         this.arrMonHoc = arrMonHoc;
     }
-
 
     public Map<String, String> getMonHocList() {
         return monHocList;
@@ -554,8 +556,6 @@ public class QuanLyLopMonHocBean extends MessageUtil {
     public void setLopMonHocModel(LopMonHocModel lopMonHocModel) {
         this.lopMonHocModel = lopMonHocModel;
     }
-
-
 
     public String[] getArrNgayHoc() {
         return arrNgayHoc;

@@ -19,4 +19,10 @@
         <managed-bean-class>itplus.project.bean.InfoHocVienBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <description>diem bean</description>
+        <managed-bean-name>diemBean</managed-bean-name>
+        <managed-bean-class>itplus.project.bean.DiemBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>

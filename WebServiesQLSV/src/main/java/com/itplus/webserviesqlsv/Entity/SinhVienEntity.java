@@ -14,13 +14,57 @@ public class SinhVienEntity {
     private String maSV = "";
     private String tenSV = "";
     private String ngaySinh = "";
-    private Boolean gioiTinh;
+    private String gioiTinh = "Nam";
     private String sdt;
     private String diaChi = "";
     private String queQuan = "";
     private String email = "";
     private String maLop = "";
     private String matKhau = "";
+    private String TenLop = "";
+    private String NamNhapHoc = "";
+    private String MaKhoaHoc = "";
+    private String TenKhoaHoc = "";
+
+    public String getGioiTinh() {
+        return gioiTinh;
+    }
+
+    public void setGioiTinh(String gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
+
+    public String getTenLop() {
+        return TenLop;
+    }
+
+    public void setTenLop(String TenLop) {
+        this.TenLop = TenLop;
+    }
+
+    public String getNamNhapHoc() {
+        return NamNhapHoc;
+    }
+
+    public void setNamNhapHoc(String NamNhapHoc) {
+        this.NamNhapHoc = NamNhapHoc;
+    }
+
+    public String getMaKhoaHoc() {
+        return MaKhoaHoc;
+    }
+
+    public void setMaKhoaHoc(String MaKhoaHoc) {
+        this.MaKhoaHoc = MaKhoaHoc;
+    }
+
+    public String getTenKhoaHoc() {
+        return TenKhoaHoc;
+    }
+
+    public void setTenKhoaHoc(String TenKhoaHoc) {
+        this.TenKhoaHoc = TenKhoaHoc;
+    }
 
     public String getMatKhau() {
         return matKhau;
@@ -52,14 +96,6 @@ public class SinhVienEntity {
 
     public void setNgaySinh(String ngaySinh) {
         this.ngaySinh = ngaySinh;
-    }
-
-    public Boolean getGioiTinh() {
-        return gioiTinh;
-    }
-
-    public void setGioiTinh(Boolean gioiTinh) {
-        this.gioiTinh = gioiTinh;
     }
 
     public String getSdt() {
