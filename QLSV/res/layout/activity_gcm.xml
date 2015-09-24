@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dccaa6"
+    android:orientation="vertical" >
+
+     <TextView
+         android:layout_width="fill_parent"
+         android:layout_height="90dp"
+         android:layout_marginBottom="10dp"
+         android:layout_marginLeft="10dip"
+         android:layout_marginRight="10dip"
+         android:layout_marginTop="20dip"
+         android:background="@drawable/logo"
+         android:gravity="center"
+         android:textColor="#fff" />
+     
+     <EditText
+         android:id="@+id/txtName"
+         android:layout_width="fill_parent"
+         android:layout_height="38dp"
+         android:layout_margin="10dip"
+         android:layout_marginBottom="20dip"
+         android:textColorHint="#50a2ed"
+         android:background="@drawable/my_edittext_dmk"
+         android:hint="Họ và Tên :" />
+     
+     <EditText
+         android:id="@+id/txtMasv"
+         android:layout_width="fill_parent"
+         android:layout_height="38dp"
+         android:layout_margin="10dip"
+         android:layout_marginBottom="20dip"
+         android:background="@drawable/my_edittext_dmk"
+         android:focusable="false"
+         android:textColorHint="#50a2ed"
+         android:focusableInTouchMode="false"
+         android:hint="Mã sinh viên :" />
+     <EditText
+         android:id="@+id/txtMalop"
+         android:layout_width="fill_parent"
+         android:layout_height="38dp"
+         android:layout_margin="10dip"
+         android:layout_marginBottom="20dip"
+         android:background="@drawable/my_edittext_dmk"
+         android:focusable="false"
+         android:textColorHint="#50a2ed"
+         android:focusableInTouchMode="false"
+         android:hint="Mã lớp :" />
+     
+     <Button
+         android:id="@+id/btnRegister"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_margin="10dip"
+         android:background="@drawable/my_button"
+         android:text="Đăng ký"
+         android:textColor="#fff" />
+
+</LinearLayout>

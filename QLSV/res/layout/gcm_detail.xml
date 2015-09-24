@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#dccaa6"
+    android:orientation="vertical" >
+    
+	<TextView android:id="@+id/lblMessage" 
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:textSize="16dip"
+         android:background="@drawable/my_edittext"
+         android:layout_margin="10dip"
+         android:textColor="#000000"/>
+    
+</LinearLayout>

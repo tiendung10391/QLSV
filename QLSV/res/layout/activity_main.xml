@@ -26,6 +26,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="0.04"
             android:orientation="vertical"
             android:weightSum="1" >
@@ -33,11 +34,10 @@
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/my_button"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/logo"
                 android:gravity="center"
-                android:text="Học Viên ITPlus"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="#fcfdfe"
                 android:textSize="28dp" />

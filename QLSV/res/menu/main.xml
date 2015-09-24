@@ -5,9 +5,23 @@
 
     <item
         android:id="@+id/nguoi_dung"
-         android:title="Người Dùng" android:icon="@drawable/ic_user" android:showAsAction="always"/>
-    <item android:id="@+id/doiMK" android:title="Đổi mật khẩu" android:showAsAction="never"></item>
-    <item android:id="@+id/dangXuat" android:title="Đăng xuất" android:showAsAction="never"></item>
-   
+        android:icon="@drawable/ic_user"
+        android:showAsAction="always"
+        android:title="Người Dùng"/>
+    <item
+        android:id="@+id/dangky_gcm"
+        android:icon="@drawable/success"
+        android:showAsAction="always"
+        android:title="Thông báo."/>
+    <item
+        android:id="@+id/doiMK"
+        android:showAsAction="never"
+        android:title="Đổi mật khẩu">
+    </item>
+    <item
+        android:id="@+id/dangXuat"
+        android:showAsAction="never"
+        android:title="Đăng xuất">
+    </item>
 
 </menu>

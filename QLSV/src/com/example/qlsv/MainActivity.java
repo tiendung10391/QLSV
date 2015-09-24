@@ -25,12 +25,12 @@ public class MainActivity extends Activity {
 	// Progress Dialog Object
 	ProgressDialog prgDialog;
 	// cac bien du lieu
-	String tk, malop;
+	String tk, malop,mk;
 	EditText taiKhoan, matKhau;
 	TextView loiDN;
 	CheckBox chksave;
 	String prefname = "my_data";
-	public static String ip = "http://192.168.1.129:8080";
+	public static String ip = "http://192.168.0.101:8080";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,10 @@ public class MainActivity extends Activity {
 		matKhau = (EditText) findViewById(R.id.matkhau);
 		loiDN = (TextView) findViewById(R.id.loidangnhap);
 		chksave = (CheckBox) findViewById(R.id.checkDN);
-
+		Intent i = getIntent();
+		tk = i.getStringExtra("MaSV");		
+		//
+		taiKhoan.setText(tk);
 		ActionBar action = getActionBar();
 		action.hide();
 		// action.setBackgroundDrawable(new
@@ -77,7 +80,7 @@ public class MainActivity extends Activity {
 	public void loginUser() {
 		// lay du lieu nhap
 		tk = taiKhoan.getText().toString();
-		String mk = matKhau.getText().toString();
+		mk = matKhau.getText().toString();
 		RequestParams params = new RequestParams();
 		// When Email Edit View and Password Edit View have values other than
 		// Null

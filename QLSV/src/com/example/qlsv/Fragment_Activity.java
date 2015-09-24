@@ -113,8 +113,12 @@ ActionBar.TabListener{
 				break;
 			case R.id.doiMK:
 				Intent i3 = new Intent(Fragment_Activity.this, Doi_Matkhau.class);
-				startActivity(i3);
+				startActivity(i3);			
 				finish();
+				break;
+			case R.id.dangky_gcm:
+				Intent i4 = new Intent(Fragment_Activity.this, RegisterActivity.class);
+				startActivity(i4);
 				break;
 			default:
 				break;
