@@ -26,13 +26,12 @@ public class DiemThiEntity implements Serializable {
     public DiemThiEntity() {
     }
 
-    public DiemThiEntity(String TenMon, int DiemLan1, int DiemLan2, int DiemLan3, String TrangThai, String TenHocKy) {
+    public DiemThiEntity(String TenMon, int DiemLan1, int DiemLan2, int DiemLan3, String TrangThai) {
         this.TenMon = TenMon;
         this.DiemLan1 = DiemLan1;
         this.DiemLan2 = DiemLan2;
         this.DiemLan3 = DiemLan3;
         this.TrangThai = TrangThai;
-        this.TenHocKy = TenHocKy;
     }
     
     

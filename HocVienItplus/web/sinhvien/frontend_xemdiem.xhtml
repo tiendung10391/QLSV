@@ -26,12 +26,12 @@
                             var="hocKy" 
                             styleClass="table"
                             value="#{diemBean.listHocKy}">
+                            
                             <f:facet name="header" >  
                                 <div style="padding: 5px">TỔNG KẾT ĐIỂM KHÓA HỌC</div>
                             </f:facet>
                             <p:columnGroup type="header">
                                 <p:row>
-                                    <p:column styleClass="header" rowspan="2" headerText="STT" />
                                     <p:column styleClass="header" rowspan="2" headerText="Môn học" />
                                     <p:column styleClass="header" colspan="3" headerText="Điểm thi" />
                                     <p:column filterBy="ggg" styleClass="header" rowspan="2" headerText="Trạng thái" footerText="equals" filterMatchMode="equals">
@@ -51,34 +51,30 @@
                                 </p:row>
 
                             </p:columnGroup>
-                            <p:subTable var="diemThi" value="#{hocKy.listHocKy}">
+                            <p:subTable var="diemThi" value="#{hocKy.listDiem}">
                                 <f:facet name="header">
                                     <h:outputText value="#{hocKy.tenHocKy}" />
                                 </f:facet>
                                 <p:column>
-                                    <h:outputText value="#{rowIndex+1}" />
+                                    <h:outputText value="#{diemThi.tenMon}" />
                                 </p:column>
                                 <p:column>
-                                    <h:outputText value="#{diemThi.maHocKy}" />
+                                    <h:outputText value="#{diemThi.diemLan1}" />
                                 </p:column>
                                 <p:column>
-                                    <h:outputText value="#{diemThi.tenHocKy}" />
+                                    <h:outputText value="#{diemThi.diemLan2}" />
                                 </p:column>
                                 <p:column>
-                                    <h:outputText value="lan 2" />
+                                    <h:outputText value="#{diemThi.diemLan3}" />
                                 </p:column>
                                 <p:column>
-                                    <h:outputText value="lan 3" />
-                                </p:column>
-                                <p:column>
-                                    <h:outputText value="trang thai" />
+                                    <h:outputText value="#{diemThi.trangThai}" />
                                 </p:column>
                                 <p:columnGroup type="footer">
                                     <p:row>
-                                        <p:column footerText="Điểm TB: " style="text-align:right"/>
-                                        <p:column footerText="điểm tb" />
-                                        <p:column footerText="Xếp loại:" />
-                                        <p:column footerText="Xuất sắc" />
+                                        <p:column colspan="1" footerText="Điểm trung bình: " style="text-align:right"/>
+                                        <p:column colspan="3" footerText="#{hocKy.diemTrungBinh}" />
+                                        <p:column footerText="#{hocKy.xepLoai}" />
                                     </p:row>
                                 </p:columnGroup>
                             </p:subTable>

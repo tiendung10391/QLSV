@@ -28,7 +28,7 @@ public class DiemBean implements Serializable {
     List<HocKyEntity> arrHocKy;
     private DiemThiModel diemThiModel;
 
-    private List<HocKyEntity> listHocKy;
+    List<HocKyEntity> listHocKy;
 
     public DiemBean() {
         System.out.println("chay den diem bean");
@@ -72,8 +72,16 @@ public class DiemBean implements Serializable {
             listHocKy = new ArrayList<HocKyEntity>();
             for (int i = 0; i < arrHocKy.size(); i++) {
                 HocKyEntity hocKy = new HocKyEntity(arrHocKy.get(i).getTenHocKy());
-                hocKy.getListHocKy().add(new DiemThiEntity("java", 100, 0, 0, "do", "hocky1"));
-                hocKy.getListHocKy().add(new DiemThiEntity("java1", 100, 0, 0, "do", "hocky1"));
+                for(int j = 0; j < arrDiemThiKhoaHoc.size(); j++){
+                    if(arrHocKy.get(i).getMaHocKy().equals(arrDiemThiKhoaHoc.get(j).getMaHocKy())){
+                        String TenMon = arrDiemThiKhoaHoc.get(j).getTenMon();
+                        int DienLan1 = arrDiemThiKhoaHoc.get(j).getDiemLan1();
+                        int DienLan2 = arrDiemThiKhoaHoc.get(j).getDiemLan2();
+                        int DienLan3 = arrDiemThiKhoaHoc.get(j).getDiemLan3();
+                        String TrangThai = setTrangThai(DienLan1, DienLan2, DienLan3);
+                        hocKy.getListDiem().add(new DiemThiEntity(TenMon, DienLan1, DienLan2, DienLan3, TrangThai));
+                    }
+                }
                 listHocKy.add(hocKy);
             }
 
@@ -82,7 +90,22 @@ public class DiemBean implements Serializable {
         }
     }
     
-    
+    public String setTrangThai(int diem1, int diem2, int diem3) {
+        if (diem1 >= 65) {
+            return "đạt";
+        } else {
+            if (diem2 >= 65) {
+                return "đạt";
+            } else {
+                if (diem3 >= 65) {
+                    return "đạt";
+                } else {
+                    return "không đạt";
+                }
+            }
+        }
+
+    }
 
     public List<HocKyEntity> getArrHocKy() {
         return arrHocKy;
