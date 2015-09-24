@@ -7,6 +7,7 @@ package itplus.project.bean;
 
 import itplus.project.entity.SinhVienEntity;
 import itplus.project.model.InfoModel;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Dung NT
  */
-public class InfoHocVienBean {
+public class InfoHocVienBean implements Serializable{
 
     private SinhVienEntity sinhVienEntity;
     ArrayList<SinhVienEntity> arrSinhVien;
@@ -36,6 +37,7 @@ public class InfoHocVienBean {
         String MaSV = (String) session.getAttribute("username");
         System.out.println("MaSV: " + MaSV);
         arrSinhVien = sinhVienModel.getInfoHocVien(MaSV);
+        
         sinhVienEntity.setMaSinhVien(arrSinhVien.get(0).getMaSinhVien());
         sinhVienEntity.setSDT(arrSinhVien.get(0).getSDT());
         sinhVienEntity.setTenSinhVien(arrSinhVien.get(0).getTenSinhVien());

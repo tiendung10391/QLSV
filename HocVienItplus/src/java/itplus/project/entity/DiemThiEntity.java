@@ -20,6 +20,38 @@ public class DiemThiEntity implements Serializable {
     private int DiemLan1;
     private int DiemLan2;
     private int DiemLan3;
+    private String TrangThai;
+    private String TenHocKy;
+
+    public DiemThiEntity() {
+    }
+
+    public DiemThiEntity(String TenMon, int DiemLan1, int DiemLan2, int DiemLan3, String TrangThai, String TenHocKy) {
+        this.TenMon = TenMon;
+        this.DiemLan1 = DiemLan1;
+        this.DiemLan2 = DiemLan2;
+        this.DiemLan3 = DiemLan3;
+        this.TrangThai = TrangThai;
+        this.TenHocKy = TenHocKy;
+    }
+    
+    
+
+    public String getTenHocKy() {
+        return TenHocKy;
+    }
+
+    public void setTenHocKy(String TenHocKy) {
+        this.TenHocKy = TenHocKy;
+    }
+
+    public String getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(String TrangThai) {
+        this.TrangThai = TrangThai;
+    }
 
     public int getId_diem() {
         return id_diem;
@@ -46,6 +78,7 @@ public class DiemThiEntity implements Serializable {
     }
 
     public String getMaHocKy() {
+
         return MaHocKy;
     }
 

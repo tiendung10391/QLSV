@@ -7,6 +7,7 @@ package com.itplus.webserviesqlsv.Model;
 
 import com.itplus.webserviesqlsv.Entity.DiemEntity;
 import com.itplus.webserviesqlsv.Entity.DiemThiEntity;
+import com.itplus.webserviesqlsv.Entity.HocKyEntity;
 import com.itplus.webserviesqlsv.Entity.SinhVienEntity;
 import com.itplus.webserviesqlsv.Pool.DBPool;
 import java.sql.Connection;
@@ -65,9 +66,9 @@ public class DiemModel {
         }
         return arr;
     }
-    
+
     // lay ve danh sach diem cua hoc ky
-     public ArrayList<DiemThiEntity> getAllDiemHocKy(String MaSV, String MaHocKy) throws Exception {
+    public ArrayList<DiemThiEntity> getAllDiemHocKy(String MaSV, String MaHocKy) throws Exception {
         ArrayList<DiemThiEntity> arr = new ArrayList<DiemThiEntity>();
         PreparedStatement stmt = null;
         Connection conn = null;
@@ -105,6 +106,54 @@ public class DiemModel {
             }
         }
         return arr;
+    }
+
+     // lay ve danh sach hoc ky cua sinh vien
+    public ArrayList<HocKyEntity> getAllHocKy(String MaSV) throws Exception {
+        ArrayList<HocKyEntity> arrHocKy = new ArrayList<HocKyEntity>();
+        PreparedStatement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
+        try {
+            String SQL = "SELECT MaHocKy FROM View_Diem_Lop"
+                    + " INNER JOIN View_MonHoc_KhoaHoc"
+                    + " ON View_Diem_Lop.MaLop = View_MonHoc_KhoaHoc.MaLop AND View_Diem_Lop.MaMonHoc = View_MonHoc_KhoaHoc.MaMonHoc"
+                    + " WHERE View_Diem_Lop.MaSV = ?"
+                    + " GROUP BY MaHocKy";
+            conn = DBPool.getConnection();
+            stmt = conn.prepareStatement(SQL);
+            stmt.setString(1, MaSV);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                HocKyEntity hocKy = new HocKyEntity();
+                hocKy.setMaHocKy(rs.getString(1));
+                hocKy.setTenHocKy(setTenHocKy(rs.getString(1)));
+                arrHocKy.add(hocKy);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return arrHocKy;
+    }
+    
+    public String setTenHocKy(String MaHK){
+        if(MaHK.equals("HK1")){
+            return "Học Kỳ 1";
+        }else if(MaHK.equals("HK2")){
+            return "Học Kỳ 2";
+        }else if(MaHK.equals("HK3")){
+            return "Học Kỳ 3";
+        }else if(MaHK.equals("HK4")){
+            return "Học Kỳ 4";
+        }
+                return "Học Kỳ 5";
     }
 
     // lay ve MaMon dang hoc dua vao MaSV
