@@ -8,6 +8,7 @@ package com.itplus.webserviesqlsv.rest;
 
 import com.itplus.webserviesqlsv.Entity.AdChuongTrinhEntity;
 import com.itplus.webserviesqlsv.Entity.AdLichHocEntity;
+import com.itplus.webserviesqlsv.Entity.LopHocEntity;
 import com.itplus.webserviesqlsv.Model.AdLichHocModel;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -38,6 +39,7 @@ public class SwAdLichHocResource {
      * Creates a new instance of SwAdLichHocResource
      */
     AdLichHocModel alhm;
+    
     public SwAdLichHocResource() {
         alhm = new AdLichHocModel();
     }
@@ -58,6 +60,20 @@ public class SwAdLichHocResource {
             Logger.getLogger(SwKhoaHocResource.class.getName()).log(Level.SEVERE, null, ex);
         }
         return arrNganh;
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("getMaLop")
+    public ArrayList<LopHocEntity> getMaLop(@QueryParam("MaSV") String MaSV) {
+        ArrayList<LopHocEntity> arr = null;
+        try {
+            arr = new ArrayList<>();
+            arr= alhm.MaLopFromMaSV(MaSV);
+        } catch (Exception ex) {
+            Logger.getLogger(SwKhoaHocResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arr;
     }
 
     /**

@@ -1,0 +1,19 @@
+--- 
+name: iText 2.1.7 Binary
+platform_id: all
+platform_version: all
+distribution_file_uuid_string: openlogic-itext-2.1.7-all-bin-1
+platform_vendor: all
+version_visibility: public
+description: iText 2.1.7 Binary
+platform_arch: all
+distribution_file_uuid: fda971a0a8b54394a847302d2952bf675700c5de4add073f3d7ad76e9733531a
+distribution_version: 1
+distribution_flavor: ""
+distribution_raw_file: 2.1.7/iText-2.1.7.jar
+notify: "yes"
+package_version: 2.1.7
+package_id: itext
+release_date: "2010-04-15"
+distribution_notes: ""
+distribution_type: bin

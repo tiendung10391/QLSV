@@ -9,6 +9,7 @@ import com.itplus.webserviesqlsv.Entity.AdChuongTrinhEntity;
 import com.itplus.webserviesqlsv.Entity.ChuongTrinhEntity;
 import com.itplus.webserviesqlsv.Entity.DiemThiEntity;
 import com.itplus.webserviesqlsv.Entity.HocKyEntity;
+import com.itplus.webserviesqlsv.Entity.KhoaHocEntity;
 import com.itplus.webserviesqlsv.Pool.DBPool;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -165,12 +166,12 @@ public class AdChuongTrinhModel {
         ResultSet rs = null;
         try {
             String SQL = "SELECT HOCKY.MaHocKy, HOCKY.TenHocKy FROM KHOAHOC_MONHOC"
-                    + "INNER JOIN KHOAHOC ON KHOAHOC_MONHOC.MaKhoaHoc = KHOAHOC.MaKhoaHoc"
-                    + "INNER JOIN HOCKY ON KHOAHOC_MONHOC.MaHocKy = HOCKY.MaHocKy"
-                    + "INNER JOIN MONHOC ON KHOAHOC_MONHOC.MaMonHoc = MONHOC.MaMonHoc"
-                    + "WHERE KHOAHOC.MaKhoaHoc = ?"
-                    + "GROUP BY HOCKY.MaHocKy, HOCKY.TenHocKy"
-                    + "ORDER BY HOCKY.MaHocKy ASC";
+                    + " INNER JOIN KHOAHOC ON KHOAHOC_MONHOC.MaKhoaHoc = KHOAHOC.MaKhoaHoc"
+                    + " INNER JOIN HOCKY ON KHOAHOC_MONHOC.MaHocKy = HOCKY.MaHocKy"
+                    + " INNER JOIN MONHOC ON KHOAHOC_MONHOC.MaMonHoc = MONHOC.MaMonHoc"
+                    + " WHERE KHOAHOC.MaKhoaHoc = ?"
+                    + " GROUP BY HOCKY.MaHocKy, HOCKY.TenHocKy"
+                    + " ORDER BY HOCKY.MaHocKy ASC";
             conn = DBPool.getConnection();
             stmt = conn.prepareStatement(SQL);
             stmt.setString(1, MaKhoaHoc);
@@ -189,6 +190,37 @@ public class AdChuongTrinhModel {
         } finally {
             try {
                 DBPool.releaseConnection(conn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return arr;
+    }
+    
+    // lay ve danh sach cac khoa học
+    public ArrayList<KhoaHocEntity> getAllKhoaHoc() throws Exception {
+        ArrayList<KhoaHocEntity> arr = new ArrayList<KhoaHocEntity>();
+        Statement stmt = null;
+        ResultSet rs = null;
+        Connection cn = null;
+        try {
+            cn = DBPool.getConnection();
+            stmt = cn.createStatement();
+            String SQL = "SELECT * from KHOAHOC";
+            rs = stmt.executeQuery(SQL);
+
+            while (rs.next()) {
+                KhoaHocEntity khoaHoc = new KhoaHocEntity();
+                khoaHoc.setMaKhoaHoc(rs.getString(1));
+                khoaHoc.setTenKhoaHoc(rs.getString(2));
+                
+                arr.add(khoaHoc);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(cn, stmt, rs);
             } catch (Exception e) {
                 throw e;
             }

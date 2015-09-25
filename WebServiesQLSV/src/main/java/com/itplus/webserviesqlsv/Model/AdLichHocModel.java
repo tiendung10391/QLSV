@@ -8,6 +8,7 @@ package com.itplus.webserviesqlsv.Model;
 
 import com.itplus.webserviesqlsv.Entity.AdChuongTrinhEntity;
 import com.itplus.webserviesqlsv.Entity.AdLichHocEntity;
+import com.itplus.webserviesqlsv.Entity.LopHocEntity;
 import com.itplus.webserviesqlsv.Pool.DBPool;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -46,6 +47,36 @@ public class AdLichHocModel {
                 lich.setPhong(rs.getString(3));
                 lich.setNgay(rs.getString(4));
                 arr.add(lich);
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            try {
+                DBPool.releaseConnection(cn, stmt, rs);
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        return arr;
+    }
+    
+    public ArrayList<LopHocEntity> MaLopFromMaSV(String MaSV) throws Exception {
+        ArrayList<LopHocEntity> arr = new ArrayList<LopHocEntity>();
+        Statement stmt = null;
+        ResultSet rs = null;
+        Connection cn = null;
+        try {
+//            DBPool.build(2);
+            cn = DBPool.getConnection();
+//            cn = DBUtil.connectSQL();
+            stmt = cn.createStatement();
+            String SQL = "SELECT MaLop FROM SINHVIEN WHERE MaSV = '"+MaSV+"'";
+            rs = stmt.executeQuery(SQL);
+
+            while (rs.next()) {
+                LopHocEntity lh = new LopHocEntity();
+                lh.setMaLop(rs.getString(1));
+                arr.add(lh);
             }
         } catch (Exception ex) {
             throw ex;

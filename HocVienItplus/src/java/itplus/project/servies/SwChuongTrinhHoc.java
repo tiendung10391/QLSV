@@ -50,6 +50,21 @@ public class SwChuongTrinhHoc {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(String.class);
     }
 
+    public <T> T getAllKhoaHoc(Class<T> responseType) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        resource = resource.path("getAllKhoaHoc");
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
+    public <T> T getAllHocKyFromMaKhoaHoc(Class<T> responseType, String MaKhoaHoc) throws ClientErrorException {
+        WebTarget resource = webTarget;
+        if (MaKhoaHoc != null) {
+            resource = resource.queryParam("MaKhoaHoc", MaKhoaHoc);
+        }
+        resource = resource.path("getHocKyFromMaKhoaHoc");
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(responseType);
+    }
+
     public <T> T getAllChuongTrinhHocFromMaKhoaHoc(Class<T> responseType, String MaKhoaHoc) throws ClientErrorException {
         WebTarget resource = webTarget;
         if (MaKhoaHoc != null) {

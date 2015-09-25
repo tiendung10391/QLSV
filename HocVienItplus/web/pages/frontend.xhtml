@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="menu" id="topmenu">
-                    <h:form>
+                    <h:form id="frm_menu">
                         <p:menubar style="padding: 0" >
                             <p:menuitem value="TRANG CHỦ" url="/faces/pages/index.xhtml" style="padding: 10px" />
                             <p:menuitem value="GIỚI THIỆU" url="/faces/pages/index.xhtml" style="padding: 10px"/>
@@ -35,7 +35,8 @@
                             <p:submenu rendered="#{sessionBean.mUsername() != null}" label="GÓC HỌC VIÊN" style="padding: 0px">
                                 <p:menuitem style="z-index: 999" value="Thông tin học viên" url="/faces/sinhvien/frontend_gochocvien.xhtml" />
                                 <p:menuitem style="z-index: 999" value="Chương trình học" url="/faces/sinhvien/frontend_chuongtrinh.xhtml" />
-                                <p:menuitem style="z-index: 999" value="Lịch học" url="/faces/sinhvien/frontend_lichhoc.xhtml" />
+                                <p:menuitem id="dLichHoc" style="z-index: 999" value="Lịch học" />
+
                                 <p:menuitem style="z-index: 999" value="Điểm thi" url="/faces/sinhvien/frontend_xemdiem.xhtml" />
                                 <p:separator />
                                 <p:menuitem style="z-index: 999" value="Thoát" action="#{loginBean.logOut()}" />
@@ -43,7 +44,27 @@
                         </p:menubar>
 
                         <p:growl id="growl" sticky="true" life="3000" />
+                        <p:overlayPanel id="moviePanel" for="dLichHoc" hideEffect="fade" dynamic="true" style="width:700px">
+                            <p:dataTable 
+                                var="lichHoc" 
+                                value="#{lichHocBean.arrLichHoc}" >
+                                <p:column headerText="Môn học">
+                                    <h:outputText value="#{lichHoc.monHoc}" />
+                                </p:column>
 
+                                <p:column headerText="Ngày học">
+                                    <h:outputText value="#{lichHoc.ngayHoc}" />
+                                </p:column>
+
+                                <p:column headerText="Phòng học">
+                                    <h:outputText value="#{lichHoc.phongHoc}" />
+                                </p:column>
+
+                                <p:column headerText="Giờ học">
+                                    <h:outputText value="#{lichHoc.gioHoc}" />
+                                </p:column>
+                            </p:dataTable>
+                        </p:overlayPanel>
                         <p:dialog header="ĐĂNG NHẬP" widgetVar="dlg" resizable="false">
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputLabel for="username" value="Mã học viên: " />

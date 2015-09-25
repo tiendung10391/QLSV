@@ -1,0 +1,20 @@
+---
+package_id: poi
+package_version: '3.9'
+distribution_raw_file: 3.9/poi-bin-3.9-20121203.zip
+distribution_type: bin
+distribution_flavor: ''
+platform_id: all
+platform_vendor: all
+platform_version: all
+platform_arch: all
+name: POI 3.9 Binary
+description: POI 3.9 Binary
+distribution_notes: ''
+notify: 'yes'
+distribution_version: 1
+distribution_file_uuid_string: openlogic-poi-3.9-all-bin-1
+release_date: '2013-06-10'
+distribution_file_uuid: !binary |-
+  MzBiOWU1NmRjMzkxMzJiZjY0YjZjNWY5MmFhMmEzMzE5OTVkZjQzZGZhZDI2
+  NGE4YWE4Y2YzNTkzOGU5MDUwYw==

@@ -34,6 +34,15 @@
                     </h:panelGrid>
 
                     <p:growl id="msgs"/>
+                    <h:commandLink>
+                        <p:graphicImage name="image/ic_pdf.png" width="50"/>
+                        <p:dataExporter type="pdf" target="tbl_diem" fileName="diem"/>
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage name="image/ic_ecel.png" width="42"/>
+                        <p:dataExporter type="xls" target="tbl_diem" fileName="diem"/>
+                    </h:commandLink>
                     <p:dataTable 
                         emptyMessage="Chưa có học sinh nào" 
                         styleClass="table"

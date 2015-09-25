@@ -10,6 +10,7 @@ import com.itplus.webserviesqlsv.Entity.AdChuongTrinhEntity;
 import com.itplus.webserviesqlsv.Entity.ChuongTrinhEntity;
 import com.itplus.webserviesqlsv.Entity.DiemEntity;
 import com.itplus.webserviesqlsv.Entity.HocKyEntity;
+import com.itplus.webserviesqlsv.Entity.KhoaHocEntity;
 import com.itplus.webserviesqlsv.Model.AdChuongTrinhModel;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -119,6 +120,21 @@ public class SwAdChuongTrinhResource {
             
             arr = new ArrayList<HocKyEntity>();
             arr = actm.getAllHocKyFromMaKhoaHoc(MaKH);
+        } catch (Exception ex) {
+            Logger.getLogger(SwKhoaHocResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arr;
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getAllKhoaHoc")
+    public ArrayList<KhoaHocEntity> getAllKhoaHoc() {
+        ArrayList<KhoaHocEntity> arr = null;
+        try {
+            
+            arr = new ArrayList<KhoaHocEntity>();
+            arr = actm.getAllKhoaHoc();
         } catch (Exception ex) {
             Logger.getLogger(SwKhoaHocResource.class.getName()).log(Level.SEVERE, null, ex);
         }

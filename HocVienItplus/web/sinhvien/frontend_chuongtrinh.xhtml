@@ -11,16 +11,20 @@
     <h:body>
         <ui:composition template="../pages/frontend.xhtml">
             <ui:define name="content">
-                <h:form>
+                <h:form id="frm_chuongtrinh">
+
                     <h:panelGrid class="panelnguoidung">
+
                         <center class="title">Chương Trình Học</center>
                         <h:panelGrid columns="2" style="margin-top: 25px;margin-bottom: 25px" cellpadding="5px">
-                            <p:outputLabel value="Chọn chương trình học:"/>
-                            <p:selectOneMenu style="width: 200px;" editable="true"  >
-                                <f:selectItem itemLabel="Select One" itemValue="" />
+                            <p:outputLabel value="Khóa học:"/>
+                            <p:selectOneMenu style="width: 350px" panelStyle="width: 195px" effect="fold" editable="false" filter="true" filterMatchMode="startsWith" value="#{chuongTrinhBean.khoaHoc}"  >
+                                <p:ajax listener="#{chuongTrinhBean.getAllChuongTrinhFormMaKhoaHoc()}" update="frm_chuongtrinh" />
+                                <f:selectItems value="#{chuongTrinhBean.khoaHocList}" />
                             </p:selectOneMenu>
                         </h:panelGrid>
                         <p:dataTable 
+                            id="tbl_chuongTrinh"
                             emptyMessage="Chưa có bản ghi nào"
                             rowIndexVar="rowIndex" 
                             var="hocKy" 
@@ -58,6 +62,16 @@
                                 </p:column>
                             </p:subTable>
                         </p:dataTable>
+                        
+                        <h:commandLink>
+                            <p:graphicImage name="image/ic_pdf.png" width="50"/>
+                            <p:dataExporter type="pdf" target="tbl_chuongTrinh" fileName="diem"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="image/ic_ecel.png" width="42"/>
+                            <p:dataExporter type="xls" target="tbl_chuongTrinh" fileName="diem"/>
+                        </h:commandLink>
                     </h:panelGrid>
 
                 </h:form>

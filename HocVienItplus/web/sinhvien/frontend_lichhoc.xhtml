@@ -11,49 +11,33 @@
     <h:body>
         <ui:composition template="../pages/frontend.xhtml">
             <ui:define name="content">
-                <h:form>
-                    <h:panelGrid class="panelnguoidung">
-                        <center class="title">Lịch Học</center>
-                        <h:panelGrid columns="3" style="margin-top: 25px;margin-bottom: 15px" cellpadding="5px">
-                            <p:outputLabel value="Nhập Lớp:"/>
-                            <p:inputText/>
-                            <p:button value="Tìm" style="height: 29px;width: 60px"/>
-                        </h:panelGrid>
-                        <p:dataTable emptyMessage="Chưa có bản ghi nào" >
-                            <f:facet name="header" >  
-                                <div style="padding: 5px">Danh sách lịch học</div>
-                            </f:facet>
-                            <p:column styleClass="header" style="width: 40px">
-                                <f:facet name="header">
-                                    Thứ
-                                </f:facet>
+                <h:form id="frm_lichHoc">
+                    <p:commandButton id="movieBtn" value="Dynamic" type="button" />
+                    <p:overlayPanel id="moviePanel" for="movieBtn" hideEffect="fade" dynamic="true" style="width:600px">
+                        <p:dataTable 
+                            var="lichHoc" 
+                            value="#{lichHocBean.arrLichHoc}" >
+                            <p:column headerText="Môn học">
+                                <h:outputText value="#{lichHoc.monHoc}" />
                             </p:column>
-                            <p:column styleClass="header" style="width: 110px">
-                                <f:facet name="header">
-                                    Ngày học
-                                </f:facet>
-                            </p:column>  
-                            <p:column styleClass="header" style="width: 110px">
-                                <f:facet name="header">
-                                    Giờ học
-                                </f:facet>
-                            </p:column> 
-                            <p:column styleClass="header" >
-                                <f:facet name="header" >
-                                    Khóa học
-                                </f:facet>
-                            </p:column >
-                            <p:column styleClass="header">
-                                <f:facet name="header">
-                                   Giảng viên
-                                </f:facet>
+
+                            <p:column headerText="Ngày học">
+                                <h:outputText value="#{lichHoc.ngayHoc}" />
+                            </p:column>
+
+                            <p:column headerText="Phòng học">
+                                <h:outputText value="#{lichHoc.phongHoc}" />
+                            </p:column>
+
+                            <p:column headerText="Giờ học">
+                                <h:outputText value="#{lichHoc.gioHoc}" />
                             </p:column>
                         </p:dataTable>
-                    </h:panelGrid>
-                    
+                    </p:overlayPanel>
+
                 </h:form>
             </ui:define>
-       </ui:composition>
+        </ui:composition>
     </h:body>
 </html>
 

@@ -31,4 +31,9 @@
         <managed-bean-class>itplus.project.bean.ChuongTrinhBean</managed-bean-class>
         <managed-bean-scope>view</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>lichHocBean</managed-bean-name>
+        <managed-bean-class>itplus.project.bean.LichHocBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
 </faces-config>
