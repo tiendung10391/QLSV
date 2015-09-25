@@ -22,7 +22,8 @@
                 </div>
 
                 <div class="menu" id="topmenu">
-                    <h:form id="frm_menu">
+                    <h:form id="frm_menu" style="position: relative">
+
                         <p:menubar style="padding: 0" >
                             <p:menuitem value="TRANG CHỦ" url="/faces/pages/index.xhtml" style="padding: 10px" />
                             <p:menuitem value="GIỚI THIỆU" url="/faces/pages/index.xhtml" style="padding: 10px"/>
@@ -39,12 +40,12 @@
 
                                 <p:menuitem style="z-index: 999" value="Điểm thi" url="/faces/sinhvien/frontend_xemdiem.xhtml" />
                                 <p:separator />
-                                <p:menuitem style="z-index: 999" value="Thoát" action="#{loginBean.logOut()}" />
+                                <p:menuitem style="z-index: 999" value="Thoát" action="#{loginBean.logOut()}"  />
                             </p:submenu>
                         </p:menubar>
 
                         <p:growl id="growl" sticky="true" life="3000" />
-                        <p:overlayPanel id="moviePanel" for="dLichHoc" hideEffect="fade" dynamic="true" style="width:700px">
+                        <p:overlayPanel id="moviePanel" for="dLichHoc" hideEffect="fade" dynamic="false" style="width:700px">
                             <p:dataTable 
                                 var="lichHoc" 
                                 value="#{lichHocBean.arrLichHoc}" >

@@ -7,6 +7,7 @@ package com.itplus.webserviesqlsv.rest;
 
 import com.itplus.webserviesqlsv.Entity.DiemEntity;
 import com.itplus.webserviesqlsv.Entity.DiemThiEntity;
+import com.itplus.webserviesqlsv.Entity.HocKyEntity;
 import com.itplus.webserviesqlsv.Entity.KhoaHocEntity;
 import com.itplus.webserviesqlsv.Entity.LopHocEntity;
 import com.itplus.webserviesqlsv.Model.DiemModel;
@@ -55,12 +56,12 @@ public class SwDiemResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("getAllDiem")
+    @Path("/getAllDiem")
     public ArrayList<DiemEntity> getAllDiem(@QueryParam("MaSV") String masv) {
         ArrayList<DiemEntity> arrDiem = null;
         try {
             arrDiem = new ArrayList<>();
-            arrDiem = diemModel.getDiem("sv001");
+            arrDiem = diemModel.getDiem(masv);
         } catch (Exception ex) {
             Logger.getLogger(SwKhoaHocResource.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -167,6 +168,34 @@ public class SwDiemResource {
             throw new Exception(ex.getMessage());
         }
         return "remove success";
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("getDiemHocKy")
+    public ArrayList<DiemEntity> getDiemHocKy(@QueryParam("MaSV") String masv,@QueryParam("HocKy") String hk) {
+        ArrayList<DiemEntity> arrDiem = null;
+        try {
+            arrDiem = new ArrayList<>();
+            arrDiem = diemModel.getDiemHocKy(masv,hk);
+        } catch (Exception ex) {
+            Logger.getLogger(SwKhoaHocResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arrDiem;
+    }
+    
+     @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getHocKy")
+    public ArrayList<HocKyEntity> getHocKy() {
+        ArrayList<HocKyEntity> arrDiem = null;
+        try {
+            arrDiem = new ArrayList<>();
+            arrDiem = diemModel.getHocKy();
+        } catch (Exception ex) {
+            Logger.getLogger(SwKhoaHocResource.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return arrDiem;
     }
 
     /**

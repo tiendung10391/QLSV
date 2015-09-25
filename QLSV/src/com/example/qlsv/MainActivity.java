@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 	TextView loiDN;
 	CheckBox chksave;
 	String prefname = "my_data";
-	public static String ip = "http://192.168.0.101:8080";
+	public static String ip = "http://192.168.137.1:8084";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -10,11 +10,31 @@ package com.itplus.webserviesqlsv.Entity;
  * @author Dung NT
  */
 public class DiemEntity {
+
     private String MaMonHoc;
     private String MaSV;
     private int DiemLan1;
     private int Diemlan2;
     private int DiemLan3;
+
+    private String MaHocKy;
+    private String HocKy;
+
+    public String getMaHocKy() {
+        return MaHocKy;
+    }
+
+    public void setMaHocKy(String MaHocKy) {
+        this.MaHocKy = MaHocKy;
+    }
+
+    public String getHocKy() {
+        return HocKy;
+    }
+
+    public void setHocKy(String HocKy) {
+        this.HocKy = HocKy;
+    }
 
     public String getMaMonHoc() {
         return MaMonHoc;
@@ -55,6 +75,5 @@ public class DiemEntity {
     public void setDiemLan3(int DiemLan3) {
         this.DiemLan3 = DiemLan3;
     }
-    
-    
+
 }

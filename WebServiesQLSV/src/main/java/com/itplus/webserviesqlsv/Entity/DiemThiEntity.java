@@ -25,6 +25,17 @@ public class DiemThiEntity implements Serializable {
     private String TenHocKy;
     private String TenMon;
 
+//    them cho nay
+    private String HocKy;
+
+    public String getHocKy() {
+        return HocKy;
+    }
+
+    public void setHocKy(String HocKy) {
+        this.HocKy = HocKy;
+    }
+
     public String getTenMon() {
         return TenMon;
     }
