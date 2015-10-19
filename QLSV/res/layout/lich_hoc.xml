@@ -16,20 +16,20 @@
 
         <Spinner
             android:id="@+id/spinLophoc"
-            android:layout_width="match_parent"
+            android:layout_width="220dp"
             android:layout_height="match_parent"
-            android:background="@drawable/my_edittext"
             android:layout_marginRight="10dp"
-            android:layout_weight="1" />
+            android:background="@drawable/my_edittext" />
 
-        <Button
-            android:id="@+id/bt_lh"
+        <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5.27"
             android:background="@drawable/my_button"
-            android:text="Chọn"
-            android:textColor="#fff"
-            android:textSize="18sp" />
+            android:gravity="center"
+            android:text="Lớp học"
+            android:textColor="#fff" />
 
     </LinearLayout>
 

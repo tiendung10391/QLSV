@@ -15,21 +15,21 @@
         android:paddingTop="7dp" >
 
        <Spinner
-            android:id="@+id/spinHocky"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/my_edittext"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1" />
+           android:id="@+id/spinHocky"
+           android:layout_width="220dp"
+           android:layout_height="match_parent"
+           android:layout_marginRight="10dp"
+           android:background="@drawable/my_edittext" />
 
-        <Button
-            android:id="@+id/bt_d"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:background="@drawable/my_button"
-            android:text="Chọn"
-            android:textColor="#fff"
-            android:textSize="18sp" />
+       <TextView
+           android:id="@+id/textView2"
+           android:layout_width="wrap_content"
+           android:layout_height="match_parent"
+           android:layout_weight="1"
+           android:background="@drawable/my_button"
+           android:gravity="center"
+           android:text="Học kì"
+           android:textColor="#fff" />
 
     </LinearLayout>
 

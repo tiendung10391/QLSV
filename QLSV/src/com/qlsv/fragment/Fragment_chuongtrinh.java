@@ -1,5 +1,7 @@
 package com.qlsv.fragment;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -9,6 +11,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
@@ -26,6 +31,10 @@ public class Fragment_chuongtrinh extends Fragment {
 	TableLayout table_chuongtrinh;
 	String mankhoahoc,malop,ip;
 	String prefname="my_data";
+	ArrayList<String> khoahoc = new ArrayList<String>();
+	
+	Spinner mySpinner;
+	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.chuong_trinh, container, false);
@@ -34,47 +43,79 @@ public class Fragment_chuongtrinh extends Fragment {
 		ip = MainActivity.ip.toString();
 		table_chuongtrinh = (TableLayout) view.findViewById(R.id.tableChuongtrinh);
 //		BuildTable(4, 6);
-		cacMonHoc();
+		mySpinner = (Spinner) view.findViewById(R.id.spinChuongtrinh);		
+		chuongtrinhspinner();
 		return view;
     }
-	public void cacMonHoc() {
-		RequestParams params1 = new RequestParams();
-		params1.put("MaLop", malop);
-		getManganh(params1);
-		// lay du lieu nhap
-	}
-	public void getManganh(RequestParams params){
-		// Make RESTful webservice call using AsyncHttpClient object
-		AsyncHttpClient client1 = new AsyncHttpClient();
-		client1.get(
-				ip+"/WebServiesQLSV/rest/SwAdChuongTrinh/getMaKhoaHoc",
-				params, new AsyncHttpResponseHandler() {
+	private void chuongtrinhspinner() {
+		// TODO Auto-generated method stub
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.get(ip + "/WebServiesQLSV/rest/swKhoaHoc/getAllKhoaHoc",
+				new AsyncHttpResponseHandler() {
 					// When the response returned by REST has Http response code
 					// '200'
 					@Override
 					public void onSuccess(String response) {
 						// Hide Progress Dialog
-						
 						try {
-							JSONObject obj1 = new JSONObject(response);
-							mankhoahoc = obj1.getString("MaNganh");
-							cacMon();
+							JSONArray jsArr = new JSONArray(response);
+							khoahoc.clear();
+							for (int i = 0; i < jsArr.length(); i++) {
+								// JSON Object
+								JSONObject obj = jsArr.getJSONObject(i);								
+								khoahoc.add(obj.getString("maKhoaHoc"));
+								// Locate the spinner in activity_main.xm
+								// Spinner adapter
+								mySpinner
+										.setAdapter(new ArrayAdapter<String>(
+												getActivity(),
+												android.R.layout.simple_spinner_dropdown_item,
+												khoahoc));
+								// Spinner on item click listener
+								mySpinner
+										.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+											@Override
+											public void onItemSelected(
+													AdapterView<?> arg0,
+													View arg1, int position,
+													long arg3) {
+												// TODO Auto-generated method
+												mankhoahoc = arg0.getItemAtPosition(
+														position).toString();
+												cacMon();
+												int count = table_chuongtrinh
+														.getChildCount();
+												for (int j = 1; j < count; j++) {
+													TableRow row = (TableRow) table_chuongtrinh
+															.getChildAt(j);
+													table_chuongtrinh.removeView(row);
+												}
+
+											}
+
+											@Override
+											public void onNothingSelected(
+													AdapterView<?> arg0) {
+												// TODO Auto-generated method
+												// stub
+											}
+										});
+							}
+
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
-//							Toast.makeText(getActivity(), "",
-//									Toast.LENGTH_LONG).show();
+							Toast.makeText(getActivity(), "Lỗi tải dữ liệu!",
+									Toast.LENGTH_LONG).show();
 							e.printStackTrace();
 
 						}
 					}
 
-					// When the response returned by REST has Http response code
-					// other than '200'
 					@Override
 					public void onFailure(int statusCode, Throwable error,
 							String content) {
 						// Hide Progress Dialog
-						
+
 						// When Http response code is '404'
 						if (statusCode == 404) {
 							Toast.makeText(getActivity(),
@@ -89,15 +130,15 @@ public class Fragment_chuongtrinh extends Fragment {
 						}
 						// When Http response code other than 404, 500
 						else {
-							Toast.makeText(
-									getActivity(),
-									"Vui lòng kiểm tra kết nối mạng.!",
+							Toast.makeText(getActivity(),
+									"Kiểm tra server.!",
 									Toast.LENGTH_LONG).show();
 						}
 					}
-				});
-	}
 
+				});
+		
+	}	
 	/**
 	 * Method that performs RESTful webservice invocations
 	 * 
@@ -216,7 +257,7 @@ public class Fragment_chuongtrinh extends Fragment {
 						else {
 							Toast.makeText(
 									getActivity(),
-									"Vui lòng kiểm tra kết nối mạng.!",
+									"Kiểm tra server.!",
 									Toast.LENGTH_LONG).show();
 						}
 					}

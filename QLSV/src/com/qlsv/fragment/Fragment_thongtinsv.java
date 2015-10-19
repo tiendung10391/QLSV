@@ -140,7 +140,7 @@ public class Fragment_thongtinsv extends Activity {
 						else {
 							Toast.makeText(
 									getApplicationContext(),
-									"Vui lòng kiểm tra kết nối mạng.",
+									"Vui lòng kiểm tra server.",
 									Toast.LENGTH_LONG).show();
 						}
 					}

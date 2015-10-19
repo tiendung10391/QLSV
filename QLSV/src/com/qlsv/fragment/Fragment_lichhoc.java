@@ -47,11 +47,8 @@ public class Fragment_lichhoc extends Fragment {
 		table_lich = (TableLayout) view.findViewById(R.id.tableLich);
 		mySpinner = (Spinner) view.findViewById(R.id.spinLophoc);
 		// BuildTable(4, 6);
-		boolean kiemtra = lophoc.isEmpty();
-		
+		boolean kiemtra = lophoc.isEmpty();		
 		malopSpinner();
-		
-		cacNgayHoc();
 		
 		return view;
 	}
@@ -262,7 +259,7 @@ public class Fragment_lichhoc extends Fragment {
 						// When Http response code other than 404, 500
 						else {
 							Toast.makeText(getActivity(),
-									"Vui lòng kiểm tra kết nối mạng.!",
+									"Vui lòng kiểm tra server.!",
 									Toast.LENGTH_LONG).show();
 						}
 					}

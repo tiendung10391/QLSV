@@ -156,7 +156,8 @@ public class SwSinhVienResource {
     }
 
     // sua sinh vien @PathParam("MatKhau") String matkhau,@PathParam("MaSV") String masv
-    @GET
+     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/editSinhVien")
     public String editLopHoc(@QueryParam("MatKhau") String matkhau, @QueryParam("MaSV") String masv) throws Exception {
         String response = "";

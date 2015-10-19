@@ -1,5 +1,7 @@
 package com.qlsv.fragment;
 
+import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,6 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
@@ -28,8 +33,10 @@ import com.loopj.android.http.RequestParams;
  */
 public class Fragment_diemsv extends Fragment {
 	TableLayout table_diem;
+	ArrayList<String> hocky = new ArrayList<String>();
+	String masvien,ip,mahocky;
+	Spinner mySpinner;
 	
-	String masvien,ip;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,10 +46,78 @@ public class Fragment_diemsv extends Fragment {
 		//ip
 		ip = MainActivity.ip.toString();
 		table_diem = (TableLayout) view.findViewById(R.id.tableDiem);
-//		BuildTable(4, 6);
-		diemSinhvien();
-	
+		mySpinner = (Spinner) view.findViewById(R.id.spinHocky);
+		diemspinner();	
 		return view;
+	}
+
+	private void diemspinner() {
+		// TODO Auto-generated method stub
+		AsyncHttpClient client = new AsyncHttpClient();
+		client.get(ip + "/WebServiesQLSV/rest/SwDiem/getHocKy",
+				new AsyncHttpResponseHandler() {
+					// When the response returned by REST has Http response code
+					// '200'
+					@Override
+					public void onSuccess(String response) {
+						// Hide Progress Dialog
+						try {
+							JSONArray jsArr = new JSONArray(response);
+							hocky.clear();
+							hocky.add("Tất cả");
+							for (int i = 0; i < jsArr.length(); i++) {
+								// JSON Object
+								JSONObject obj = jsArr.getJSONObject(i);
+								
+								hocky.add(obj.getString("maHocKy"));
+								// Locate the spinner in activity_main.xm
+								// Spinner adapter
+								mySpinner
+										.setAdapter(new ArrayAdapter<String>(
+												getActivity(),
+												android.R.layout.simple_spinner_dropdown_item,
+												hocky));
+								// Spinner on item click listener
+								mySpinner
+										.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+											@Override
+											public void onItemSelected(
+													AdapterView<?> arg0,
+													View arg1, int position,
+													long arg3) {
+												// TODO Auto-generated method
+												mahocky = arg0.getItemAtPosition(
+														position).toString();
+												diemSinhvien();
+												int count = table_diem
+														.getChildCount();
+												for (int j = 1; j < count; j++) {
+													TableRow row = (TableRow) table_diem
+															.getChildAt(j);
+													table_diem.removeView(row);
+												}
+
+											}
+
+											@Override
+											public void onNothingSelected(
+													AdapterView<?> arg0) {
+												// TODO Auto-generated method
+												// stub
+											}
+										});
+							}
+
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							Toast.makeText(getActivity(), "Lỗi tải dữ liệu!",
+									Toast.LENGTH_LONG).show();
+							e.printStackTrace();
+
+						}
+					}
+
+				});
 	}
 
 	public void diemSinhvien() {
@@ -51,6 +126,7 @@ public class Fragment_diemsv extends Fragment {
 		RequestParams params = new RequestParams();
 		// Put Http parameter MaSV
 		params.put("MaSV", masvien);
+		params.put("HocKy", mahocky);
 		invokeWS(params);
 	}
 
@@ -65,7 +141,7 @@ public class Fragment_diemsv extends Fragment {
 		// Make RESTful webservice call using AsyncHttpClient object
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(
-				ip+"/WebServiesQLSV/rest/SwDiem/getAllDiem",
+				ip+"/WebServiesQLSV/rest/SwDiem/getDiemHocKy",
 				params, new AsyncHttpResponseHandler() {
 					// When the response returned by REST has Http response code
 					// '200'
@@ -75,7 +151,7 @@ public class Fragment_diemsv extends Fragment {
 						
 						try {
 							JSONArray jsArr = new JSONArray(response);
-							for (int i = 1; i <= jsArr.length(); i++) {
+							for (int i = 0; i <= jsArr.length(); i++) {
 								TableRow row = new TableRow(getActivity());
 								row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 										LayoutParams.WRAP_CONTENT));
@@ -123,9 +199,9 @@ public class Fragment_diemsv extends Fragment {
 								tv3.setText(diemlan2);
 								tv4.setText(diemlan3);
 //								if (trangthai) {
-//									tv5.setText("Đạt");
+//									tv5.setText("Ä�áº¡t");
 //								} else {
-//									tv5.setText("Chưa đạt");
+//									tv5.setText("ChÆ°a Ä‘áº¡t");
 //								}
 
 								row.addView(tv);
@@ -172,7 +248,7 @@ public class Fragment_diemsv extends Fragment {
 						else {
 							Toast.makeText(
 									getActivity(),
-									"Vui lòng kiểm tra kết nối mạng.",
+									"Kiểm tra server.",
 									Toast.LENGTH_LONG).show();
 						}
 					}

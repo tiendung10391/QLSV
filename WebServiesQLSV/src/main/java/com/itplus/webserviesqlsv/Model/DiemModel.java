@@ -254,7 +254,7 @@ public class DiemModel {
             cn = DBPool.getConnection();
 //            cn = DBUtil.connectSQL();
             stmt = cn.createStatement();
-            String SQL = "SELECT * from Diem where MaSV = '" + masv + "'";
+            String SQL = "SELECT * from DIEM where MaSV = '" + masv + "'";
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
@@ -424,7 +424,7 @@ public class DiemModel {
             cn = DBPool.getConnection();
 //            cn = DBUtil.connectSQL();
             stmt = cn.createStatement();
-            String SQL = "SELECT * from Diem ";
+            String SQL = "SELECT * from Diem where MaSV = '"+masv+"' ";
             rs = stmt.executeQuery(SQL);
 
             while (rs.next()) {
@@ -459,7 +459,7 @@ public class DiemModel {
                 String SQL = "select Diem.MaMonHoc,Diem.MaSV,Diem.DiemLan1,Diem.DiemLan2,Diem.DiemLan3\n" +
                         "from Sinhvien,KHOAHOC_MONHOC,Diem,HocKy\n" +
                         "where Sinhvien.MaSV=Diem.MaSV and Diem.MaMonHoc=KHOAHOC_MONHOC.MaMonHoc \n" +
-                        "and KHOAHOC_MONHOC.MaHocKy=HocKy.MaHocKy and Sinhvien.MaSV='"+masv+"' and HocKy.TenHocKy LIKE N'"+hk+"'";
+                        "and KHOAHOC_MONHOC.MaHocKy=HocKy.MaHocKy and Sinhvien.MaSV='"+masv+"' and HocKy.MaHocKy ='"+hk+"'";
                 rs = stmt.executeQuery(SQL);
 
                 while (rs.next()) {

@@ -5,7 +5,7 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry exported="true" kind="lib" path="D:/github/QLSV/QLSV/libs/android-async-http-1.4.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="D:/github/QLSV/QLSV/libs/gcm.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/kunph_000/Documents/GitHub/QLSV/QLSV/libs/android-async-http-1.4.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/kunph_000/Documents/GitHub/QLSV/QLSV/libs/gcm.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -33,9 +33,9 @@ public class DBPool {
         Connection conn = null;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String dbURL = "jdbc:sqlserver://localhost\\TIENDUNG;databaseName=QLSV";
+             String dbURL = "jdbc:sqlserver://localhost\\SQLEXPRESS;databaseName=QLSV";
             String user = "sa";
-            String pass = "tiendung";
+            String pass = "123456";
             conn = DriverManager.getConnection(dbURL, user, pass);
         } catch (Exception e) {
             e.printStackTrace();

@@ -172,7 +172,7 @@ public class SwDiemResource {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("getDiemHocKy")
+    @Path("/getDiemHocKy")
     public ArrayList<DiemEntity> getDiemHocKy(@QueryParam("MaSV") String masv,@QueryParam("HocKy") String hk) {
         ArrayList<DiemEntity> arrDiem = null;
         try {

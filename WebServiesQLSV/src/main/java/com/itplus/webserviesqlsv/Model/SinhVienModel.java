@@ -190,15 +190,20 @@ public class SinhVienModel {
 
     public boolean editSinhVien(String matkhau, String masv) throws SQLException {
         boolean updateStatus = false;
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         Connection conn = null;
+       int count;
         try {
-            String SQL = "UPDATE SINHVIEN SET MatKhau = '" + matkhau + "' WHERE MaSV = '" + masv + "'";
-            conn = DBPool.getConnection();
-            int record = stmt.executeUpdate(SQL);
-            if (record > 0) {
+            String SQL = "UPDATE SINHVIEN SET MatKhau = ? WHERE MaSV = ?";
+            conn = DBPool.getConnection(); 
+             stmt= conn.prepareStatement(SQL);
+             stmt.setString(1, matkhau);           
+             stmt.setString(2,masv);
+            count= stmt.executeUpdate();
+            if (count>0) {
                 updateStatus = true;
             }
+             
 
         } finally {
             try {
